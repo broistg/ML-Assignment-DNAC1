@@ -122,7 +122,7 @@
             <p>Steps: EDA → imputation → scaling → categorical encoding → feature selection → train/test split → modeling → training → testing</p>
 
             <h5>Text</h5>
-            <p>To Be Added.</p>
+            <p>Steps: EDA → text cleaning → tokenization → vectorization (TF-IDF/embeddings) → train/test split → modeling → training → testing</p>
 
             <h5>Image</h5>
             <p>To Be Added.</p>
@@ -138,7 +138,12 @@
                     [UCI Dataset Link]
                 </a>
             </p>
-            <p><strong>Text:</strong> To Be Added.</p>
+            <p><strong>Text:</strong> 20 Newsgroups - A collection of ~18,000 newsgroup documents from 20 different newsgroups.
+                <br>
+                <a href="http://qwone.com/~jason/20Newsgroups/" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:underline;font-size:13px;">
+                    [Dataset Link]
+                </a>
+            </p>
             <p><strong>Images:</strong> To Be Added.</p>
           </div>
         </section>
@@ -202,6 +207,21 @@ jupyter notebook notebook_name.ipynb
                 </a>
             </li>
             </ul>
+            <h4>Text Dataset Notebooks (20 Newsgroups):</h4>
+            <ul>
+            <li>
+                Traditional Pipeline:
+                <a href="https://colab.research.google.com/github/broistg/ML-Assignment-DNAC1/blob/main/notebooks/BTL2_traditional.ipynb" target="_blank" rel="noopener">
+                <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab" style="vertical-align:middle;">
+                </a>
+            </li>
+            <li>
+                Deep Learning Pipeline:
+                <a href="https://colab.research.google.com/github/broistg/ML-Assignment-DNAC1/blob/main/notebooks/BTL2_deep_learning.ipynb" target="_blank" rel="noopener">
+                <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab" style="vertical-align:middle;">
+                </a>
+            </li>
+            </ul>
           </div>
         </section>
 
@@ -211,11 +231,15 @@ jupyter notebook notebook_name.ipynb
             <h3 style="margin:0">Model Comparison</h3>
           </div>
           <div class="readme">
-            <p>The following figure summarizes the performance comparison between different models used in our pipeline:</p>
+            <p>We only compare between traditional models due to the limited resources available for deep learning experiments. The following figure summarizes the performance comparison between different models used in our pipeline:</p>
             <div style="display:flex;justify-content:center;align-items:center;margin:24px 0;">
-              <img src="compare_model.png" alt="Model Comparison" style="max-width:100%;height:auto;border-radius:12px;box-shadow:0 4px 18px rgba(2,6,23,0.18);border:1px solid var(--glass);background:var(--card);padding:12px;">
+              <img src="compare_model_1.png" alt="Model Comparison 1" style="max-width:100%;height:auto;border-radius:12px;box-shadow:0 4px 18px rgba(2,6,23,0.18);border:1px solid var(--glass);background:var(--card);padding:12px;">
             </div>
-            <p style="text-align:center;color:var(--muted);font-size:14px;">Figure 1: SVM with 90% PCA performs the best in Adult Census Income dataset.</p>
+            <p style="text-align:center;color:var(--muted);font-size:14px;">Figure 1: SVM with 90% PCA performs the best in the Adult Census Income dataset.</p>
+            <div style="display:flex;justify-content:center;align-items:center;margin:24px 0;">
+              <img src="compare_model_2.png" alt="Model Comparison 2" style="max-width:100%;height:auto;border-radius:12px;box-shadow:0 4px 18px rgba(2,6,23,0.18);border:1px solid var(--glass);background:var(--card);padding:12px;">
+            </div>
+            <p style="text-align:center;color:var(--muted);font-size:14px;">Figure 2: SVM with TF-IDF vectorizer performs the best in the 20 Newsgroups dataset.</p>
           </div>
         </section>
 
@@ -248,24 +272,20 @@ ML-Assignment-DNAC1/
                 <tr style="background:var(--glass)">
                   <th style="text-align:center;padding:6px">Name</th>
                   <th style="text-align:center;padding:6px">Student ID</th>
-                  <th style="text-align:center;padding:6px">Role</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
                   <td style="padding:6px">Cao Huu Thien Hoang</td>
                   <td style="padding:6px">2311030</td>
-                  <td style="padding:6px">Deep Learning Training</td>
                 </tr>
                 <tr>
                   <td style="padding:6px">Le Tien Dat</td>
                   <td style="padding:6px">2310653</td>
-                  <td style="padding:6px">EDA and Feature Engineering</td>
                 </tr>
                 <tr>
                   <td style="padding:6px">Tran Vinh Dung</td>
                   <td style="padding:6px">2310574</td>
-                  <td style="padding:6px">Traditional Training</td>
                 </tr>
               </tbody>
             </table>

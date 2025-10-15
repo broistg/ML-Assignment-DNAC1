@@ -23,7 +23,7 @@
     h1{margin:0;font-size:26px}
     .meta{color:var(--muted);font-size:13px}
 
-    .grid{display:grid;grid-template-columns:1fr 340px;gap:20px;margin-top:20px}
+  .grid{display:grid;grid-template-columns:240px 1fr;gap:20px;margin-top:20px}
     .card{background:linear-gradient(180deg,var(--card),rgba(11,18,32,0.6));padding:18px;border-radius:var(--radius);box-shadow:0 6px 18px rgba(2,6,23,0.6);}
 
     .section-title{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
@@ -33,14 +33,25 @@
     code, pre{font-family:var(--mono);background:rgba(255,255,255,0.02);padding:6px;border-radius:8px}
     pre{padding:12px;overflow:auto}
 
-    nav ul{list-style:none;padding:0;margin:0;display:flex;gap:8px;flex-wrap:wrap}
-    nav a{color:var(--muted);text-decoration:none;font-size:13px;padding:6px 10px;border-radius:8px}
-    nav a:hover{background:var(--glass);color:#fff}
+  nav ul{list-style:none;padding:0;margin:0;display:flex;gap:8px;flex-wrap:wrap}
+  nav a{color:var(--muted);text-decoration:none;font-size:13px;padding:6px 10px;border-radius:8px}
+  nav a:hover{background:var(--glass);color:#fff}
 
     .badge{display:inline-block;padding:6px 10px;border-radius:999px;background:rgba(255,255,255,0.03);font-size:13px}
 
     .sidebar .block{margin-bottom:12px}
     .file-tree{font-family:var(--mono);font-size:13px;color:var(--muted);line-height:1.7}
+
+  /* Table of contents (TOC) in sidebar */
+  /* TOC positioning and styling */
+  html { scroll-behavior: smooth; }
+  .toc-card{position:sticky;top:28px}
+  .toc-toggle{display:none;background:transparent;border:none;color:var(--muted);font-size:13px;cursor:pointer}
+  .toc-nav ul{list-style:none;padding:0;margin:0;display:block}
+  .toc-nav a{display:block;color:var(--muted);text-decoration:none;font-size:13px;padding:8px 10px;border-radius:8px}
+  .toc-nav a:hover{background:var(--glass);color:#fff}
+  .toc-nav a.active{color:#fff;background:linear-gradient(90deg,var(--accent),#06b6d4);}
+  .toc-card.collapsed .toc-nav ul{display:none}
 
     .hero-stats{display:flex;gap:12px;margin-top:12px}
     .stat{background:rgba(255,255,255,0.02);padding:8px 12px;border-radius:12px}
@@ -51,6 +62,10 @@
     @media (max-width:920px){
       .grid{grid-template-columns:1fr;}
       .logo{width:56px;height:56px}
+      /* Make TOC flow with content on small screens and enable toggle */
+      .toc-card{position:static;top:auto;margin-bottom:12px}
+      .toc-toggle{display:inline-block}
+      .toc-card.collapsed .toc-nav ul{display:none}
     }
 
     /* small util */
@@ -68,21 +83,35 @@
         <h1>ML-Assignment-DNAC1</h1>
         <div class="meta">Assignment — Traditional & Deep Learning pipelines for Tabular, Text, and Image datasets • <span class="muted">CO3117</span></div>
       </div>
-      <div style="margin-left:auto">
-        <nav>
-          <ul>
-            <li><a href="#overview">Overview</a></li>
-            <li><a href="#pipelines">Pipelines</a></li>
-            <li><a href="#datasets">Datasets</a></li>
-            <li><a href="#usage">Run</a></li>
-            <li><a href="#links">Links</a></li>
-            <li><a href="#experiment-result">Comparison</a></li>
-          </ul>
-        </nav>
-      </div>
+      <!-- Header nav removed; Table of Contents moved to the right sidebar as a sticky card -->
     </header>
 
     <main class="grid">
+      <aside class="sidebar">
+        <!-- Table of Contents (left column) -->
+        <div class="card toc-card" id="tocCard">
+          <div class="section-title">
+            <div class="pill">Contents</div>
+            <div style="display:flex;align-items:center;gap:8px">
+              <h4 style="margin:0">Table of Contents</h4>
+              <button class="toc-toggle" id="tocToggle" aria-expanded="true" aria-controls="tocNav">☰</button>
+            </div>
+          </div>
+          <nav class="toc-nav readme" id="tocNav" aria-label="Table of Contents">
+            <ul>
+              <li><a href="#overview">Overview</a></li>
+              <li><a href="#pipelines">Pipelines</a></li>
+              <li><a href="#datasets">Datasets</a></li>
+              <li><a href="#usage">Run</a></li>
+              <li><a href="#links">Links</a></li>
+              <li><a href="#experiment-result">Comparison</a></li>
+            </ul>
+          </nav>
+        </div>
+
+        <!-- Left column now only contains the TOC -->
+      </aside>
+
       <div>
         <section id="overview" class="card">
           <div class="section-title">
@@ -245,11 +274,14 @@ jupyter notebook notebook_name.ipynb
 
       </div>
 
-      <aside class="sidebar">
-        <div class="card">
-          <div class="block">
-            <div class="section-title"><div class="pill">Repository</div><h4 style="margin:0">Files & Structure</h4></div>
-            <div class="file-tree mono">
+    </main>
+
+    <!-- Stacked cards moved from left sidebar to full-width area below main content -->
+    <div style="margin-top:20px">
+      <div class="card">
+        <div class="block">
+          <div class="section-title"><div class="pill">Repository</div><h4 style="margin:0">Files & Structure</h4></div>
+          <div class="file-tree mono">
 <pre>
 ML-Assignment-DNAC1/
 ├─ docs/            # This Github Page
@@ -261,48 +293,41 @@ ML-Assignment-DNAC1/
 ├─ requirements.txt # Library requirements
 └─ README.md        # This project's README
 </pre>
-            </div>
-          </div>
-
-          <div class="block">
-            <div class="section-title"><div class="pill">Author</div><h4 style="margin:0">DNAC1 Team</h4></div>
-            <div class="section-title"><div class="pill">Team Members</div></div>
-            <table style="width:100%;font-size:14px;border-collapse:collapse;margin-top:8px">
-              <thead>
-                <tr style="background:var(--glass)">
-                  <th style="text-align:center;padding:6px">Name</th>
-                  <th style="text-align:center;padding:6px">Student ID</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td style="padding:6px">Cao Huu Thien Hoang</td>
-                  <td style="padding:6px">2311030</td>
-                </tr>
-                <tr>
-                  <td style="padding:6px">Le Tien Dat</td>
-                  <td style="padding:6px">2310653</td>
-                </tr>
-                <tr>
-                  <td style="padding:6px">Tran Vinh Dung</td>
-                  <td style="padding:6px">2310574</td>
-                </tr>
-              </tbody>
-            </table>
-            <div style="margin-top:8px">
-              <a href="https://github.com/broistg/ML-Assignment-DNAC1" target="_blank" rel="noopener">
-                <button class="btn ghost">View on GitHub</button>
-              </a>
-            </div>
           </div>
         </div>
 
-        <div class="card" style="margin-top:12px">
-          <h4 style="margin:0">Quick Notes</h4>
-          <p class="muted" style="margin-top:8px">This project is still a work in progress.</p>
+        <div class="block">
+          <div class="section-title"><div class="pill">Team Members</div><h4 style="margin:0">DNAC1 Team</h4></div>
+          <table style="width:100%;font-size:14px;border-collapse:collapse;margin-top:8px">
+            <thead>
+              <tr style="background:var(--glass)">
+                <th style="text-align:center;padding:6px">Name</th>
+                <th style="text-align:center;padding:6px">Student ID</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="padding:6px">Cao Huu Thien Hoang</td>
+                <td style="padding:6px">2311030</td>
+              </tr>
+              <tr>
+                <td style="padding:6px">Le Tien Dat</td>
+                <td style="padding:6px">2310653</td>
+              </tr>
+              <tr>
+                <td style="padding:6px">Tran Vinh Dung</td>
+                <td style="padding:6px">2310574</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
-      </aside>
-    </main>
+      </div>
+
+      <div class="card" style="margin-top:12px">
+        <h4 style="margin:0">Quick Notes</h4>
+        <p class="muted" style="margin-top:8px">This project is still a work in progress.</p>
+      </div>
+    </div>
 
     <footer>
       <div class="muted"></div>
@@ -355,5 +380,41 @@ document.querySelectorAll('pre').forEach(function(pre) {
     });
   });
 });
+</script>
+<script>
+// TOC: active link highlighting using IntersectionObserver
+(function(){
+  var tocLinks = Array.from(document.querySelectorAll('.toc-nav a'));
+  var sections = tocLinks.map(function(a){
+    var id = a.getAttribute('href').slice(1);
+    return document.getElementById(id);
+  }).filter(Boolean);
+
+  if('IntersectionObserver' in window && sections.length){
+    var obs = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        var id = entry.target.id;
+        var link = document.querySelector('.toc-nav a[href="#'+id+'"]');
+        if(entry.isIntersecting){
+          tocLinks.forEach(function(l){ l.classList.remove('active'); });
+          if(link) link.classList.add('active');
+        }
+      });
+    },{ root: null, rootMargin: '0px 0px -60% 0px', threshold: 0 });
+
+    sections.forEach(function(s){ obs.observe(s); });
+  }
+
+  // Mobile toggle for TOC
+  var tocCard = document.getElementById('tocCard');
+  var tocToggle = document.getElementById('tocToggle');
+  var tocNav = document.getElementById('tocNav');
+  if(tocToggle && tocCard){
+    tocToggle.addEventListener('click', function(){
+      var collapsed = tocCard.classList.toggle('collapsed');
+      tocToggle.setAttribute('aria-expanded', (!collapsed).toString());
+    });
+  }
+})();
 </script>
 </html>

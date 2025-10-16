@@ -5,7 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description" content="GitHub Page for ML Assignment: traditional & deep learning pipelines for tabular, text, and image data." />
   <title>ML-Assignment-DNAC1 — ML Pipelines Assignment</title>
-  <link rel="icon" href="data:;base64,iVBORw0KGgo=" />
+  <!-- <link rel="icon" href="data:;base64,iVBORw0KGgo=" /> -->
+  <link rel="icon" href="logo.ico">
   <style>
     :root{
       --bg:#0f1724; --card:#0b1220; --muted:#9aa4b2; --accent:#7c3aed; --glass: rgba(255,255,255,0.04);
@@ -23,7 +24,7 @@
     h1{margin:0;font-size:26px}
     .meta{color:var(--muted);font-size:13px}
 
-  .grid{display:grid;grid-template-columns:240px 1fr;gap:20px;margin-top:20px}
+  .grid{display:grid;grid-template-columns:1fr 240px;gap:20px;margin-top:20px}
     .card{background:linear-gradient(180deg,var(--card),rgba(11,18,32,0.6));padding:18px;border-radius:var(--radius);box-shadow:0 6px 18px rgba(2,6,23,0.6);}
 
     .section-title{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
@@ -87,41 +88,16 @@
     </header>
 
     <main class="grid">
-      <aside class="sidebar">
-        <!-- Table of Contents (left column) -->
-        <div class="card toc-card" id="tocCard">
-          <div class="section-title">
-            <div class="pill">Contents</div>
-            <div style="display:flex;align-items:center;gap:8px">
-              <h4 style="margin:0">Table of Contents</h4>
-              <button class="toc-toggle" id="tocToggle" aria-expanded="true" aria-controls="tocNav">☰</button>
-            </div>
-          </div>
-          <nav class="toc-nav readme" id="tocNav" aria-label="Table of Contents">
-            <ul>
-              <li><a href="#overview">Overview</a></li>
-              <li><a href="#pipelines">Pipelines</a></li>
-              <li><a href="#datasets">Datasets</a></li>
-              <li><a href="#usage">Run</a></li>
-              <li><a href="#links">Links</a></li>
-              <li><a href="#experiment-result">Comparison</a></li>
-            </ul>
-          </nav>
-        </div>
-
-        <!-- Left column now only contains the TOC -->
-      </aside>
+      <!-- left column removed; TOC will be on the right -->
 
       <div>
         <section id="overview" class="card">
           <div class="section-title">
-            <div>
-              <div class="pill">Overview</div>
-              <h2 style="margin-top:8px">Project Summary</h2>
-            </div>
+            <div class="pill">Overview</div>
             <div class="badge">Status: <strong>In Progress</strong></div>
           </div>
 
+          <h2 style="margin-top:8px">Project Summary</h2>
           <p class="readme">This repository contains an assignment for the <strong>Machine Learning</strong> course. The goal is to build end-to-end pipelines for <strong>tabular</strong>, <strong>text</strong>, and <strong>image</strong> datasets using both traditional ML and deep learning approaches.</p>
 
           <div style="margin-top:14px">
@@ -214,13 +190,8 @@ jupyter notebook notebook_name.ipynb
         </section>
 
         <section id="links" class="card" style="margin-top:18px">
-          <div class="section-title"><div class="pill">Links</div><h3 style="margin:0">Links to Resources</h3></div>
+          <div class="section-title"><div class="pill">Links</div><h3 style="margin:0">Links to Notebooks</h3></div>
           <div class="readme">
-            <div style="margin-bottom:18px;">
-              <a href="https://github.com/broistg/ML-Assignment-DNAC1" target="_blank" rel="noopener" style="display:inline-block;padding:8px 16px;background:var(--accent);color:white;border-radius:8px;text-decoration:none;font-weight:500;box-shadow:0 2px 8px rgba(2,6,23,0.12);">
-                🔗 View Repository on GitHub
-              </a>
-            </div>
             <h4>Tabular Dataset Notebooks (Adult Census Income):</h4>
             <ul>
             <li>
@@ -272,16 +243,10 @@ jupyter notebook notebook_name.ipynb
           </div>
         </section>
 
-      </div>
-
-    </main>
-
-    <!-- Stacked cards moved from left sidebar to full-width area below main content -->
-    <div style="margin-top:20px">
-      <div class="card">
-        <div class="block">
-          <div class="section-title"><div class="pill">Repository</div><h4 style="margin:0">Files & Structure</h4></div>
-          <div class="file-tree mono">
+        <!-- Repository (moved from sidebar) -->
+        <section id="repository" class="card" style="margin-top:18px">
+          <div class="section-title"><div class="pill">Repository</div><h3 style="margin:0">Files & Structure</h3></div>
+          <div class="file-tree mono readme">
 <pre>
 ML-Assignment-DNAC1/
 ├─ docs/            # This Github Page
@@ -294,10 +259,15 @@ ML-Assignment-DNAC1/
 └─ README.md        # This project's README
 </pre>
           </div>
-        </div>
+          <div style="margin-bottom:18px;">
+            <a href="https://github.com/broistg/ML-Assignment-DNAC1" target="_blank" rel="noopener" style="display:inline-block;padding:8px 16px;background:var(--accent);color:white;border-radius:8px;text-decoration:none;font-weight:500;box-shadow:0 2px 8px rgba(2,6,23,0.12);">
+              🔗 View Repository on GitHub
+            </a>
+          </div>
+        </section>
 
-        <div class="block">
-          <div class="section-title"><div class="pill">Team Members</div><h4 style="margin:0">DNAC1 Team</h4></div>
+        <section id="team-members" class="card" style="margin-top:18px">
+          <div class="section-title"><div class="pill">Team Members</div><h3 style="margin:0">DNAC1 Team</h3></div>
           <table style="width:100%;font-size:14px;border-collapse:collapse;margin-top:8px">
             <thead>
               <tr style="background:var(--glass)">
@@ -320,14 +290,39 @@ ML-Assignment-DNAC1/
               </tr>
             </tbody>
           </table>
-        </div>
+        </section>
+        <section class="card" style="margin-top:18px">
+          <h3 style="margin:0">Quick Notes</h3>
+          <p class="muted readme" style="margin-top:8px">This project is still a work in progress.</p>
+        </section>
+
       </div>
 
-      <div class="card" style="margin-top:12px">
-        <h4 style="margin:0">Quick Notes</h4>
-        <p class="muted" style="margin-top:8px">This project is still a work in progress.</p>
-      </div>
-    </div>
+      <!-- Right sidebar with TOC (moved inside the grid) -->
+      <aside class="sidebar">
+        <div class="card toc-card" id="tocCard">
+          <div class="section-title">
+            <div class="pill">Contents</div>
+            <div style="display:flex;align-items:center;gap:8px">
+              <button class="toc-toggle" id="tocToggle" aria-expanded="true" aria-controls="tocNav">☰</button>
+            </div>
+          </div>
+          <nav class="toc-nav readme" id="tocNav" aria-label="Table of Contents">
+            <ul>
+              <li><a href="#overview">Overview</a></li>
+              <li><a href="#pipelines">Pipelines</a></li>
+              <li><a href="#datasets">Datasets</a></li>
+              <li><a href="#usage">Run</a></li>
+              <li><a href="#links">Links</a></li>
+              <li><a href="#experiment-result">Comparison</a></li>
+              <li><a href="#repository">Repository</a></li>
+              <li><a href="#team-members">Team Members</a></li>
+            </ul>
+          </nav>
+        </div>
+      </aside>
+
+    </main>
 
     <footer>
       <div class="muted"></div>
@@ -335,84 +330,100 @@ ML-Assignment-DNAC1/
   </div>
 </body>
 <script>
-// Add copy buttons to all <pre> blocks
-document.querySelectorAll('pre').forEach(function(pre) {
-  // Exclude <pre> blocks inside .file-tree
-  var parent = pre.parentElement;
-  var isFileTree = false;
-  while (parent) {
-    if (parent.classList && parent.classList.contains('file-tree')) {
-      isFileTree = true;
-      break;
-    }
-    parent = parent.parentElement;
-  }
-  if (isFileTree) return;
+// --- Copy buttons for <pre> blocks (excluding file-tree) ---
+document.querySelectorAll('pre').forEach(pre => {
+  if (pre.closest('.file-tree')) return; // skip file-tree
 
-  // Create the button
-  var btn = document.createElement('button');
-  btn.textContent = 'Copy';
-  btn.className = 'copy-btn';
-  btn.style.position = 'absolute';
-  btn.style.right = '12px';
-  btn.style.top = '12px';
-  btn.style.zIndex = '2';
-  btn.style.background = 'var(--accent)';
-  btn.style.color = 'white';
-  btn.style.border = 'none';
-  btn.style.padding = '4px 10px';
-  btn.style.borderRadius = '8px';
-  btn.style.cursor = 'pointer';
-  btn.style.fontSize = '13px';
-
-  // Create a wrapper for positioning
-  var wrapper = document.createElement('div');
+  const wrapper = document.createElement('div');
   wrapper.style.position = 'relative';
   pre.parentNode.insertBefore(wrapper, pre);
   wrapper.appendChild(pre);
+
+  const btn = document.createElement('button');
+  Object.assign(btn.style, {
+    position: 'absolute', right: '12px', top: '12px', zIndex: '2',
+    background: 'var(--accent)', color: 'white', border: 'none',
+    padding: '4px 10px', borderRadius: '8px', cursor: 'pointer', fontSize: '13px'
+  });
+  btn.textContent = 'Copy';
   wrapper.appendChild(btn);
 
-  btn.addEventListener('click', function() {
-    var text = pre.innerText;
-    navigator.clipboard.writeText(text).then(function() {
-      btn.textContent = 'Copied!';
-      setTimeout(function() { btn.textContent = 'Copy'; }, 1200);
-    });
+  btn.addEventListener('click', async () => {
+    await navigator.clipboard.writeText(pre.innerText);
+    btn.textContent = 'Copied!';
+    setTimeout(() => (btn.textContent = 'Copy'), 1200);
   });
 });
-</script>
-<script>
-// TOC: active link highlighting using IntersectionObserver
-(function(){
-  var tocLinks = Array.from(document.querySelectorAll('.toc-nav a'));
-  var sections = tocLinks.map(function(a){
-    var id = a.getAttribute('href').slice(1);
-    return document.getElementById(id);
-  }).filter(Boolean);
 
-  if('IntersectionObserver' in window && sections.length){
-    var obs = new IntersectionObserver(function(entries){
-      entries.forEach(function(entry){
-        var id = entry.target.id;
-        var link = document.querySelector('.toc-nav a[href="#'+id+'"]');
-        if(entry.isIntersecting){
-          tocLinks.forEach(function(l){ l.classList.remove('active'); });
-          if(link) link.classList.add('active');
-        }
-      });
-    },{ root: null, rootMargin: '0px 0px -60% 0px', threshold: 0 });
+// --- Table of Contents (TOC) highlighting + smooth scroll ---
+(function() {
+  const tocLinks = [...document.querySelectorAll('.toc-nav a')];
+  const sections = tocLinks.map(a => document.getElementById(a.hash.slice(1))).filter(Boolean);
 
-    sections.forEach(function(s){ obs.observe(s); });
+  if (!('IntersectionObserver' in window) || !sections.length) return;
+
+  let lastScrollY = window.scrollY;
+  const TOLERANCE = 40; // px leeway for upward scroll highlight
+  const observer = new IntersectionObserver(updateActiveLink, {
+    rootMargin: '0px 0px -40% 0px',
+    threshold: [0, 0.1, 0.25, 0.5, 0.75, 1],
+  });
+
+  sections.forEach(s => observer.observe(s));
+
+  function updateActiveLink() {
+    const currentY = window.scrollY;
+    const goingDown = currentY > lastScrollY;
+    lastScrollY = currentY;
+
+    const positions = sections.map(s => ({ el: s, top: s.getBoundingClientRect().top }));
+    let chosen;
+
+    if (goingDown) {
+      const below = positions.filter(p => p.top >= 0);
+      chosen = below.length
+        ? below.reduce((a, b) => (a.top < b.top ? a : b)).el
+        : positions.reduce((a, b) => (a.top > b.top ? a : b)).el;
+    } else {
+      const above = positions.filter(p => p.top <= TOLERANCE);
+      chosen = above.length
+        ? above.reduce((a, b) => (a.top > b.top ? a : b)).el
+        : positions.reduce((a, b) => (a.top < b.top ? a : b)).el;
+    }
+
+    if (chosen) {
+      const id = chosen.id;
+      tocLinks.forEach(l => l.classList.toggle('active', l.hash === '#' + id));
+    }
   }
 
-  // Mobile toggle for TOC
-  var tocCard = document.getElementById('tocCard');
-  var tocToggle = document.getElementById('tocToggle');
-  var tocNav = document.getElementById('tocNav');
-  if(tocToggle && tocCard){
-    tocToggle.addEventListener('click', function(){
-      var collapsed = tocCard.classList.toggle('collapsed');
-      tocToggle.setAttribute('aria-expanded', (!collapsed).toString());
+  // --- Smooth scroll + history management ---
+  tocLinks.forEach(link => {
+    link.addEventListener('click', e => {
+      const id = link.hash.slice(1);
+      const target = document.getElementById(id);
+      if (!target) return;
+
+      e.preventDefault();
+      history.pushState(null, '', '#' + id);
+
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+
+  // --- Handle back/forward navigation ---
+  window.addEventListener('hashchange', () => {
+    const target = document.getElementById(location.hash.slice(1));
+    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+
+  // --- TOC toggle for mobile ---
+  const tocCard = document.getElementById('tocCard');
+  const tocToggle = document.getElementById('tocToggle');
+  if (tocCard && tocToggle) {
+    tocToggle.addEventListener('click', () => {
+      tocCard.classList.toggle('collapsed');
+      tocToggle.setAttribute('aria-expanded', !tocCard.classList.contains('collapsed'));
     });
   }
 })();

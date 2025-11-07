@@ -38,9 +38,15 @@
      - wget
 
 2. **Cách tải dữ liệu:**
-   - Dữ liệu Adult Census Income của BTL 1 được tải tự động trong notebook từ UCI Machine Learning Repository:
+   - Tập dữ liệu Adult Census Income của BTL 1 được tải tự động trong notebook từ UCI Machine Learning Repository:
      - adult.data (dùng để chia thành Train / Validation / Test)
      - Link gốc: [Adult Census Income](https://archive.ics.uci.edu/ml/machine-learning-databases/adult/adult.data)
+   - Tập dữ liệu 20 Newsgroups của BTL 2 được tải tự động trong notebook từ trang chủ của Jason Rennie lưu trữ lại:
+     - 20news-18828 (dùng để chia thành Train / Validation / Test)
+     - Link gốc: [20 Newsgroups]("http://qwone.com/~jason/20Newsgroups/")
+   - Tập dữ liệu CIFAR-10 của BTL 3 được tải tự động trong notebook từ thư viện `torchvision`:
+     - train subset (dùng để chia thành Train / Validation) và test subset
+     - Link gốc: [CIFAR-10](https://www.cs.toronto.edu/~kriz/cifar.html)
 3. **Chạy notebook bằng Google Colab:**
    1. Mở notebook trên Google Colab.
    2. Chọn **Runtime** → **Run all**.
@@ -91,3 +97,8 @@ ML-Assignment-DNAC1/
 
    - Pipeline truyền thống: [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/broistg/ML-Assignment-DNAC1/blob/main/notebooks/BTL2_traditional.ipynb)
    - Pipeline học sâu: [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/broistg/ML-Assignment-DNAC1/blob/main/notebooks/BTL2_deep_learning.ipynb)
+
+3. **Notebook BTL3 (CIFAR-10):**
+
+   - Pipeline truyền thống: [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/broistg/ML-Assignment-DNAC1/blob/main/notebooks/BTL3_traditional.ipynb)
+   - Pipeline học sâu: [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/broistg/ML-Assignment-DNAC1/blob/main/notebooks/BTL3_deep_learning.ipynb)

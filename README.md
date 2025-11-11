@@ -43,7 +43,7 @@
      - Link gốc: [Adult Census Income](https://archive.ics.uci.edu/ml/machine-learning-databases/adult/adult.data)
    - Tập dữ liệu 20 Newsgroups của BTL 2 được tải tự động trong notebook từ trang chủ của Jason Rennie lưu trữ lại:
      - 20news-18828 (dùng để chia thành Train / Validation / Test)
-     - Link gốc: [20 Newsgroups]("http://qwone.com/~jason/20Newsgroups/")
+     - Link gốc: [20 Newsgroups](http://qwone.com/~jason/20Newsgroups/)
    - Tập dữ liệu CIFAR-10 của BTL 3 được tải tự động trong notebook từ thư viện `torchvision`:
      - train subset (dùng để chia thành Train / Validation) và test subset
      - Link gốc: [CIFAR-10](https://www.cs.toronto.edu/~kriz/cifar.html)

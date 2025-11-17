@@ -39,8 +39,8 @@
 
 2. **Cách tải dữ liệu:**
    - Tập dữ liệu Adult Census Income của BTL 1 được tải tự động trong notebook từ UCI Machine Learning Repository:
-     - adult.data (dùng để chia thành Train / Validation / Test)
-     - Link gốc: [Adult Census Income](https://archive.ics.uci.edu/ml/machine-learning-databases/adult/adult.data)
+     - adult.data và adult.test (gộp lại để chia thành Train / Validation / Test)
+     - Link gốc: [Adult Census Income Train](https://archive.ics.uci.edu/ml/machine-learning-databases/adult/adult.data) và [Adult Census Income Test](https://archive.ics.uci.edu/ml/machine-learning-databases/adult/adult.test)
    - Tập dữ liệu 20 Newsgroups của BTL 2 được tải tự động trong notebook từ trang chủ của Jason Rennie lưu trữ lại:
      - 20news-18828 (dùng để chia thành Train / Validation / Test)
      - Link gốc: [20 Newsgroups](http://qwone.com/~jason/20Newsgroups/)

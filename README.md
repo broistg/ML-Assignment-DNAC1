@@ -11,8 +11,8 @@
 
 ## Thông tin các thành viên nhóm
 
-| Họ tên              | Mã số sinh viên | Email                          |
-| ------------------- | --------------- | ------------------------------ |
+| Họ tên              | Mã số sinh viên | Email                            |
+| ------------------- | --------------- | -------------------------------- |
 | Cao Hữu Thiên Hoàng | 2311030         | <hoang.cao2510@hcmut.edu.vn>     |
 | Lê Tiến Đạt         | 2310653         | <dat.le2005@hcmut.edu.vn>        |
 | Trần Vĩnh Dũng      | 2310574         | <dung.tranvinh2005@hcmut.edu.vn> |

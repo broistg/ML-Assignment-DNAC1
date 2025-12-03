@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adult Census Income | Assignment 1</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="icon" href="logo.ico" type="image/x-icon">
+
+    <style>
+        /* ======= (same CSS as your original — unchanged) ======= */
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1e40af;
+            --secondary: #f1f5f9;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --success: #10b981;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background-color: var(--bg); color: var(--text-main); line-height: 1.6; }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+        header {
+            background: linear-gradient(135deg, #2563eb 0%, #4f46e5 100%);
+            color: white;
+            padding: 80px 0 60px;
+            margin-bottom: 40px;
+            border-radius: 0 0 40px 40px;
+            box-shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.2);
+        }
+        h1 { font-size: 3rem; font-weight: 800; margin-bottom: 15px; letter-spacing: -1px; }
+        .subtitle { font-size: 1.25rem; opacity: 0.9; max-width: 600px; }
+        .btn {
+            display: inline-block;
+            background: white; color: var(--primary);
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 25px; transition: 0.2s;
+        }
+        .btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+        section { margin-bottom: 60px; }
+        .section-title {
+            font-size: 1.8rem; margin-bottom: 25px;
+            color: var(--primary-dark);
+            border-left: 5px solid var(--primary);
+            padding-left: 15px;
+        }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px,1fr)); gap: 25px; }
+        .card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: 0.2s;
+        }
+        .card:hover { transform: translateY(-3px); }
+        .img-placeholder { width: 100%; height: 250px; background: #e2e8f0;
+            display: flex; align-items: center; justify-content: center; color: var(--text-muted); font-weight: 600;
+            border-radius: 8px; overflow: hidden;
+        }
+        .img-placeholder img { width: 100%; height: 100%; object-fit: cover; }
+        .full-width-img { height: 350px; }
+        .metrics-table {
+            width: 100%; border-collapse: collapse;
+            background: white; border-radius: 12px; overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+        .metrics-table th, .metrics-table td {
+            padding: 15px; text-align: left; border-bottom: 1px solid #e2e8f0;
+        }
+        code {font-size: 1.2em;} 
+        .metrics-table th { background: var(--secondary); color: var(--primary-dark); }
+        .tag { display:inline-block; padding:4px 8px; border-radius:4px; font-size:0.8rem; font-weight:600;}
+        .tag-model { background:#dbeafe; color:#1e40af;}
+        .tag-score { background:#d1fae5; color:#065f46;}
+        footer { text-align:center; padding:40px; color:var(--text-muted); border-top:1px solid #e2e8f0; }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="container">
+        <h1>Adult Census Income</h1>
+        <p class="subtitle">Determine if a person earns more than $50K per year using demographic and occupational features</p>
+        <a href="https://github.com/broistg/ML-Assignment-DNAC1" class="btn">View on GitHub →</a>
+    </div>
+</header>
+
+<main class="container">
+
+    <!-- =============================================================== -->
+    <!-- 1. Exploratory Data Analysis                                    -->
+    <!-- =============================================================== -->
+
+    <section>
+        <h2 class="section-title">1. Exploratory Data Analysis</h2>
+
+        <div class="grid">
+            <div class="card">
+                <h3>Dataset Overview</h3>
+                <p>Adult Census Income Dataset contains demographic and occupational information from the 1994 U.S. Census database. Each record includes personal, employment, and economic attributes.</p>
+                <ul style="margin-left: 20px; color: var(--text-muted);">
+                    <li>48,842 instances × 14 attributes</li>
+                    <li>Income labels: <code><=50K</code> or <code>>50K</code></li>
+                    <li>Numerical features:</strong> <code>age, fnlwgt, education-num, capital-gain, capital-loss, hours-per-week</code></p></li>
+                    <li>Categorical columns:</strong> <code>workclass, education, marital-status, occupation, relationship, race, sex, native-country</code></p></li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h3>Income Distribution</h3>
+                <p>The dataset shows a clearly imbalanced distribution of income labels, with the <code><=50K</code> class being significantly more frequent than the <code>>50K</code> class.</p>
+                <div class="img-placeholder">
+                    <img src="assets/assignment1/income.png" alt="Income Distribution">
+                </div>
+            </div>
+        </div>
+
+        <div class="grid">
+            <div class="card">
+                <h3>Numerical Features</h3>
+                <p>Numerical features such as <code>capital-gain</code> and <code>capital-loss</code> are highly skewed.</p>
+                <div class="img-placeholder">
+                    <img src="assets/assignment1/capital-gain.png" alt="capital-gain Distribution">
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>Categorical Features</h3>
+                <p>Categorical features like <code>native-country</code>, <code>occupation</code> have a large number of unique categories.</p>
+                <div class="img-placeholder">
+                    <img src="assets/assignment1/education.png" alt="education Distribution">
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- =============================================================== -->
+    <!-- 2. Data Preprocessing                                        -->
+    <!-- =============================================================== -->
+
+    <section>
+        <h2 class="section-title">2. Data Preprocessing</h2>
+
+        <div class="card">
+            <div style="display: flex; flex-wrap: wrap; gap: 20px;">
+
+                <div style="flex: 1;">
+                    <p style="margin-top:10px;"><strong>Imputation of Missing Values:</strong></p>
+                    <ul style="margin-left: 20px; color: var(--text-muted);">
+                        <li><p><strong>Numerical features:</strong> missing values were handled using strategies: <code>median</code>, <code>mean</code>, or <code>constant</code>.</p></li>
+                        <li><p><strong>Categorical features:</strong> missing categories were filled using <code>most_frequent</code> or <code>constant</code>.</p></li>
+                    </ul>
+                </div>
+
+                <div style="flex: 1;">
+                    <p style="margin-top:10px;"><strong>Encoding Categorical Features:</strong></p>
+                    <ul style="margin-left: 20px; color: var(--text-muted);">
+                        <li><p><strong>One-Hot Encoding:</strong> converts each category into a binary vector.</p></li>
+                        <li><p><strong>Ordinal Encoding:</strong> assigns a unique integer to each category.</p></li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+        <div class="card">
+            <div style="display: flex; flex-wrap: wrap; gap: 20px;">
+
+                <div style="flex: 1;">
+                    <p style="margin-top:10px;"><strong>Feature Scaling:</strong></p>
+                    <ul style="margin-left: 20px; color: var(--text-muted);">
+                        <li><p><strong>Standard Scaling:</strong> transforms numerical features to have zero mean and unit variance.</p></li>
+                        <li><p><strong>Min-Max Scaling:</strong> rescales features to a specific range (usually <code>0–1</code>).</p></li>
+                    </ul>
+                </div>
+
+                <div style="flex: 1;">
+                    <p style="margin-top:10px;"><strong>Dimensionality Reduction:</strong></p>
+                    <p>Principal Component Analysis (PCA) can be applied to reduce dimensionality while retaining most of the variance.</p>
+                </div>
+
+            </div>
+        </div>
+
+    </section>
+
+
+    <!-- =============================================================== -->
+    <!-- 3. Machine Learning Models                                            -->
+    <!-- =============================================================== -->
+
+    <section>
+        <h2 class="section-title">3. Machine Learning Models</h2>
+
+        <div class="grid">
+
+            <div class="card">
+                <h3>Models</h3>
+                <p>Several traditional machine learning algorithms were trained and evaluated on the dataset:</p>
+                <ul style="margin-left: 20px; color: var(--text-muted);">
+                    <li><p>Logistic Regression: <code>max_iter=300</code></p></li>
+                    <li><p>Support Vector Machine (SVM)</p></li>
+                    <li><p>Random Forest</p></li>
+                    <li><p>Decision Tree: <code>max_depth=6</code></p></li>
+                    <li><p>K-Nearest Neighbor (KNN): <code>n_neighbors=13</code></p></li>
+                    <li><p>Gaussian Naive Bayes</p></li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h3>Preprocessing</h3>
+                <p>The model applies the following data preprocessing steps:</p>  
+                <ul style="margin-left: 20px; color: var(--text-muted);">
+                    <li><p>Imputation: <code>median</code> for numerical, <code>constant</code> for categorical</p></li>
+                    <li><p>Encoding: <code>onehot</code></p></li>
+                    <li><p>Scaling: <code>standard</code></p></li>
+                </ul>
+            </div>
+
+        </div>
+
+        <div class="card">
+            <img src="assets/assignment1/compare_1.png" alt="Compare" width=1000 height="auto">
+
+            <div style="display: flex; flex-wrap: wrap; gap: 20px;">
+
+                <div style="flex: 1;">
+                    <ul style="margin-left: 20px; color: var(--text-muted);">
+                        <li><p><strong>Logistic Regression</strong> and <strong>Support Vector Machine</strong> achieved the highest F1-score <code>(~0.65)</code>.</p></li>
+                        <li><p>Using PCA that retains 95% of the variance performs better compared to using PCA with 90% variance.</p></li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+
+    </section>
+
+
+    <!-- =============================================================== -->
+    <!-- 4. Deep Learning Models                             -->
+    <!-- =============================================================== -->
+
+    <section>
+        <h2 class="section-title">4. Deep Learning Models</h2>
+
+        <div class="grid">
+
+            <div class="card">
+                <h3>Models</h3>
+                <p>Two deep learning models were implemented to explore their performance on tabular data:</p>
+                <ul style="margin-left: 20px; color: var(--text-muted);">
+                    <li><p><strong>Wide & Deep Neural Network:</strong> combines a wide linear model (memorization) with deep neural networks (generalization) for structured data.</p></li>
+                    <li><p><strong>TabNet:</strong> uses sequential attention to choose which features to reason from at each decision step, suitable for tabular data.</p></li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h3>Configuration</h3>
+                <p>The model uses several hyperparameters that can be adjusted within the pipeline:</p>  
+                <ul style="margin-left: 20px; color: var(--text-muted);">
+                    <li><p><code>learning rate: 1e-3</code></p></li>
+                    <li><p><code>weight_decay=1e-5</code></p></li>
+                    <li><p><code>batch_size=256</code></p></li>
+                    <li><p><code>epochs=30</code></p></li>
+                    <li><p><code>dropout=0.2</code></p></li>
+                    <li><p><code>early_stopping=True</code></p></li>
+                </ul>
+            </div>
+
+        </div>
+
+        <div class="card">
+            <img src="assets/assignment1/compare_2.png" alt="Compare" width=1000 height="auto">
+
+            <div style="display: flex; flex-wrap: wrap; gap: 20px;">
+
+                <div style="flex: 1;">
+                    <ul style="margin-left: 20px; color: var(--text-muted);">
+                        <li><p><strong>TabNet</strong> consistently achieved higher F1-score compared to the <strong>Wide & Deep Neural Network</strong>, demonstrating its effectiveness for tabular datasets.</p></li>
+                        <li><p>Deep learning models generally outperform traditional ML models when sufficient data and feature preprocessing are applied.</p></li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+
+    </section>
+
+
+    <!-- =============================================================== -->
+    <!-- 5. Conclusion                                                   -->
+    <!-- =============================================================== -->
+
+    <section>
+        <h2 class="section-title">5. Conclusion</h2>
+
+        <div class="card">
+            <ul style="margin-left:20px; color:var(--text-muted);">
+                <li>Deep learning models tend to achieve higher predictive performance on complex tabular data, especially when interactions among features are non-linear.</li>
+                <li>Proper preprocessing significantly impacts model performance more than simply changing algorithms.</li>
+                <li>Using PCA with 95% variance retains more information than 90%, often leading to better model generalization.</li>
+                <li>TabNet is recommended when leveraging deep learning for tabular datasets</li>
+            </ul>
+        </div>
+    </section>
+
+</main>
+
+<footer>
+    <p>Project by <strong>DNAC1</strong> | For Machine Learning Coursework</p>
+</footer>
+
+</body>
+</html>

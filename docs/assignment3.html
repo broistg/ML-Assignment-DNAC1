@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assignment 3 — Image Data Pipeline</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1e40af;
+            --secondary: #f1f5f9;
+            --text-main: #0f1724;
+            --text-muted: #64748b;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --border: #e2e8f0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px 60px;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, #4f46e5 100%);
+            color: white;
+            padding: 80px 0 60px;
+            margin-bottom: 40px;
+            border-radius: 0 0 40px 40px;
+            box-shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.2);
+        }
+
+        h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 15px;
+            letter-spacing: -1px;
+        }
+
+        .subtitle {
+            font-size: 1.25rem;
+            opacity: 0.9;
+            max-width: 600px;
+        }
+
+        .btn {
+            display: inline-block;
+            background: white;
+            color: var(--primary);
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 25px;
+            transition: 0.2s;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        section {
+            margin-bottom: 60px;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            color: var(--primary-dark);
+            border-left: 5px solid var(--primary);
+            padding-left: 15px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+        }
+
+        .img-placeholder {
+            width: 100%;
+            height: 220px;
+            background: #e2e8f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            font-weight: 600;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .img-placeholder img,
+        .preview-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .metrics-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        .metrics-table th,
+        .metrics-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .metrics-table th {
+            background: var(--secondary);
+            color: var(--primary-dark);
+        }
+
+        code {
+            font-size: 1.1em;
+            background: rgba(37, 99, 235, 0.08);
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .tag-model {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        .tag-score {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border);
+        }
+
+        #lightbox {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(2, 6, 23, 0.78);
+            justify-content: center;
+            align-items: center;
+            z-index: 999;
+            padding: 20px;
+        }
+
+        #lb-img {
+            max-width: 100%;
+            max-height: 90%;
+            border-radius: 10px;
+        }
+
+        #lb-close {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            background: transparent;
+            border: none;
+            color: #fff;
+            font-size: 22px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="container">
+            <h1>Assignment 3 — Image Data Pipeline</h1>
+            <p class="subtitle">Extract deep features from CIFAR-10, train traditional classifiers, and compare an
+                end-to-end deep pipeline.</p>
+            <a href="https://github.com/broistg/ML-Assignment-DNAC1" class="btn">View on GitHub →</a>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <section>
+            <h2 class="section-title">1. Exploratory Data Analysis</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3>Dataset structure</h3>
+                    <p>CIFAR-10 provides 60K 32×32 RGB images across 10 classes. Traditional cells split the training
+                        set into 90% train / 10% validation, while the deep pipeline uses an 85% / 15% split, keeping
+                        the official 10K test set untouched.</p>
+                    <ul style="margin-top:12px; color:var(--text-muted)">
+                        <li>Seeds (RND = 42) ensure reproducible splits via <code>train_test_split</code> or
+                            <code>random_split</code>.
+                        </li>
+                        <li>Transforms normalize with ImageNet mean/std before both extraction and training.</li>
+                        <li>Class balance stays uniform thanks to CIFAR-10's design.</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>Sample grid</h3>
+                    <div class="img-placeholder">
+                        <img src="assets/assignment3/assignment3_samples.png" alt="Sample image grid"
+                            class="preview-img">
+                    </div>
+                    <p style="margin-top:12px; color:var(--text-muted)">Random batch illustrated in the notebooks' EDA
+                        section.</p>
+                </div>
+            </div>
+            <div class="card" style="margin-top:20px">
+                <h3>Label distributions</h3>
+                <div style="display:flex;gap:12px;margin-top:12px;flex-wrap:wrap">
+                    <div style="flex:1;min-width:220px;text-align:center">
+                        <img class="preview-img" src="assets/assignment3/assignment3_label_dist_train.png"
+                            alt="Train label distribution"
+                            style="width:100%;height:150px;object-fit:contain;border-radius:8px;">
+                        <p style="margin-top:6px;color:var(--text-muted)">Train</p>
+                    </div>
+                    <div style="flex:1;min-width:220px;text-align:center">
+                        <img class="preview-img" src="assets/assignment3/assignment3_label_dist_val.png"
+                            alt="Validation label distribution"
+                            style="width:100%;height:150px;object-fit:contain;border-radius:8px;">
+                        <p style="margin-top:6px;color:var(--text-muted)">Validation</p>
+                    </div>
+                    <div style="flex:1;min-width:220px;text-align:center">
+                        <img class="preview-img" src="assets/assignment3/assignment3_label_dist_test.png"
+                            alt="Test label distribution"
+                            style="width:100%;height:150px;object-fit:contain;border-radius:8px;">
+                        <p style="margin-top:6px;color:var(--text-muted)">Test</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="section-title">2. Feature Extraction &amp; Preprocessing</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3>Deep feature backbones</h3>
+                    <p>A factory in <code>BTL3_traditional.ipynb</code> selects pretrained models and removes their
+                        heads to yield feature vectors per image.</p>
+                    <ul style="margin-top:12px; color:var(--text-muted)">
+                        <li><code>torchvision</code>: VGG16 (fc6), ResNet50, EfficientNet-B0.</li>
+                        <li><code>timm</code>: ViT-base-patch16-224 and Swin-base-patch4-window7-224 with avg pooling.
+                        </li>
+                        <li>Features cached under <code>features/{model}/{split}_features.npz</code> for reuse.</li>
+                    </ul>
+                    <p style="margin-top:8px;color:var(--text-muted)">Extraction uses <code>build_transform</code>
+                        (resize → tensor → normalize) and <code>dataset_to_dataloader</code> to feed batches through the
+                        chosen extractor.</p>
+                </div>
+                <div class="card">
+                    <h3>Scaler + PCA pipeline</h3>
+                    <p><code>fit_scaler_and_pca</code> learns a scaler and optional PCA on the train split, while
+                        <code>transform_with_scaler_pca</code> applies the same to val/test before classifiers consume
+                        the data.
+                    </p>
+                    <ul style="margin-top:12px; color:var(--text-muted)">
+                        <li>PCA defaults to 256 components but respects the embedding dimension.</li>
+                        <li>Widgets allow toggling PCA on/off per run.</li>
+                        <li>Scaler/PCA artifacts are reused across comparisons to ensure fairness.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="section-title">3. Traditional Machine Learning Pipeline</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3>Classifier roster &amp; tuning</h3>
+                    <p>The traditional notebook trains five classifiers via <code>train_and_evaluate</code> and
+                        optionally fine-tunes their hyperparameters with <code>tune_hyperparameters</code>.</p>
+                    <ul style="margin-top:12px; color:var(--text-muted)">
+                        <li><code>LogisticRegression</code> (saga solver) and <code>LinearSVC</code> tune
+                            <code>C</code>.
+                        </li>
+                        <li><code>RandomForestClassifier</code>, <code>KNeighborsClassifier</code>, and
+                            <code>MLPClassifier</code> explore tree depth, neighbors, hidden sizes, and regularization.
+                        </li>
+                        <li>Best params cached to <code>tuned_hyperparams.json</code> and reused by
+                            <code>run_comparison</code>.
+                        </li>
+                        <li>Final metrics include accuracy, classification reports, and confusion matrices.</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>Inference time</h3>
+                    <p>Scatter plot contrasts classifiers' inference latency with their test accuracy, highlighting the
+                        trade-offs in the traditional pipeline.</p>
+                    <img class="preview-img" src="assets/assignment3/assignment3_inference_scatter_traditional.png"
+                        alt="Inference vs accuracy"
+                        style="width:100%;max-height:260px;object-fit:contain;border-radius:8px;margin-top:12px;">
+                </div>
+            </div>
+            <div class="card" style="margin-top:20px">
+                <h3>Comparison results (PCA)</h3>
+                <p style="color:var(--text-muted)">Bar chart showcases classifier accuracy per feature extractor when
+                    PCA is enabled.</p>
+                <div class="img-placeholder" style="height:auto;padding:20px;">
+                    <img id="img-comparison" src="assets/assignment3/assignment3_comparison_pca.png"
+                        alt="Model comparison" class="preview-img" style="object-fit:contain;">
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="section-title">4. Deep-Learning Pipeline</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3>Preprocessing &amp; training loop</h3>
+                    <p><code>preprocessing(CONFIG)</code> wires resize, random horizontal flips, rotations, tensor
+                        conversion, and normalization; <code>train_and_test(CONFIG)</code> then trains on the configured
+                        number of epochs using AdamW + CrossEntropyLoss.</p>
+                    <ul style="margin-top:12px; color:var(--text-muted)">
+                        <li>Widgets expose resize, batch size, learning rate, and epoch count for interactive
+                            experimentation.</li>
+                        <li>DataLoaders shuffle training data and keep val/test deterministic.</li>
+                        <li>Training prints epoch loss/accuracy plus final sklearn metrics.</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>Model options</h3>
+                    <p><code>choose_model(CONFIG)</code> swaps the classification head and uses the following options:
+                    </p>
+                    <ul style="margin-top:12px; color:var(--text-muted)">
+                        <li><code>torchvision</code>: modified VGG16, ResNet50, EfficientNet-B0.</li>
+                        <li><code>timm</code>: ViT-base-patch16-224 and Swin-tiny-patch4-window7-224.</li>
+                        <li>Model moves to <code>device</code> (GPU when available) before training.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="card" style="margin-top:20px">
+                <h3>EfficientNet-B0 confusion matrix</h3>
+                <p style="color:var(--text-muted)">Confusion matrix derived from the deep-learning pipeline with
+                    EfficientNet-B0.</p>
+                <img class="preview-img" src="assets/assignment3/assignment3_confusion_efficientnet_b0.png"
+                    alt="EfficientNet-B0 confusion"
+                    style="width:80%;margin:20px auto 0;border-radius:8px;object-fit:contain;">
+            </div>
+        </section>
+
+        <section>
+            <h2 class="section-title">5. Notes &amp; References</h2>
+            <div class="card">
+                <ul style="margin-left:20px; color:var(--text-muted)">
+                    <li>Core feature extraction and traditional comparison logic lives in
+                        <code>BTL3_traditional.ipynb</code> (see <code>run_pipeline</code>, <code>run_comparison</code>,
+                        and <code>train_and_evaluate</code>).
+                    </li>
+                    <li>Deep training workflow, augmentation, and widget controls are defined in
+                        <code>BTL3_deep_learning.ipynb</code> (<code>train_and_test</code>, <code>preprocessing</code>,
+                        <code>choose_model</code>).
+                    </li>
+                    <li>All images shown are stored in <code>docs/assets/assignment3/</code>; the README there explains
+                        how to regenerate them.</li>
+                    <li>Tuned parameters and comparison metrics are output to <code>tuned_hyperparams.json</code> and
+                        <code>comparison_results.json</code> at the repository root for reproducibility.
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+    </main>
+
+    <div id="lightbox">
+        <button id="lb-close">✕</button>
+        <img id="lb-img" src="" alt="">
+    </div>
+
+    <footer>
+        <p>Project by <strong>DNAC1</strong> | For Machine Learning Coursework</p>
+    </footer>
+
+    <script>
+        (function () {
+            const lb = document.getElementById('lightbox');
+            const lbImg = document.getElementById('lb-img');
+            const closeBtn = document.getElementById('lb-close');
+
+            function open(src, alt) {
+                lbImg.src = src;
+                lbImg.alt = alt || '';
+                lb.style.display = 'flex';
+            }
+
+            function close() {
+                lb.style.display = 'none';
+                lbImg.src = '';
+            }
+
+            document.querySelectorAll('.preview-img, #img-comparison').forEach(el => {
+                el && el.addEventListener('click', () => open(el.src, el.alt));
+            });
+
+            closeBtn.addEventListener('click', close);
+            lb.addEventListener('click', (e) => {
+                if (e.target === lb) close();
+            });
+        })();
+    </script>
+
+</body>
+
+</html>

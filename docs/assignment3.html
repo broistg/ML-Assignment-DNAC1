@@ -1,149 +1,345 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Assignment 3 — ML-Assignment-DNAC1</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assignment 3 — Image Data Pipeline</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+
     <style>
-        body {
-            font-family: Inter, system-ui, Arial;
-            background: #071026;
-            color: #e6eef8;
-            padding: 28px
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1e40af;
+            --secondary: #f1f5f9;
+            --text-main: #0f1724;
+            --text-muted: #64748b;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --success: #10b981;
         }
 
-        a {
-            color: #7c3aed
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text-main);
+            line-height: 1.6
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, #4f46e5 100%);
+            color: white;
+            padding: 64px 0 44px;
+            margin-bottom: 32px;
+            border-radius: 0 0 28px 28px;
+            box-shadow: 0 10px 25px -8px rgba(37, 99, 235, 0.18);
+        }
+
+        h1 {
+            font-size: 2.4rem;
+            font-weight: 800;
+            margin-bottom: 8px
+        }
+
+        .subtitle {
+            font-size: 1.05rem;
+            opacity: .95;
+            max-width: 700px
+        }
+
+        .btn {
+            display: inline-block;
+            background: white;
+            color: var(--primary);
+            padding: 10px 18px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600
+        }
+
+        section {
+            margin-bottom: 40px
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            color: var(--primary-dark);
+            border-left: 5px solid var(--primary);
+            padding-left: 12px;
+            margin-bottom: 16px
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px
         }
 
         .card {
-            background: #0b1220;
-            padding: 18px;
+            background: var(--card-bg);
             border-radius: 12px;
-            max-width: 900px
+            padding: 18px;
+            box-shadow: 0 6px 18px rgba(16, 24, 40, 0.06)
+        }
+
+        .img-placeholder {
+            width: 100%;
+            height: 180px;
+            background: #eef2ff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            border-radius: 8px;
+            overflow: hidden
+        }
+
+        .full-width-img {
+            height: 320px
+        }
+
+        .metrics-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden
+        }
+
+        .metrics-table th,
+        .metrics-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #eef2ff
+        }
+
+        .metrics-table th {
+            background: var(--secondary);
+            color: var(--primary-dark)
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: .85rem;
+            font-weight: 700
+        }
+
+        .tag-model {
+            background: #dbeafe;
+            color: #1e40af
+        }
+
+        .tag-score {
+            background: #d1fae5;
+            color: #065f46
+        }
+
+        footer {
+            text-align: center;
+            padding: 36px;
+            color: var(--text-muted);
+            border-top: 1px solid #eef2ff
+        }
+
+        /* Lightbox */
+        #lightbox {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(2, 6, 23, 0.78);
+            justify-content: center;
+            align-items: center;
+            z-index: 999;
+            padding: 20px
+        }
+
+        #lb-img {
+            max-width: 100%;
+            max-height: 90%;
+            border-radius: 10px
+        }
+
+        #lb-close {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            background: transparent;
+            border: none;
+            color: #fff;
+            font-size: 22px;
+            cursor: pointer
         }
     </style>
 </head>
 
 <body>
-    <div class="card">
-        <header style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
-            <h1 style="margin:0">Assignment 3 — Image Data Pipeline</h1>
-            <a href="index.html" style="color:#d9e6f6;text-decoration:none;opacity:0.9">← Back to Home</a>
-        </header>
 
-        <section style="margin-top:14px">
-            <p style="margin:0 0 8px 0">This page documents the image-data assignment: Exploratory Data Analysis (EDA),
-                feature extraction with pretrained deep models, the traditional classification pipeline using extracted
-                features, and comparison of results. Code is available in the provided notebooks; this page focuses on
-                visual summaries and results (no raw code shown).</p>
+    <header>
+        <div class="container">
+            <h1>Assignment 3 — Image Data Pipeline</h1>
+            <p class="subtitle">Visual summary for feature extraction, traditional classifiers and comparison results.
+            </p>
+            <a href="https://github.com/broistg/ML-Assignment-DNAC1" class="btn">View on GitHub →</a>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <section>
+            <h2 class="section-title">1. Dataset Overview & EDA</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3>Dataset summary</h3>
+                    <p>CIFAR-10 images, class distribution, and typical preprocessing (resize, normalization).</p>
+                    <ul style="margin-top:8px;color:var(--text-muted)">
+                        <li>Train / Val / Test splits used in the notebooks</li>
+                        <li>Sample images and per-class counts</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3>EDA visuals</h3>
+                    <div class="img-placeholder full-width-img">
+                        <img src="assets/assignment3/assignment3_samples.png" alt="Sample images">
+                    </div>
+                </div>
+            </div>
         </section>
 
-        <section style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px">
-            <div style="background:rgba(255,255,255,0.02);padding:12px;border-radius:10px">
-                <h3 style="margin-top:0">1) Dataset Overview & EDA</h3>
-                <ul style="margin:6px 0 0 18px">
-                    <li>Image sizes, number of channels, class distribution</li>
-                    <li>Samples per class and dataset splits (train/val/test)</li>
-                    <li>Visual sample grid (random images per class)</li>
+        <section>
+            <h2 class="section-title">2. Feature Extraction</h2>
+            <div class="card">
+                <div style="display:flex;gap:18px;flex-wrap:wrap;align-items:flex-start">
+                    <div style="flex:1">
+                        <h3>Extracted deep features</h3>
+                        <p>Pretrained backbones (ResNet50, VGG16, EfficientNet, ViT, Swin) produce feature vectors
+                            stored
+                            per split. These are used by downstream traditional classifiers.</p>
+                        <ul style="margin-top:8px;color:var(--text-muted)">
+                            <li>Configurable resize (default 224)</li>
+                            <li>Saved per-model in `features/{model}/train_features.npz`</li>
+                        </ul>
+                    </div>
+                    <div style="flex:1.2">
+                        <div class="img-placeholder">
+                            <img src="assets/assignment3/assignment3_label_dist.png" alt="Label distribution">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="section-title">3. Traditional ML Pipeline</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3>Pipeline steps</h3>
+                    <ol style="margin-top:8px;color:var(--text-muted)">
+                        <li>Load saved features (train/val/test)</li>
+                        <li>Standardize (mean/std) and optional PCA</li>
+                        <li>Train classifiers: LogisticRegression, SVM, RandomForest, k-NN, MLP</li>
+                        <li>Evaluate on test: accuracy, classification report, confusion matrix</li>
+                    </ol>
+                </div>
+
+                <div class="card">
+                    <h3>Key comparison</h3>
+                    <p style="color:var(--text-muted)">Main comparison plot (accuracy by feature-extractor ×
+                        classifier).</p>
+                    <div style="margin-top:12px;text-align:center">
+                        <img id="img-comparison" src="assets/assignment3/assignment3_comparison.png" alt="Comparison"
+                            style="width:100%;max-height:360px;object-fit:contain;border-radius:8px;cursor:pointer">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="section-title">4. Gallery & Additional Visuals</h2>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+                <div class="card" style="text-align:center">
+                    <img class="preview-img" src="assets/assignment3/assignment3_training_curve.png" alt="Training"
+                        style="width:100%;height:220px;object-fit:contain;border-radius:8px;cursor:pointer">
+                    <p style="margin-top:8px;color:var(--text-muted)">Training curves (accuracy & loss)</p>
+                </div>
+                <div class="card" style="text-align:center">
+                    <img class="preview-img" src="assets/assignment3/assignment3_tsne.png" alt="tSNE"
+                        style="width:100%;height:220px;object-fit:contain;border-radius:8px;cursor:pointer">
+                    <p style="margin-top:8px;color:var(--text-muted)">Feature-space (t-SNE / UMAP)</p>
+                </div>
+            </div>
+            <div style="margin-top:12px;display:flex;gap:12px;flex-wrap:wrap">
+                <img class="small-thumb" src="assets/assignment3/assignment3_confusion.png" alt="Confusion"
+                    style="width:220px;height:140px;object-fit:contain;border-radius:8px;cursor:pointer">
+                <img class="small-thumb" src="assets/assignment3/assignment3_inference_scatter.png"
+                    alt="Inference vs Acc"
+                    style="width:220px;height:140px;object-fit:contain;border-radius:8px;cursor:pointer">
+            </div>
+        </section>
+
+        <section>
+            <h2 class="section-title">5. Notes & Notebooks</h2>
+            <div class="card">
+                <h4>Quick info</h4>
+                <ul style="margin-top:8px;color:var(--text-muted)">
+                    <li>Resize: configurable (default 224)</li>
+                    <li>Backbones: ResNet / VGG / EfficientNet / ViT / Swin</li>
+                    <li>Saved features: <code>features/{model}/train_features.npz</code></li>
                 </ul>
-                <p style="margin-top:8px;color:#bfcbd9;font-size:13px">Place EDA images below (see image filenames in
-                    the assets README).</p>
-            </div>
 
-            <div style="background:rgba(255,255,255,0.02);padding:12px;border-radius:10px">
-                <h3 style="margin-top:0">2) Feature Extraction (Deep Features)</h3>
-                <p style="margin:6px 0;color:#d9e6f6;font-size:14px">We extract image feature vectors using pretrained
-                    backbones (examples: ResNet50, VGG16, EfficientNet, ViT, Swin). Extracted features are stored for
-                    downstream classifiers.</p>
-                <ul style="margin:6px 0 0 18px">
-                    <li>Configurable resize (e.g., 224)</li>
-                    <li>Choice of pretrained extractor</li>
-                    <li>Saved feature files: <strong>NPZ/NPY/HDF5</strong></li>
+                <h4 style="margin-top:12px">Notebooks</h4>
+                <ul style="margin-top:8px;color:var(--text-muted)">
+                    <li><a href="https://colab.research.google.com/github/broistg/ML-Assignment-DNAC1/blob/main/notebooks/BTL3_traditional.ipynb"
+                            target="_blank">Traditional (extract → classifiers)</a></li>
+                    <li><a href="https://colab.research.google.com/github/broistg/ML-Assignment-DNAC1/blob/main/notebooks/BTL3_deep_learning.ipynb"
+                            target="_blank">Deep-learning (end-to-end)</a></li>
                 </ul>
+                <p style="margin-top:10px;color:var(--text-muted)">If an image is missing, run notebook cells to export
+                    the plot and paste it into <code>docs/assets/assignment3/</code>.</p>
             </div>
         </section>
 
-        <section style="margin-top:14px">
-            <h3 style="margin-bottom:8px">Gallery / Placeholders</h3>
-            <div style="display:flex;gap:12px;flex-wrap:wrap">
-                <figure style="flex:1 1 280px;background:var(--card);padding:8px;border-radius:10px;text-align:center">
-                    <img src="assets/assignment3/assignment3_samples.png" alt="Sample images grid"
-                        style="max-width:100%;height:auto;border-radius:8px;border:1px solid rgba(255,255,255,0.03)">
-                    <figcaption style="font-size:13px;color:var(--muted);margin-top:8px">Sample grid (paste your sample
-                        images here)</figcaption>
-                </figure>
+    </main>
 
-                <figure style="flex:1 1 280px;background:var(--card);padding:8px;border-radius:10px;text-align:center">
-                    <img src="assets/assignment3/assignment3_label_dist.png" alt="Label distribution"
-                        style="max-width:100%;height:auto;border-radius:8px;border:1px solid rgba(255,255,255,0.03)">
-                    <figcaption style="font-size:13px;color:var(--muted);margin-top:8px">Label distribution / class
-                        counts</figcaption>
-                </figure>
-
-                <figure style="flex:1 1 280px;background:var(--card);padding:8px;border-radius:10px;text-align:center">
-                    <img src="assets/assignment3/assignment3_confusion.png" alt="Confusion matrix"
-                        style="max-width:100%;height:auto;border-radius:8px;border:1px solid rgba(255,255,255,0.03)">
-                    <figcaption style="font-size:13px;color:var(--muted);margin-top:8px">Confusion matrix (example
-                        results)</figcaption>
-                </figure>
-            </div>
-        </section>
-
-        <section style="margin-top:18px;display:grid;grid-template-columns:1fr 1fr;gap:12px">
-            <div class="card" style="background:transparent;padding:0">
-                <h3 style="margin-top:0">3) Traditional ML Pipeline (using deep features)</h3>
-                <ol style="margin:6px 0 0 18px">
-                    <li>Load saved features (train/val/test)</li>
-                    <li>Standardize (mean/std) and optional PCA</li>
-                    <li>Train classifiers: Logistic Regression, SVM, Random Forest, k-NN, MLP</li>
-                    <li>Evaluate on test set: accuracy, precision, recall, F1, confusion matrix</li>
-                </ol>
-            </div>
-
-            <div class="card" style="background:transparent;padding:0">
-                <h3 style="margin-top:0">4) Results & Comparison</h3>
-                <p style="margin:6px 0;color:#d9e6f6">Compare performance across feature extractors and classifiers.
-                    Recommended visualizations:</p>
-                <ul style="margin:6px 0 0 18px">
-                    <li>Bar chart of accuracy by (feature extractor × classifier)</li>
-                    <li>Inference time vs accuracy scatter</li>
-                    <li>Confusion matrices for best models</li>
-                </ul>
-            </div>
-        </section>
-
-        <section style="margin-top:16px">
-            <h3 style="margin:0 0 8px 0">Notebook Links</h3>
-            <p style="margin:0 0 12px 0">Open the experiments and code in Colab or locally:</p>
-            <ul>
-                <li><a href="https://colab.research.google.com/github/broistg/ML-Assignment-DNAC1/blob/main/notebooks/BTL3_traditional.ipynb"
-                        target="_blank" rel="noopener">Traditional pipeline (feature extraction → classifiers)</a></li>
-                <li><a href="https://colab.research.google.com/github/broistg/ML-Assignment-DNAC1/blob/main/notebooks/BTL3_deep_learning.ipynb"
-                        target="_blank" rel="noopener">Deep-learning notebook (end-to-end experiments / feature
-                        extractors)</a></li>
-            </ul>
-        </section>
-
-        <section style="margin-top:14px">
-            <h3 style="margin:0 0 8px 0">How to add your images</h3>
-            <p style="margin:0 0 8px 0;color:#bfcbd9">Paste or upload the image files into <code
-                    style="background:rgba(255,255,255,0.02);padding:2px 6px;border-radius:6px">docs/assets/assignment3/</code>
-                with the filenames listed in the assets README. Refresh this page to see them appear.</p>
-        </section>
-
-        <section style="margin-top:14px">
-            <h3 style="margin:0 0 8px 0">Suggested additional visuals</h3>
-            <ul>
-                <li>Training curves (accuracy & loss) for top models.</li>
-                <li>Per-class precision / recall bar chart.</li>
-                <li>Feature-space visualization (t-SNE / UMAP) of extracted features colored by class.</li>
-            </ul>
-            <p style="margin-top:8px;color:#bfcbd9">If you want, I can add placeholders for these and the necessary
-                HTML/CSS to display them; tell me which images you'll paste and I'll update the page accordingly.</p>
-        </section>
+    <div id="lightbox">
+        <button id="lb-close">✕</button>
+        <img id="lb-img" src="" alt="">
     </div>
+
+    <footer>
+        <div class="container">
+            <p>Project by <strong>[Your Name]</strong> | For Machine Learning Coursework</p>
+        </div>
+    </footer>
+
+    <script>
+        (function () {
+            const lb = document.getElementById('lightbox');
+            const lbImg = document.getElementById('lb-img');
+            const closeBtn = document.getElementById('lb-close');
+            function open(src, alt) { lbImg.src = src; lbImg.alt = alt || ''; lb.style.display = 'flex'; }
+            function close() { lb.style.display = 'none'; lbImg.src = ''; }
+            document.querySelectorAll('.preview-img, .small-thumb, #img-comparison').forEach(el => {
+                el && el.addEventListener('click', () => open(el.src, el.alt));
+            });
+            closeBtn.addEventListener('click', close);
+            lb.addEventListener('click', (e) => { if (e.target === lb) close(); });
+        })();
+    </script>
 </body>
 
 </html>

@@ -225,92 +225,130 @@
             <div class="card">
                 <div style="display:flex;gap:18px;flex-wrap:wrap;align-items:flex-start">
                     <div style="flex:1">
-                        <h3>Extracted deep features</h3>
-                        <p>Pretrained backbones (ResNet50, VGG16, EfficientNet, ViT, Swin) produce feature vectors
-                            stored
-                            per split. These are used by downstream traditional classifiers.</p>
-                        <ul style="margin-top:8px;color:var(--text-muted)">
-                            <li>Configurable resize (default 224)</li>
-                            <li>Saved per-model in `features/{model}/train_features.npz`</li>
-                        </ul>
+                        <section>
+                            <h2 class="section-title">1. Dataset Overview & EDA</h2>
+                            <div class="grid">
+                                <div class="card">
+                                    <h3>Sample images</h3>
+                                    <div class="img-placeholder">
+                                        <img src="assets/assignment3/assignment3_samples.png" alt="Sample images"
+                                            style="width:100%;height:100%;object-fit:cover">
+                                    </div>
+                                    <p style="margin-top:10px;color:var(--text-muted)">Random sample grid from the
+                                        dataset (used in EDA).</p>
+                                </div>
+
+                                <div class="card">
+                                    <h3>Label distribution</h3>
+                                    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px">
+                                        <div style="flex:1;text-align:center">
+                                            <img class="preview-img"
+                                                src="assets/assignment3/assignment3_label_dist_train.png"
+                                                alt="Train label distribution"
+                                                style="width:100%;height:140px;object-fit:contain;cursor:pointer;border-radius:6px">
+                                            <div style="margin-top:6px;color:var(--text-muted)">Train</div>
+                                        </div>
+                                        <div style="flex:1;text-align:center">
+                                            <img class="preview-img"
+                                                src="assets/assignment3/assignment3_label_dist_val.png"
+                                                alt="Val label distribution"
+                                                style="width:100%;height:140px;object-fit:contain;cursor:pointer;border-radius:6px">
+                                            <div style="margin-top:6px;color:var(--text-muted)">Validation</div>
+                                        </div>
+                                        <div style="flex:1;text-align:center">
+                                            <img class="preview-img"
+                                                src="assets/assignment3/assignment3_label_dist_test.png"
+                                                alt="Test label distribution"
+                                                style="width:100%;height:140px;object-fit:contain;cursor:pointer;border-radius:6px">
+                                            <div style="margin-top:6px;color:var(--text-muted)">Test</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <section>
+                            <h2 class="section-title">2. Model Comparison & Inference Metrics</h2>
+                            <div class="grid">
+                                <div class="card">
+                                    <h3>Model comparison (with PCA options)</h3>
+                                    <p style="color:var(--text-muted)">Comparison of feature extractors and classifier
+                                        combinations. Two variants shown: with and without PCA.</p>
+                                    <div style="margin-top:12px;text-align:center">
+                                        <img id="img-comparison" src="assets/assignment3/assignment3_comparison_pca.png"
+                                            alt="Comparison with PCA"
+                                            style="width:100%;max-height:360px;object-fit:contain;border-radius:8px;cursor:pointer">
+                                        <p style="margin-top:8px;color:var(--text-muted)">Comparison (PCA)</p>
+                                        <img id="img-comparison-no-pca"
+                                            src="assets/assignment3/assignment3_comparison_no_pca.png"
+                                            alt="Comparison without PCA"
+                                            style="width:100%;max-height:360px;object-fit:contain;border-radius:8px;cursor:pointer;margin-top:10px">
+                                        <p style="margin-top:6px;color:var(--text-muted)">Comparison (no PCA)</p>
+                                    </div>
+                                </div>
+
+                                <div class="card">
+                                    <h3>Inference time vs Accuracy — Traditional classifiers</h3>
+                                    <p style="color:var(--text-muted)">Two plots focusing on traditional classifiers
+                                        (SVM, LogisticRegression, RandomForest, k-NN, MLP):</p>
+                                    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:10px">
+                                        <div style="flex:1;text-align:center">
+                                            <img class="preview-img"
+                                                src="assets/assignment3/assignment3_inference_scatter_traditional.png"
+                                                alt="Inference scatter traditional"
+                                                style="width:100%;height:180px;object-fit:contain;border-radius:6px;cursor:pointer">
+                                            <div style="margin-top:6px;color:var(--text-muted)">Inference time vs
+                                                Accuracy (scatter)</div>
+                                        </div>
+                                        <div style="flex:1;text-align:center">
+                                            <img class="preview-img"
+                                                src="assets/assignment3/assignment3_inference_bar_traditional.png"
+                                                alt="Inference bar traditional"
+                                                style="width:100%;height:180px;object-fit:contain;border-radius:6px;cursor:pointer">
+                                            <div style="margin-top:6px;color:var(--text-muted)">Per-classifier summary
+                                                (bar)</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <section>
+                            <h2 class="section-title">3. Deep-learning pipeline — Confusion Matrix</h2>
+                            <div class="card">
+                                <h3>EfficientNet-B0 — Test confusion matrix</h3>
+                                <p style="color:var(--text-muted)">Confusion matrix produced by the deep-learning
+                                    pipeline using EfficientNet-B0.</p>
+                                <div style="margin-top:12px;text-align:center">
+                                    <img class="preview-img"
+                                        src="assets/assignment3/assignment3_confusion_efficientnet_b0.png"
+                                        alt="EfficientNet-B0 confusion matrix"
+                                        style="width:80%;max-height:420px;object-fit:contain;border-radius:8px;cursor:pointer">
+                                </div>
+                            </div>
+                        </section>
+
+                        <section>
+                            <h2 class="section-title">4. Additional Visuals</h2>
+                            <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+                                <div class="card" style="text-align:center">
+                                    <img class="preview-img" src="assets/assignment3/assignment3_training_curve.png"
+                                        alt="Training"
+                                        style="width:100%;height:220px;object-fit:contain;border-radius:8px;cursor:pointer">
+                                    <p style="margin-top:8px;color:var(--text-muted)">Training curves (accuracy & loss)
+                                    </p>
+                                </div>
+                                <div class="card" style="text-align:center">
+                                    <img class="preview-img" src="assets/assignment3/assignment3_tsne.png" alt="tSNE"
+                                        style="width:100%;height:220px;object-fit:contain;border-radius:8px;cursor:pointer">
+                                    <p style="margin-top:8px;color:var(--text-muted)">Feature-space (t-SNE / UMAP)</p>
+                                </div>
+                            </div>
+                        </section>
+                        <p style="margin-top:10px;color:var(--text-muted)">If an image is missing, run notebook cells to
+                            export
+                            the plot and paste it into <code>docs/assets/assignment3/</code>.</p>
                     </div>
-                    <div style="flex:1.2">
-                        <div class="img-placeholder">
-                            <img src="assets/assignment3/assignment3_label_dist.png" alt="Label distribution">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section>
-            <h2 class="section-title">3. Traditional ML Pipeline</h2>
-            <div class="grid">
-                <div class="card">
-                    <h3>Pipeline steps</h3>
-                    <ol style="margin-top:8px;color:var(--text-muted)">
-                        <li>Load saved features (train/val/test)</li>
-                        <li>Standardize (mean/std) and optional PCA</li>
-                        <li>Train classifiers: LogisticRegression, SVM, RandomForest, k-NN, MLP</li>
-                        <li>Evaluate on test: accuracy, classification report, confusion matrix</li>
-                    </ol>
-                </div>
-
-                <div class="card">
-                    <h3>Key comparison</h3>
-                    <p style="color:var(--text-muted)">Main comparison plot (accuracy by feature-extractor ×
-                        classifier).</p>
-                    <div style="margin-top:12px;text-align:center">
-                        <img id="img-comparison" src="assets/assignment3/assignment3_comparison.png" alt="Comparison"
-                            style="width:100%;max-height:360px;object-fit:contain;border-radius:8px;cursor:pointer">
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section>
-            <h2 class="section-title">4. Gallery & Additional Visuals</h2>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
-                <div class="card" style="text-align:center">
-                    <img class="preview-img" src="assets/assignment3/assignment3_training_curve.png" alt="Training"
-                        style="width:100%;height:220px;object-fit:contain;border-radius:8px;cursor:pointer">
-                    <p style="margin-top:8px;color:var(--text-muted)">Training curves (accuracy & loss)</p>
-                </div>
-                <div class="card" style="text-align:center">
-                    <img class="preview-img" src="assets/assignment3/assignment3_tsne.png" alt="tSNE"
-                        style="width:100%;height:220px;object-fit:contain;border-radius:8px;cursor:pointer">
-                    <p style="margin-top:8px;color:var(--text-muted)">Feature-space (t-SNE / UMAP)</p>
-                </div>
-            </div>
-            <div style="margin-top:12px;display:flex;gap:12px;flex-wrap:wrap">
-                <img class="small-thumb" src="assets/assignment3/assignment3_confusion.png" alt="Confusion"
-                    style="width:220px;height:140px;object-fit:contain;border-radius:8px;cursor:pointer">
-                <img class="small-thumb" src="assets/assignment3/assignment3_inference_scatter.png"
-                    alt="Inference vs Acc"
-                    style="width:220px;height:140px;object-fit:contain;border-radius:8px;cursor:pointer">
-            </div>
-        </section>
-
-        <section>
-            <h2 class="section-title">5. Notes & Notebooks</h2>
-            <div class="card">
-                <h4>Quick info</h4>
-                <ul style="margin-top:8px;color:var(--text-muted)">
-                    <li>Resize: configurable (default 224)</li>
-                    <li>Backbones: ResNet / VGG / EfficientNet / ViT / Swin</li>
-                    <li>Saved features: <code>features/{model}/train_features.npz</code></li>
-                </ul>
-
-                <h4 style="margin-top:12px">Notebooks</h4>
-                <ul style="margin-top:8px;color:var(--text-muted)">
-                    <li><a href="https://colab.research.google.com/github/broistg/ML-Assignment-DNAC1/blob/main/notebooks/BTL3_traditional.ipynb"
-                            target="_blank">Traditional (extract → classifiers)</a></li>
-                    <li><a href="https://colab.research.google.com/github/broistg/ML-Assignment-DNAC1/blob/main/notebooks/BTL3_deep_learning.ipynb"
-                            target="_blank">Deep-learning (end-to-end)</a></li>
-                </ul>
-                <p style="margin-top:10px;color:var(--text-muted)">If an image is missing, run notebook cells to export
-                    the plot and paste it into <code>docs/assets/assignment3/</code>.</p>
-            </div>
         </section>
 
     </main>

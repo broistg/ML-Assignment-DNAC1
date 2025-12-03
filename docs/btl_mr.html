@@ -114,7 +114,7 @@
                 <h3>Phoneme Frequency Distribution</h3>
                 <p>Significant class imbalance is observed: <strong>sil</strong>, <strong>ih</strong>, <strong>n</strong> dominate the dataset. This motivates balancing strategies in HMM training.</p>
                 <div class="img-placeholder">
-                    <img src="images/btl_mr/phon_dist.png" alt="Phoneme Distribution">
+                    <img src="assets/btl_mr/phon_dist.png" alt="Phoneme Distribution">
                 </div>
             </div>
         </div>
@@ -137,7 +137,7 @@
 
                 <div style="flex: 1.5;">
                     <div class="img-placeholder">
-                        <img src="images/btl_mr/raw.png" alt="Raw Audio Waveform">
+                        <img src="assets/btl_mr/raw.png" alt="Raw Audio Waveform">
                     </div>
                 </div>
 
@@ -160,7 +160,7 @@
 
                 <div style="flex: 1.5;">
                     <div class="img-placeholder">
-                        <img src="images/btl_mr/MFCC.png" alt="MFCC Spectrogram">
+                        <img src="assets/btl_mr/MFCC.png" alt="MFCC Spectrogram">
                     </div>
                 </div>
 
@@ -185,7 +185,7 @@
                 <li>Each state can only move to itself or the next state.</li>
                 <li>However, /sil/ phoneme is modelled with 5 states to capture its longer duration.</li>
             </ul>
-            <div class="img-placeholder" style="margin-top: 20px; height: fit-content;"><img src="images/btl_mr/hmm_chart.png"></div>
+            <div class="img-placeholder" style="margin-top: 20px; height: fit-content;"><img src="assets/btl_mr/hmm_chart.png"></div>
         </div>
 
         <div class="grid">
@@ -216,13 +216,13 @@
             <div class="card" style="height: fit-content;">
                 <h3>EM Convergence Curve</h3>
                 <p>Baum-Welch expectation-maximization increases log-likelihood monotonically.</p>
-                <div class="img-placeholder" style="height: fit-content;"><img src="images/btl_mr/BM_converge.png"></div>
+                <div class="img-placeholder" style="height: fit-content;"><img src="assets/btl_mr/BM_converge.png"></div>
             </div>
 
             <div class="card" style="height: fit-content;">
                 <h3>Confusion Matrix</h3>
                 <p>Most confusions occur between phonetically similar pairs (e.g., /z/->/s/, /jh/->/ch/, /uh/->/ah/).</p>
-                <div class="img-placeholder" style="height: fit-content;"><img src="images/btl_mr/CM_norm.png"></div>
+                <div class="img-placeholder" style="height: fit-content;"><img src="assets/btl_mr/CM_norm.png"></div>
             </div>
 
         </div>
@@ -273,7 +273,7 @@
             </ul>
 
             <div class="img-placeholder" style="height: fit-content;">
-                <img src="images/btl_mr/top_confused.png"/>
+                <img src="assets/btl_mr/top_confused.png"/>
             </div>
         </div>
     </section>

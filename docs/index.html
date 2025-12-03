@@ -274,6 +274,59 @@
       background: transparent;
       border: 1px solid rgba(255, 255, 255, 0.06)
     }
+
+    /* Assignment buttons (top of page) */
+    :root {
+      --pastel-tabular: #d7f3e3;
+      --pastel-text: #ffe6ef;
+      --pastel-image: #e6f2ff;
+      --assign-text: #07202a;
+    }
+
+    .assignments-row {
+      display: flex;
+      gap: 12px;
+      margin: 18px 0 6px 0;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .assign-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 14px;
+      color: var(--assign-text);
+      box-shadow: 0 6px 18px rgba(2, 6, 23, 0.12);
+      transition: transform .12s ease, box-shadow .12s ease;
+    }
+
+    .assign-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 22px rgba(2, 6, 23, 0.16);
+    }
+
+    .assign-btn--tabular {
+      background: var(--pastel-tabular);
+    }
+
+    .assign-btn--text {
+      background: var(--pastel-text);
+    }
+
+    .assign-btn--image {
+      background: var(--pastel-image);
+    }
+
+    @media (max-width:920px) {
+      .assignments-row {
+        justify-content: center;
+      }
+    }
   </style>
 </head>
 
@@ -289,6 +342,18 @@
       </div>
       <!-- Header nav removed; Table of Contents moved to the right sidebar as a sticky card -->
     </header>
+    <!-- Assignment quick-links: Tabular / Text / Image -->
+    <div class="assignments-row" role="navigation" aria-label="Assignment quick links">
+      <a class="assign-btn assign-btn--tabular" href="assignment1.html" title="Tabular — Assignment 1">
+        Tabular · Assignment 1
+      </a>
+      <a class="assign-btn assign-btn--text" href="assignment2.html" title="Text — Assignment 2">
+        Text · Assignment 2
+      </a>
+      <a class="assign-btn assign-btn--image" href="assignment3.html" title="Image — Assignment 3">
+        Image · Assignment 3
+      </a>
+    </div>
 
     <main class="grid">
       <!-- left column removed; TOC will be on the right -->

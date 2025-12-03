@@ -1,39 +1,299 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Assignment 2 — ML-Assignment-DNAC1</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>20 News Group | Assignment 2</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="icon" href="logo.ico" type="image/x-icon">
+
     <style>
-        body {
-            font-family: Inter, system-ui, Arial;
-            background: #071026;
-            color: #e6eef8;
-            padding: 28px
+        /* ======= (same CSS as your original — unchanged) ======= */
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1e40af;
+            --secondary: #f1f5f9;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --success: #10b981;
         }
-
-        a {
-            color: #7c3aed
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background-color: var(--bg); color: var(--text-main); line-height: 1.6; }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+        header {
+            background: linear-gradient(135deg, #2563eb 0%, #4f46e5 100%);
+            color: white;
+            padding: 80px 0 60px;
+            margin-bottom: 40px;
+            border-radius: 0 0 40px 40px;
+            box-shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.2);
         }
-
+        h1 { font-size: 3rem; font-weight: 800; margin-bottom: 15px; letter-spacing: -1px; }
+        .subtitle { font-size: 1.25rem; opacity: 0.9; max-width: 600px; }
+        .btn {
+            display: inline-block;
+            background: white; color: var(--primary);
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 25px; transition: 0.2s;
+        }
+        .btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+        section { margin-bottom: 60px; }
+        .section-title {
+            font-size: 1.8rem; margin-bottom: 25px;
+            color: var(--primary-dark);
+            border-left: 5px solid var(--primary);
+            padding-left: 15px;
+        }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px,1fr)); gap: 25px; }
         .card {
-            background: #0b1220;
-            padding: 18px;
-            border-radius: 12px;
-            max-width: 900px
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: 0.2s;
         }
+        .card:hover { transform: translateY(-3px); }
+        .img-placeholder { width: 100%; height: 300px; background: #e2e8f0;
+            display: flex; align-items: center; justify-content: center; color: var(--text-muted); font-weight: 600;
+            border-radius: 8px; overflow: hidden;
+        }
+        .img-placeholder img { width: 100%; height: 100%; object-fit: cover; }
+        .full-width-img { height: 350px; }
+        .metrics-table {
+            width: 100%; border-collapse: collapse;
+            background: white; border-radius: 12px; overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+        .metrics-table th, .metrics-table td {
+            padding: 15px; text-align: left; border-bottom: 1px solid #e2e8f0;
+        }
+        code {font-size: 1.2em;} 
+        .metrics-table th { background: var(--secondary); color: var(--primary-dark); }
+        .tag { display:inline-block; padding:4px 8px; border-radius:4px; font-size:0.8rem; font-weight:600;}
+        .tag-model { background:#dbeafe; color:#1e40af;}
+        .tag-score { background:#d1fae5; color:#065f46;}
+        footer { text-align:center; padding:40px; color:var(--text-muted); border-top:1px solid #e2e8f0; }
     </style>
 </head>
 
 <body>
-    <div class="card">
-        <h1>Assignment 2</h1>
-        <p>This page corresponds to <strong>Assignment 2</strong>. Add the assignment details here.</p>
-        <p>
-            <a href="index.html">← Back to Home</a>
-        </p>
-    </div>
-</body>
 
+<header>
+    <div class="container">
+        <h1>20 Newsgroups</h1>
+        <p class="subtitle">Classify newsgroup posts into 20 categories based on text content</p>
+        <a href="https://github.com/broistg/ML-Assignment-DNAC1" class="btn">View on GitHub →</a>
+    </div>
+</header>
+
+<main class="container">
+
+    <!-- =============================================================== -->
+    <!-- 1. Exploratory Data Analysis                                    -->
+    <!-- =============================================================== -->
+
+    <section>
+        <h2 class="section-title">1. Exploratory Data Analysis</h2>
+
+        <div class="grid">
+            <div class="card">
+                <h3>Dataset Overview</h3>
+                <p>20 Newsgroups dataset contains text posts from 20 different newsgroups. Each record includes the text of a post and its corresponding category label.</p>
+                <ul style="margin-left: 20px; color: var(--text-muted);">
+                    <li>18,846 instances</li>
+                    <li>20 category labels (e.g., <code>comp.graphics</code>, <code>rec.sport.hockey</code>, etc.)</li>
+                    <li>Data type: text (<code>raw text of posts</code>)</li>
+                    <li>Target: category label (<code>0-19</code>)</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h3>Category Distribution</h3>
+                <p>The dataset is relatively balanced, with no label overwhelmingly dominating the others.</p>
+                <div class="img-placeholder">
+                    <img src="assets/assignment2/label.png" alt="Label Distribution">
+                </div>
+            </div>
+        </div>
+
+        <div class="grid">
+            <div class="card">
+                <h3>Document Length Distribution</h3>
+                <p>The document lengths are highly variable, with many short posts and a few extremely long ones, resulting in a right-skewed distribution.</p>
+                <div class="img-placeholder">
+                    <img src="assets/assignment2/doc_length.png" alt="Doc-Length Distribution">
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>Frequent Words</h3>
+                <p>The chart shows the 20 most frequent words in the dataset including stop words. Most of these are common words like <code>the</code>, <code>to</code>, <code>of</code>, which carry little semantic meaning for classification.</p>
+                <img src="assets/assignment2/top20.png" alt="Top20 Distribution" width="450" height="auto">
+            </div>
+        </div>
+    </section>
+
+
+    <!-- =============================================================== -->
+    <!-- 2. Data Preprocessing                                        -->
+    <!-- =============================================================== -->
+
+    <section>
+        <h2 class="section-title">2. Data Preprocessing</h2>
+
+        <div class="card">
+            <div style="display: flex; flex-wrap: wrap; gap: 20px;">
+
+                <div style="flex: 1;">
+                    <p style="margin-top:10px;"><strong>Tokenization & Stop Words:</strong></p>
+                    <ul style="margin-left: 20px; color: var(--text-muted);">
+                        <li><p><strong>Token:</strong> the way text is split into tokens (<code>word</code>, <code>char</code>)</p></li>
+                        <li><p><strong>Stop Words:</strong> removal of stop words can be enabled or disabled (<code>True/False</code>).</p></li>
+                    </ul>
+                </div>
+
+                <div style="flex: 1;">
+                    <p style="margin-top:10px;"><strong>N-grams</strong></p>
+                    <p>The n-gram range can be changed, e.g., <code>(1,1)</code> for unigrams, <code>(1,2)</code> for unigrams + bigrams, <code>(1,3)</code> for unigrams + bigrams + trigrams.</p>
+                </div>
+
+            </div>
+        </div>
+        <div class="card">
+            <p style="margin-top:10px;"><strong>Vectorizer:</strong></p>
+            <ul style="margin-left: 20px; color: var(--text-muted);">
+                <li><p>Can choose between TF-IDF or Bag-of-Words (<code>CountVectorizer</code>)</p></li>
+                <li><p><strong>Maximum features:</strong> limit the vocabulary size, e.g., <code>5000</code>, <code>10000</code></p></li>
+            </ul>
+        </div>
+
+    </section>
+
+
+    <!-- =============================================================== -->
+    <!-- 3. Machine Learning Models                                            -->
+    <!-- =============================================================== -->
+
+    <section>
+        <h2 class="section-title">3. Machine Learning Models</h2>
+
+        <div class="grid">
+
+            <div class="card">
+                <h3>Models</h3>
+                <p>Several traditional machine learning algorithms were trained and evaluated on the dataset:</p>
+                <ul style="margin-left: 20px; color: var(--text-muted);">
+                    <li><p>Logistic Regression: <code>max_iter=400</code></p></li>
+                    <li><p>Support Vector Machine (SVM): <code>'kernel':'linear'</code>, <code>'class_weight':'balanced'</code></p></li>
+                    <li><p>Random Forest</p></li>
+                    <li><p>Decision Tree</p></li>
+                    <li><p>K-Nearest Neighbor (KNN): <code>n_neighbors=5</code></p></li>
+                    <li><p>Multinomial Naive Bayes</p></li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h3>Preprocessing</h3>
+                <p>The model applies the following data preprocessing steps:</p>  
+                <ul style="margin-left: 20px; color: var(--text-muted);">
+                    <li><p>Maximum features: <code>5000</code>
+                    <li><p>Stop words: <code>english</code></p></li>
+                    <li><p>Token: <code>word</code></p></li>
+                    <li><p>N-grams: <code>(1,2)</code></p></li>
+                </ul>
+            </div>
+
+        </div>
+
+        <div class="card">
+            <img src="assets/assignment2/compare_1.png" alt="Compare" width=1000 height="auto">
+
+            <div style="display: flex; flex-wrap: wrap; gap: 20px;">
+
+                <div style="flex: 1;">
+                    <ul style="margin-left: 20px; color: var(--text-muted);">
+                        <li><p><strong>Support Vector Machine</strong> with <strong>TF-IDF</strong> achieved the highest F1-score <code>(~0.88)</code>.</p></li>
+                        <li><p>TF-IDF usually achieves higher F1 scores compared to using Bag-of-Words.</p></li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+
+    </section>
+
+
+    <!-- =============================================================== -->
+    <!-- 4. Deep Learning Models                             -->
+    <!-- =============================================================== -->
+
+    <section>
+        <h2 class="section-title">4. Deep Learning Models</h2>
+
+        <div class="grid">
+
+            <div class="card">
+                <h3>Models</h3>
+                <p>Several deep learning models were implemented to explore their performance on text data:</p>
+                <ul style="margin-left: 20px; color: var(--text-muted);">
+                    <li><p><strong>TextCNN:</strong> fast and simple baseline for text classification.</p></li>
+                    <li><p><strong>BiLSTM:</strong> provides a good balance between performance and complexity.</p></li>
+                    <li><p><strong>CNN + BiLSTM:</strong> slightly heavier combination</p></li>
+                    <li><p><strong>Transformer Fine-tuning (BERT/RoBERTa):</strong> uses contextual embeddings and transformer tokenizer.</p></li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h3>Configuration</h3>
+                <p>The following hyperparameters can be adjusted within the pipeline depending on the model:</p>  
+                <img src="assets/assignment2/hyperparameter.png" alt="Compare" width=450 height="auto">
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="assets/assignment2/distilbert.png" alt="Compare" width=1000 height="auto">
+
+            <div style="display: flex; flex-wrap: wrap; gap: 20px;">
+
+                <div style="flex: 1;">
+                    <ul style="margin-left: 20px; color: var(--text-muted);">
+                        <li><p><strong>DistilBERT Fine-tuning</strong> achieved (<code>~0.91</code>) test accuracy with balanced precision, recall, and F1, demonstrating the effectiveness of contextual embeddings for text classification.</p></li>
+                        <li><p>Fine-tuning transformer models generally outperforms traditional ML or simple deep learning models when sufficient data and preprocessing are applied.</p></li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+
+    </section>
+
+
+    <!-- =============================================================== -->
+    <!-- 5. Conclusion                                                   -->
+    <!-- =============================================================== -->
+
+    <section>
+        <h2 class="section-title">5. Conclusion</h2>
+
+        <div class="card">
+            <ul style="margin-left:20px; color:var(--text-muted);">
+                <li>Traditional vectorization methods like Bag-of-Words and TF-IDF provide baselines, with TF-IDF generally yielding higher F1 scores.</li>
+                <li>Deep learning models such as TextCNN, BiLSTM, and CNN+BiLSTM improve performance by capturing sequential and contextual information from text, especially when combined with static embeddings.</li>
+                <li>Transformer-based models (e.g., DistilBERT) achieve the highest performance, demonstrating the advantage of contextual embeddings and fine-tuning on downstream tasks.</p></li>
+            </ul>
+        </div>
+    </section>
+
+</main>
+
+<footer>
+    <p>Project by <strong>DNAC1</strong> | For Machine Learning Coursework</p>
+</footer>
+
+</body>
 </html>

@@ -128,12 +128,16 @@
                 <div class="img-placeholder">
                     <img src="assets/assignment2/doc_length.png" alt="Doc-Length Distribution">
                 </div>
+                <div class="img-placeholder">
+                    <img src="assets/assignment2/length_per_class.png" alt="Doc-Length Distribution">
+                </div>
             </div>
 
             <div class="card">
                 <h3>Frequent Words</h3>
                 <p>The chart shows the 20 most frequent words in the dataset including stop words. Most of these are common words like <code>the</code>, <code>to</code>, <code>of</code>, which carry little semantic meaning for classification.</p>
                 <img src="assets/assignment2/top20.png" alt="Top20 Distribution" width="450" height="auto">
+                <img src="assets/assignment2/cloud.png" alt="Top20 Distribution" width="450" height="auto">
             </div>
         </div>
     </section>
@@ -180,105 +184,201 @@
     <!-- =============================================================== -->
 
     <section>
-        <h2 class="section-title">3. Machine Learning Models</h2>
+        <h2 class="section-title">3. Models</h2>
 
         <div class="grid">
 
             <div class="card">
-                <h3>Models</h3>
-                <p>Several traditional machine learning algorithms were trained and evaluated on the dataset:</p>
-                <ul style="margin-left: 20px; color: var(--text-muted);">
-                    <li><p>Logistic Regression: <code>max_iter=400</code></p></li>
-                    <li><p>Support Vector Machine (SVM): <code>'kernel':'linear'</code>, <code>'class_weight':'balanced'</code></p></li>
-                    <li><p>Random Forest</p></li>
-                    <li><p>Decision Tree</p></li>
-                    <li><p>K-Nearest Neighbor (KNN): <code>n_neighbors=5</code></p></li>
-                    <li><p>Multinomial Naive Bayes</p></li>
-                </ul>
-            </div>
+                <p><strong>Machine Learning Models: </strong>Logistic Regression, Support Vector Machine (SVM), Random Forest, 
+                Decision Tree, K-Nearest Neighbor (KNN), Multinomial Naive Bayes</p>
 
-            <div class="card">
-                <h3>Preprocessing</h3>
-                <p>The model applies the following data preprocessing steps:</p>  
-                <ul style="margin-left: 20px; color: var(--text-muted);">
-                    <li><p>Maximum features: <code>5000</code>
-                    <li><p>Stop words: <code>english</code></p></li>
-                    <li><p>Token: <code>word</code></p></li>
-                    <li><p>N-grams: <code>(1,2)</code></p></li>
-                </ul>
-            </div>
-
-        </div>
-
-        <div class="card">
-            <img src="assets/assignment2/compare_1.png" alt="Compare" width=1000 height="auto">
-
-            <div style="display: flex; flex-wrap: wrap; gap: 20px;">
-
-                <div style="flex: 1;">
-                    <ul style="margin-left: 20px; color: var(--text-muted);">
-                        <li><p><strong>Support Vector Machine</strong> with <strong>TF-IDF</strong> achieved the highest F1-score <code>(~0.88)</code>.</p></li>
-                        <li><p>TF-IDF usually achieves higher F1 scores compared to using Bag-of-Words.</p></li>
-                    </ul>
-                </div>
-
-            </div>
-        </div>
-
-    </section>
-
-
-    <!-- =============================================================== -->
-    <!-- 4. Deep Learning Models                             -->
-    <!-- =============================================================== -->
-
-    <section>
-        <h2 class="section-title">4. Deep Learning Models</h2>
-
-        <div class="grid">
-
-            <div class="card">
-                <h3>Models</h3>
-                <p>Several deep learning models were implemented to explore their performance on text data:</p>
+                <p><strong>Deep Learning Models: </strong></p>
                 <ul style="margin-left: 20px; color: var(--text-muted);">
                     <li><p><strong>TextCNN:</strong> fast and simple baseline for text classification.</p></li>
                     <li><p><strong>BiLSTM:</strong> provides a good balance between performance and complexity.</p></li>
                     <li><p><strong>CNN + BiLSTM:</strong> slightly heavier combination</p></li>
-                    <li><p><strong>Transformer Fine-tuning (BERT/RoBERTa):</strong> uses contextual embeddings and transformer tokenizer.</p></li>
+                    <li><p><strong>Transformer Fine-tuning:</strong> uses contextual embeddings and transformer tokenizer.</p></li>
                 </ul>
+                <p><strong>Metrics: </strong>F1-Score</p>
+                
+                <table style="width: 90%; margin: 20px auto; border-collapse: collapse; font-family: Arial, sans-serif; font-size: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.15); border-radius: 8px; overflow: hidden;">
+                    <thead>
+                        <tr style="background: #2563eb; color: white; text-align: left;">
+                            <th style="padding: 12px;">Rank</th>
+                            <th style="padding: 12px;">Model</th>
+                            <th style="padding: 12px;">Accuracy</th>
+                            <th style="padding: 12px;">Precision</th>
+                            <th style="padding: 12px;">Recall</th>
+                            <th style="padding: 12px;">F1-Score</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="background: #f9f9f9;">
+                            <td style="padding: 12px;">1</td>
+                            <td style="padding: 12px;">DistilBERT</td>
+                            <td style="padding: 12px;"><strong>0.92247</strong></td>
+                            <td style="padding: 12px;"><strong>0.92280</strong></td>
+                            <td style="padding: 12px;"><strong>0.92247</strong></td>
+                            <td style="padding: 12px;"><strong>0.92239</strong></td>
+                        </tr>
+                        <tr style="background: #f9f9f9;">
+                            <td style="padding: 12px;">1</td>
+                            <td style="padding: 12px;">BERT</td>
+                            <td style="padding: 12px;"><strong>?</strong></td>
+                            <td style="padding: 12px;"><strong>?</strong></td>
+                            <td style="padding: 12px;"><strong>?</strong></td>
+                            <td style="padding: 12px;"><strong>?</strong></td>
+                        </tr>
+                        <tr style="background: #f9f9f9;">
+                            <td style="padding: 12px;">1</td>
+                            <td style="padding: 12px;">RoBERTa</td>
+                            <td style="padding: 12px;"><strong>?</strong></td>
+                            <td style="padding: 12px;"><strong>?</strong></td>
+                            <td style="padding: 12px;"><strong>?</strong></td>
+                            <td style="padding: 12px;"><strong>?</strong></td>
+                        </tr>
+                        <tr style="background: #f9f9f9;">
+                            <td style="padding: 12px;">3</td>
+                            <td style="padding: 12px;">SVM + TF-IDF</td>
+                            <td style="padding: 12px;">0.88142</td>
+                            <td style="padding: 12px;">0.88305</td>
+                            <td style="padding: 12px;">0.88142</td>
+                            <td style="padding: 12px;">0.88181</td>
+                        </tr>
+                        <tr style="background: #f9f9f9;">
+                            <td style="padding: 12px;">4</td>
+                            <td style="padding: 12px;">TextCNN</td>
+                            <td style="padding: 12px;">0.87965</td>
+                            <td style="padding: 12px;">0.88159</td>
+                            <td style="padding: 12px;">0.87965</td>
+                            <td style="padding: 12px;">0.87988</td>
+                        </tr>
+                        <tr style="background: #f9f9f9;">
+                            <td style="padding: 12px;">5</td>
+                            <td style="padding: 12px;">CNN + BiLSTM</td>
+                            <td style="padding: 12px;">0.86796</td>
+                            <td style="padding: 12px;">0.86965</td>
+                            <td style="padding: 12px;">0.86796</td>
+                            <td style="padding: 12px;">0.86799</td>
+                        </tr>
+                        <tr style="background: #f9f9f9;">
+                            <td style="padding: 12px;">6</td>
+                            <td style="padding: 12px;">Logistic Regression + TF-IDF</td>
+                            <td style="padding: 12px;">0.86372</td>
+                            <td style="padding: 12px;">0.8644</td>
+                            <td style="padding: 12px;">0.86372</td>
+                            <td style="padding: 12px;">0.86267</td>
+                        </tr>
+                        <tr style="background: #f9f9f9;">
+                            <td style="padding: 12px;">7</td>
+                            <td style="padding: 12px;">Logistic Regression + BoW</td>
+                            <td style="padding: 12px;">0.85451</td>
+                            <td style="padding: 12px;">0.85609</td>
+                            <td style="padding: 12px;">0.85451</td>
+                            <td style="padding: 12px;">0.85485</td>
+                        </tr>
+                        <tr style="background: #f9f9f9;">
+                            <td style="padding: 12px;">8</td>
+                            <td style="padding: 12px;">Multinomial Naive Bayes + TF-IDF</td>
+                            <td style="padding: 12px;">0.85558</td>
+                            <td style="padding: 12px;">0.86324</td>
+                            <td style="padding: 12px;">0.85558</td>
+                            <td style="padding: 12px;">0.85084</td>
+                        </tr>
+                        <tr style="background: #f9f9f9;">
+                            <td style="padding: 12px;">9</td>
+                            <td style="padding: 12px;">BiLSTM</td>
+                            <td style="padding: 12px;">0.83965</td>
+                            <td style="padding: 12px;">0.84582</td>
+                            <td style="padding: 12px;">0.83965</td>
+                            <td style="padding: 12px;">0.84085</td>
+                        </tr>
+                        <tr style="background: #f9f9f9;">
+                            <td style="padding: 12px;">10</td>
+                            <td style="padding: 12px;">KNN + TF-IDF</td>
+                            <td style="padding: 12px;">0.8085</td>
+                            <td style="padding: 12px;">0.81175</td>
+                            <td style="padding: 12px;">0.8085</td>
+                            <td style="padding: 12px;">0.80872</td>
+                        </tr>
+                        <tr style="background: #f9f9f9;">
+                            <td style="padding: 12px;">11</td>
+                            <td style="padding: 12px;">SVM + BoW</td>
+                            <td style="padding: 12px;">0.80779</td>
+                            <td style="padding: 12px;">0.81118</td>
+                            <td style="padding: 12px;">0.80779</td>
+                            <td style="padding: 12px;">0.80867</td>
+                        </tr>
+                        <tr style="background: #f9f9f9;">
+                            <td style="padding: 12px;">12</td>
+                            <td style="padding: 12px;">Random Forest + BoW</td>
+                            <td style="padding: 12px;">0.80779</td>
+                            <td style="padding: 12px;">0.8127</td>
+                            <td style="padding: 12px;">0.80779</td>
+                            <td style="padding: 12px;">0.80513</td>
+                        </tr>
+                        <tr style="background: #f9f9f9;">
+                            <td style="padding: 12px;">13</td>
+                            <td style="padding: 12px;">Random Forest + TF-IDF</td>
+                            <td style="padding: 12px;">0.80673</td>
+                            <td style="padding: 12px;">0.81386</td>
+                            <td style="padding: 12px;">0.80673</td>
+                            <td style="padding: 12px;">0.8038</td>
+                        </tr>
+                        <tr style="background: #f9f9f9;">
+                            <td style="padding: 12px;">14</td>
+                            <td style="padding: 12px;">Multinomial Naive Bayes + BoW</td>
+                            <td style="padding: 12px;">0.81274</td>
+                            <td style="padding: 12px;">0.81439</td>
+                            <td style="padding: 12px;">0.81274</td>
+                            <td style="padding: 12px;">0.79371</td>
+                        </tr>
+                        <tr style="background: #f9f9f9;">
+                            <td style="padding: 12px;">15</td>
+                            <td style="padding: 12px;">Decision Tree + BoW</td>
+                            <td style="padding: 12px;">0.6485</td>
+                            <td style="padding: 12px;">0.65018</td>
+                            <td style="padding: 12px;">0.6485</td>
+                            <td style="padding: 12px;">0.64832</td>
+                        </tr>
+                        <tr style="background: #f9f9f9;">
+                            <td style="padding: 12px;">16</td>
+                            <td style="padding: 12px;">Decision Tree + TF-IDF</td>
+                            <td style="padding: 12px;">0.63717</td>
+                            <td style="padding: 12px;">0.6401</td>
+                            <td style="padding: 12px;">0.63717</td>
+                            <td style="padding: 12px;">0.63765</td>
+                        </tr>
+                        <tr style="background: #f9f9f9;">
+                            <td style="padding: 12px;">17</td>
+                            <td style="padding: 12px;">KNN + BoW</td>
+                            <td style="padding: 12px;">0.51646</td>
+                            <td style="padding: 12px;">0.67085</td>
+                            <td style="padding: 12px;">0.51646</td>
+                            <td style="padding: 12px;">0.55477</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <ul style="margin-left: 20px; color: var(--text-muted);">
+                    <li><p><strong>Support Vector Machine</strong> with <strong>TF-IDF</strong> achieved the highest F1-score <code>(~0.88)</code> compared to the other ML models.</p></li>
+                    <li><p>TF-IDF usually achieves higher F1 scores compared to using Bag-of-Words.</p></li>
+                    <li><p><strong>DistilBERT Fine-tuning</strong> achieved (<code>~0.92</code>) test accuracy with balanced precision, recall, and F1, demonstrating the effectiveness of contextual embeddings for text classification.</p></li>
+                    <li><p>Fine-tuning transformer models generally outperforms traditional ML or simple deep learning models when sufficient data and preprocessing are applied.</p></li>
+                </ul>
+
             </div>
 
-            <div class="card">
-                <h3>Configuration</h3>
-                <p>The following hyperparameters can be adjusted within the pipeline depending on the model:</p>  
-                <img src="assets/assignment2/hyperparameter.png" alt="Compare" width=450 height="auto">
-            </div>
+
         </div>
-
-        <div class="card">
-            <img src="assets/assignment2/distilbert.png" alt="Compare" width=1000 height="auto">
-
-            <div style="display: flex; flex-wrap: wrap; gap: 20px;">
-
-                <div style="flex: 1;">
-                    <ul style="margin-left: 20px; color: var(--text-muted);">
-                        <li><p><strong>DistilBERT Fine-tuning</strong> achieved (<code>~0.91</code>) test accuracy with balanced precision, recall, and F1, demonstrating the effectiveness of contextual embeddings for text classification.</p></li>
-                        <li><p>Fine-tuning transformer models generally outperforms traditional ML or simple deep learning models when sufficient data and preprocessing are applied.</p></li>
-                    </ul>
-                </div>
-
-            </div>
-        </div>
-
-    </section>
 
 
     <!-- =============================================================== -->
-    <!-- 5. Conclusion                                                   -->
+    <!-- 4. Conclusion                                                   -->
     <!-- =============================================================== -->
 
     <section>
-        <h2 class="section-title">5. Conclusion</h2>
+        <h2 class="section-title">4. Conclusion</h2>
 
         <div class="card">
             <ul style="margin-left:20px; color:var(--text-muted);">

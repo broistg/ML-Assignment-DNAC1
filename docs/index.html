@@ -1,797 +1,595 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description"
-    content="GitHub Page for ML Assignment: traditional & deep learning pipelines for tabular, text, and image data." />
-  <title>ML-Assignment-DNAC1 — ML Pipelines Assignment</title>
-  <link rel="icon" href="logo.ico">
-  <style>
-    :root {
-      --bg: #0f1724;
-      --card: #0b1220;
-      --muted: #9aa4b2;
-      --accent: #7c3aed;
-      --glass: rgba(255, 255, 255, 0.04);
-      --max-width: 1100px;
-      --radius: 14px;
-      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, 'Roboto Mono', 'Courier New', monospace;
-      color-scheme: dark;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="GitHub Page for ML Assignment: traditional & deep learning pipelines for tabular, text, and image data.">
+    <title>ML-Assignment-DNAC1 — ML Pipelines Assignment</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="icon" href="logo.ico">
 
-    * {
-      box-sizing: border-box
-    }
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1e40af;
+            --secondary: #f1f5f9;
+            --text-main: #0f1724;
+            --text-muted: #64748b;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --border: #e2e8f0;
+        }
 
-    html,
-    body {
-      height: 100%;
-      margin: 0;
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
-      background: linear-gradient(180deg, var(--bg), #071026 80%);
-      color: #e6eef8
-    }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    .container {
-      max-width: var(--max-width);
-      margin: 36px auto;
-      padding: 28px
-    }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: var(--text-main);
+            line-height: 1.6;
+        }
 
-    header {
-      display: flex;
-      gap: 18px;
-      align-items: center
-    }
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px 60px;
+        }
 
-    .logo {
-      width: 68px;
-      height: 68px;
-      border-radius: 12px;
-      background: linear-gradient(135deg, var(--accent), #3b82f6);
-      display: grid;
-      place-items: center;
-      font-weight: 700;
-      font-size: 20px;
-      color: white
-    }
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, #4f46e5 100%);
+            color: white;
+            padding: 80px 0 60px;
+            margin-bottom: 40px;
+            border-radius: 0 0 40px 40px;
+            box-shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.2);
+            text-align: center;
+        }
 
-    h1 {
-      margin: 0;
-      font-size: 26px
-    }
+        header .container {
+            padding-bottom: 0;
+        }
 
-    .meta {
-      color: var(--muted);
-      font-size: 13px
-    }
+        h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 15px;
+            letter-spacing: -1px;
+        }
 
-    .grid {
-      display: grid;
-      grid-template-columns: 1fr 240px;
-      gap: 20px;
-      margin-top: 20px
-    }
+        .subtitle {
+            font-size: 1.25rem;
+            opacity: 0.9;
+            max-width: 700px;
+            margin: 0 auto;
+        }
 
-    .card {
-      background: linear-gradient(180deg, var(--card), rgba(11, 18, 32, 0.6));
-      padding: 18px;
-      border-radius: var(--radius);
-      box-shadow: 0 6px 18px rgba(2, 6, 23, 0.6);
-    }
+        .btn {
+            display: inline-block;
+            background: white;
+            color: var(--primary);
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 25px;
+            transition: 0.2s;
+            border: none;
+            cursor: pointer;
+        }
 
-    .section-title {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 12px
-    }
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
 
-    .pill {
-      background: var(--glass);
-      padding: 6px 10px;
-      border-radius: 999px;
-      font-size: 12px;
-      color: var(--muted)
-    }
+        .btn-outline {
+            background: transparent;
+            border: 2px solid white;
+            color: white;
+            margin-left: 10px;
+        }
+        
+        .btn-outline:hover {
+            background: rgba(255,255,255,0.1);
+        }
 
-    .readme {
-      line-height: 1.6;
-      color: #d9e6f6
-    }
+        section {
+            margin-bottom: 60px;
+        }
 
-    code,
-    pre {
-      font-family: var(--mono);
-      background: rgba(255, 255, 255, 0.02);
-      padding: 6px;
-      border-radius: 8px
-    }
+        .section-title {
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            color: var(--primary-dark);
+            border-left: 5px solid var(--primary);
+            padding-left: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
 
-    pre {
-      padding: 12px;
-      overflow: auto
-    }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
 
-    nav ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap
-    }
+        .card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: 0.2s;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
 
-    nav a {
-      color: var(--muted);
-      text-decoration: none;
-      font-size: 13px;
-      padding: 6px 10px;
-      border-radius: 8px
-    }
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.05);
+        }
 
-    nav a:hover {
-      background: var(--glass);
-      color: #fff
-    }
+        .card h3 {
+            margin-bottom: 15px;
+            color: var(--text-main);
+        }
+        
+        .card-link {
+            text-decoration: none;
+            color: inherit;
+            height: 100%;
+        }
 
-    .badge {
-      display: inline-block;
-      padding: 6px 10px;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.03);
-      font-size: 13px
-    }
+        .img-placeholder {
+            width: 100%;
+            background: #e2e8f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            font-weight: 600;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-top: 15px;
+            cursor: pointer;
+        }
 
-    .sidebar .block {
-      margin-bottom: 12px
-    }
+        .preview-img {
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+            border-radius: 8px;
+            display: block;
+        }
 
-    .file-tree {
-      font-family: var(--mono);
-      font-size: 13px;
-      color: var(--muted);
-      line-height: 1.7
-    }
+        .metrics-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
 
-    /* Table of contents (TOC) in sidebar */
-    /* TOC positioning and styling */
-    html {
-      scroll-behavior: smooth;
-    }
+        .metrics-table th,
+        .metrics-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
 
-    .toc-card {
-      position: sticky;
-      top: 28px
-    }
+        .metrics-table th {
+            background: var(--secondary);
+            color: var(--primary-dark);
+        }
 
-    .toc-toggle {
-      display: none;
-      background: transparent;
-      border: none;
-      color: var(--muted);
-      font-size: 13px;
-      cursor: pointer
-    }
+        code, pre {
+            font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+            font-size: 0.9em;
+        }
+        
+        code {
+            background: rgba(37, 99, 235, 0.08);
+            padding: 2px 6px;
+            border-radius: 4px;
+            color: var(--primary-dark);
+        }
 
-    .toc-nav ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      display: block
-    }
+        pre {
+            background: var(--secondary);
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 10px 0;
+            border: 1px solid var(--border);
+        }
 
-    .toc-nav a {
-      display: block;
-      color: var(--muted);
-      text-decoration: none;
-      font-size: 13px;
-      padding: 8px 10px;
-      border-radius: 8px
-    }
+        ul, ol {
+            margin-left: 20px;
+            color: var(--text-muted);
+        }
+        
+        li {
+            margin-bottom: 8px;
+        }
 
-    .toc-nav a:hover {
-      background: var(--glass);
-      color: #fff
-    }
+        .tag {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-right: 5px;
+            margin-bottom: 5px;
+        }
 
-    .toc-nav a.active {
-      color: #fff;
-      background: linear-gradient(90deg, var(--accent), #06b6d4);
-    }
+        .tag-blue { background: #dbeafe; color: #1e40af; }
+        .tag-green { background: #d1fae5; color: #065f46; }
+        .tag-purple { background: #ede9fe; color: #5b21b6; }
+        .tag-orange { background: #ffedd5; color: #9a3412; }
 
-    .toc-card.collapsed .toc-nav ul {
-      display: none
-    }
+        footer {
+            text-align: center;
+            padding: 40px;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border);
+            margin-top: 40px;
+        }
 
-    .hero-stats {
-      display: flex;
-      gap: 12px;
-      margin-top: 12px
-    }
+        #lightbox {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(2, 6, 23, 0.85);
+            justify-content: center;
+            align-items: center;
+            z-index: 999;
+            padding: 20px;
+            backdrop-filter: blur(5px);
+        }
 
-    .stat {
-      background: rgba(255, 255, 255, 0.02);
-      padding: 8px 12px;
-      border-radius: 12px
-    }
+        #lb-img {
+            max-width: 100%;
+            max-height: 90%;
+            border-radius: 10px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
 
-    footer {
-      margin-top: 26px;
-      color: var(--muted);
-      font-size: 13px;
-      text-align: center
-    }
-
-    /* Responsiveness */
-    @media (max-width:920px) {
-      .grid {
-        grid-template-columns: 1fr;
-      }
-
-      .logo {
-        width: 56px;
-        height: 56px
-      }
-
-      /* Make TOC flow with content on small screens and enable toggle */
-      .toc-card {
-        position: static;
-        top: auto;
-        margin-bottom: 12px
-      }
-
-      .toc-toggle {
-        display: inline-block
-      }
-
-      .toc-card.collapsed .toc-nav ul {
-        display: none
-      }
-    }
-
-    /* small util */
-    .muted {
-      color: var(--muted)
-    }
-
-    .mono {
-      font-family: var(--mono)
-    }
-
-    .btn {
-      background: linear-gradient(90deg, var(--accent), #06b6d4);
-      border: none;
-      padding: 8px 12px;
-      border-radius: 10px;
-      color: white;
-      cursor: pointer
-    }
-
-    .btn.ghost {
-      background: transparent;
-      border: 1px solid rgba(255, 255, 255, 0.06)
-    }
-
-    /* Assignment buttons (top of page) */
-    :root {
-      --pastel-tabular: #d7f3e3;
-      --pastel-text: #ffe6ef;
-      --pastel-image: #e6f2ff;
-      --assign-text: #07202a;
-    }
-
-    .assignments-row {
-      display: flex;
-      gap: 12px;
-      margin: 18px 0 6px 0;
-      flex-wrap: wrap;
-      align-items: center;
-    }
-
-    .assign-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      padding: 10px 14px;
-      border-radius: 999px;
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 14px;
-      color: var(--assign-text);
-      box-shadow: 0 6px 18px rgba(2, 6, 23, 0.12);
-      transition: transform .12s ease, box-shadow .12s ease;
-    }
-
-    .assign-btn:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 10px 22px rgba(2, 6, 23, 0.16);
-    }
-
-    .assign-btn--tabular {
-      background: var(--pastel-tabular);
-    }
-
-    .assign-btn--text {
-      background: var(--pastel-text);
-    }
-
-    .assign-btn--image {
-      background: var(--pastel-image);
-    }
-
-    @media (max-width:920px) {
-      .assignments-row {
-        justify-content: center;
-      }
-    }
-  </style>
+        #lb-close {
+            position: absolute;
+            right: 30px;
+            top: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: #fff;
+            font-size: 24px;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.2s;
+        }
+        
+        #lb-close:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+        
+        a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Helper for cards acting as links */
+        .card-action {
+            margin-top: auto;
+            padding-top: 15px;
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .status-badge {
+            background: #d1fae5; 
+            color: #065f46;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+    </style>
 </head>
 
 <body>
-  <div class="container">
+
     <header>
-      <div class="logo">ML</div>
-      <div>
-        <h1>ML-Assignment-DNAC1</h1>
-        <div class="meta">Assignment — Traditional & Deep Learning pipelines for Tabular, Text, and Image datasets •
-          <span class="muted">CO3117</span>
+        <div class="container">
+            <h1>ML-Assignment-DNAC1</h1>
+            <p class="subtitle">Assignments on Traditional & Deep Learning pipelines for Tabular, Text, and Image datasets.</p>
+            <div style="margin-top: 10px;">
+                <a href="https://github.com/broistg/ML-Assignment-DNAC1" class="btn">View Repository →</a>
+            </div>
         </div>
-      </div>
-      <!-- Header nav removed; Table of Contents moved to the right sidebar as a sticky card -->
     </header>
-    <!-- Assignment quick-links: Tabular / Text / Image -->
-    <div class="assignments-row" role="navigation" aria-label="Assignment quick links">
-      <a class="assign-btn assign-btn--tabular" href="assignment1.html" title="Tabular — Assignment 1">
-        Tabular · Assignment 1
-      </a>
-      <a class="assign-btn assign-btn--text" href="assignment2.html" title="Text — Assignment 2">
-        Text · Assignment 2
-      </a>
-      <a class="assign-btn assign-btn--image" href="assignment3.html" title="Image — Assignment 3">
-        Image · Assignment 3
-      </a>
-      <a class="assign-btn assign-btn--image" href="btl_mr.html" title="HMM — Assignment Extra">
-        HMM · Assignment Extra
-      </a>
-    </div>
 
-    <main class="grid">
-      <!-- left column removed; TOC will be on the right -->
+    <main class="container">
 
-      <div>
-        <section id="overview" class="card">
-          <div class="section-title">
-            <div class="pill">Overview</div>
-            <div class="badge">Status: <strong>In Progress</strong></div>
-          </div>
-
-          <h2 style="margin-top:8px">Project Summary</h2>
-          <p class="readme">This repository contains an assignment for the <strong>Machine Learning</strong> course. The
-            goal is to build end-to-end pipelines for <strong>tabular</strong>, <strong>text</strong>, and
-            <strong>image</strong> datasets using both traditional ML and deep learning approaches.
-          </p>
-
-          <div style="margin-top:14px">
-            <h3>Learning Objectives</h3>
-            <ul>
-              <li>Design reproducible data preprocessing and feature engineering pipelines.</li>
-              <li>Train, evaluate, and compare traditional and deep-learning models.</li>
-              <li>Work with tabular, text, and image datasets.</li>
-            </ul>
-          </div>
-        </section>
-
-        <section id="pipelines" class="card" style="margin-top:18px">
-          <div class="section-title">
-            <div class="pill">Pipelines</div>
-            <h3 style="margin:0">Architecture & Steps</h3>
-          </div>
-
-          <div class="readme">
-            <h4>Common Components</h4>
-            <ol>
-              <li>Exploratory Data Analysis (EDA)</li>
-              <li>Preprocessing & feature engineering</li>
-              <li>Model training & hyperparameter tuning</li>
-              <li>Evaluation & visualizations</li>
-            </ol>
-
-            <h4 style="margin-top:12px">Per-Modal Pipelines</h4>
-            <h5>Tabular</h5>
-            <p>Steps: EDA → imputation → scaling → categorical encoding → feature selection → train/test split →
-              modeling → training → testing</p>
-
-            <h5>Text</h5>
-            <p>Steps: EDA → text cleaning → tokenization → vectorization (TF-IDF/embeddings) → train/test split →
-              modeling → training → testing</p>
-
-            <h5>Images</h5>
-            <p>Steps: EDA → feature extraction (deep-learning) → PCA (optional) → train/test split → modeling → training
-              → testing</p>
-          </div>
-        </section>
-
-        <section id="datasets" class="card" style="margin-top:18px">
-          <div class="section-title">
-            <div class="pill">Datasets</div>
-            <h3 style="margin:0">Datasets</h3>
-          </div>
-          <div class="readme">
-            <p><strong>Tabular:</strong> Adult Census Income — Predict whether income exceeds $50K/yr based on census
-              data.
-              <br>
-              <a href="https://archive.ics.uci.edu/ml/datasets/adult" target="_blank" rel="noopener"
-                style="color:var(--accent);text-decoration:underline;font-size:13px;">
-                [UCI Dataset Link]
-              </a>
-            </p>
-            <p><strong>Text:</strong> 20 Newsgroups - A collection of ~18,000 newsgroup documents from 20 different
-              newsgroups.
-              <br>
-              <a href="http://qwone.com/~jason/20Newsgroups/" target="_blank" rel="noopener"
-                style="color:var(--accent);text-decoration:underline;font-size:13px;">
-                [Dataset Link]
-              </a>
-            </p>
-            <p><strong>Images:</strong> CIFAR-10 — 60,000 32x32 color images in 10 classes.
-              <br>
-              <a href="https://www.cs.toronto.edu/~kriz/cifar.html" target="_blank" rel="noopener"
-                style="color:var(--accent);text-decoration:underline;font-size:13px;">
-                [CIFAR-10 Dataset]
-              </a>
-            </p>
-          </div>
-        </section>
-
-        <section id="usage" class="card" style="margin-top:18px">
-          <div class="section-title">
-            <div class="pill">Run & Reproduce</div>
-            <h3 style="margin:0">How to run</h3>
-          </div>
-          <div class="readme">
-            <h4>Requirements</h4>
-            <ul>
-              <li>Python 3.12+</li>
-              <li>Jupyter Notebook or Google Colab</li>
-            </ul>
-
-            <h4>Run notebook using Google Colab:</h4>
-            <ol>
-              <li>Open the notebook in Google Colab.</li>
-              <li>Select <strong>Runtime</strong> → <strong>Run all</strong>.</li>
-              <li>The entire process (installing libraries, loading data, training, evaluating) will run automatically.
-              </li>
-            </ol>
-            <h4>Run notebook locally:</h4>
-            <ol>
-              <li>Create a virtual environment (recommended):
-                <pre>python -m venv venv
-source venv/bin/activate   # Linux/Mac
-venv\Scripts\activate      # Windows
-</pre>
-              </li>
-              <li>Install dependencies:
-                <pre>pip install -r requirements.txt
-</pre>
-              </li>
-              <li>Run notebook using Jupyter:
-                <pre>cd notebooks
-jupyter notebook notebook_name.ipynb
-</pre>
-              </li>
-            </ol>
-          </div>
-        </section>
-
-        <section id="links" class="card" style="margin-top:18px">
-          <div class="section-title">
-            <div class="pill">Links</div>
-            <h3 style="margin:0">Links to Notebooks</h3>
-          </div>
-          <div class="readme">
-            <h4>Assignment Pages</h4>
-            <ul>
-              <li>
-                Assignment 1:
-                <a href="assignment1.html" target="_blank" rel="noopener"
-                  style="color:var(--accent);text-decoration:underline;font-size:13px;">Open Assignment 1</a>
-              </li>
-              <li>
-                Assignment 2:
-                <a href="assignment2.html" target="_blank" rel="noopener"
-                  style="color:var(--accent);text-decoration:underline;font-size:13px;">Open Assignment 2</a>
-              </li>
-              <li>
-                Assignment 3:
-                <a href="assignment3.html" target="_blank" rel="noopener"
-                  style="color:var(--accent);text-decoration:underline;font-size:13px;">Open Assignment 3</a>
-              </li>
-            </ul>
-
-            <h4>Tabular Dataset Notebooks (Adult Census Income):</h4>
-            <ul>
-              <li>
-                Traditional Pipeline:
-                <a href="https://colab.research.google.com/github/broistg/ML-Assignment-DNAC1/blob/main/notebooks/BTL1_traditional.ipynb"
-                  target="_blank" rel="noopener">
-                  <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"
-                    style="vertical-align:middle;">
+        <!-- Navigation / Quick Links Section -->
+        <section>
+            <h2 class="section-title">Assignments</h2>
+            <div class="grid">
+                <a href="assignment1.html" class="card-link">
+                    <div class="card">
+                        <div style="margin-bottom: 10px;"><span class="tag tag-green">Tabular Data</span></div>
+                        <h3>Assignment 1</h3>
+                        <p style="color: var(--text-muted)">Adult Census Income prediction using traditional and deep learning approaches.</p>
+                        <div class="card-action">View Assignment →</div>
+                    </div>
                 </a>
-              </li>
-              <li>
-                Deep Learning Pipeline:
-                <a href="https://colab.research.google.com/github/broistg/ML-Assignment-DNAC1/blob/main/notebooks/BTL1_deep_learning.ipynb"
-                  target="_blank" rel="noopener">
-                  <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"
-                    style="vertical-align:middle;">
+                <a href="assignment2.html" class="card-link">
+                    <div class="card">
+                        <div style="margin-bottom: 10px;"><span class="tag tag-purple">Text Data</span></div>
+                        <h3>Assignment 2</h3>
+                        <p style="color: var(--text-muted)">20 Newsgroups classification using TF-IDF and Embeddings.</p>
+                        <div class="card-action">View Assignment →</div>
+                    </div>
                 </a>
-              </li>
-            </ul>
-            <h4>Text Dataset Notebooks (20 Newsgroups):</h4>
-            <ul>
-              <li>
-                Traditional Pipeline:
-                <a href="https://colab.research.google.com/github/broistg/ML-Assignment-DNAC1/blob/main/notebooks/BTL2_traditional.ipynb"
-                  target="_blank" rel="noopener">
-                  <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"
-                    style="vertical-align:middle;">
+                <a href="assignment3.html" class="card-link">
+                    <div class="card">
+                        <div style="margin-bottom: 10px;"><span class="tag tag-blue">Image Data</span></div>
+                        <h3>Assignment 3</h3>
+                        <p style="color: var(--text-muted)">Fruit Recognition using Feature extraction and Deep Learning pipeline.</p>
+                        <div class="card-action">View Assignment →</div>
+                    </div>
                 </a>
-              </li>
-              <li>
-                Deep Learning Pipeline:
-                <a href="https://colab.research.google.com/github/broistg/ML-Assignment-DNAC1/blob/main/notebooks/BTL2_deep_learning.ipynb"
-                  target="_blank" rel="noopener">
-                  <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"
-                    style="vertical-align:middle;">
+                <a href="btl_mr.html" class="card-link">
+                    <div class="card">
+                        <div style="margin-bottom: 10px;"><span class="tag tag-orange">HMM</span></div>
+                        <h3>Assignment Extra</h3>
+                        <p style="color: var(--text-muted)">Hidden Markov Models implementation and analysis.</p>
+                        <div class="card-action">View Assignment →</div>
+                    </div>
                 </a>
-              </li>
-            </ul>
-            <h4>Images Dataset Notebooks (CIFAR-10):</h4>
-            <ul>
-              <li>
-                Traditional Pipeline:
-                <a href="https://colab.research.google.com/github/broistg/ML-Assignment-DNAC1/blob/main/notebooks/BTL3_traditional.ipynb"
-                  target="_blank" rel="noopener">
-                  <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"
-                    style="vertical-align:middle;">
-                </a>
-              </li>
-              <li>
-                Deep Learning Pipeline:
-                <a href="https://colab.research.google.com/github/broistg/ML-Assignment-DNAC1/blob/main/notebooks/BTL3_deep_learning.ipynb"
-                  target="_blank" rel="noopener">
-                  <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"
-                    style="vertical-align:middle;">
-                </a>
-              </li>
-            </ul>
-          </div>
-        </section>
-
-        <section id="experiment-result" class="card" style="margin-top:18px">
-          <div class="section-title">
-            <div class="pill">Experiment Result</div>
-            <h3 style="margin:0">Model Comparison</h3>
-          </div>
-          <div class="readme">
-            <p>We only compare between traditional models due to the limited resources available for deep learning
-              experiments. The following figure summarizes the performance comparison between different models used in
-              our pipeline:</p>
-            <div style="display:flex;justify-content:center;align-items:center;margin:24px 0;">
-              <img src="compare_model_1.png" alt="Model Comparison 1"
-                style="max-width:100%;height:auto;border-radius:12px;box-shadow:0 4px 18px rgba(2,6,23,0.18);border:1px solid var(--glass);background:var(--card);padding:12px;">
             </div>
-            <p style="text-align:center;color:var(--muted);font-size:14px;">Figure 1: SVM with 95% PCA performs the best
-              in the Adult Census Income dataset.</p>
-            <div style="display:flex;justify-content:center;align-items:center;margin:24px 0;">
-              <img src="compare_model_2.png" alt="Model Comparison 2"
-                style="max-width:100%;height:auto;border-radius:12px;box-shadow:0 4px 18px rgba(2,6,23,0.18);border:1px solid var(--glass);background:var(--card);padding:12px;">
-            </div>
-            <p style="text-align:center;color:var(--muted);font-size:14px;">Figure 2: SVM with TF-IDF vectorizer
-              performs the best in the 20 Newsgroups dataset.</p>
-            <div style="display:flex;justify-content:center;align-items:center;margin:24px 0;">
-              <img src="compare_model_3.png" alt="Model Comparison 3"
-                style="max-width:100%;height:auto;border-radius:12px;box-shadow:0 4px 18px rgba(2,6,23,0.18);border:1px solid var(--glass);background:var(--card);padding:12px;">
-            </div>
-            <p style="text-align:center;color:var(--muted);font-size:14px;">Figure 3: Shallow MLP with Swin Feature
-              Extractor performs the best in the CIFAR-10 dataset.</p>
-          </div>
         </section>
 
-        <!-- Repository (moved from sidebar) -->
-        <section id="repository" class="card" style="margin-top:18px">
-          <div class="section-title">
-            <div class="pill">Repository</div>
-            <h3 style="margin:0">Files & Structure</h3>
-          </div>
-          <div class="file-tree mono readme">
-            <pre>
+        <section>
+            <h2 class="section-title">
+                Overview
+                <span class="status-badge">Status: Completed</span>
+            </h2>
+            <div class="card">
+                <h3>Project Summary</h3>
+                <p>This repository contains assignments for the <strong>Machine Learning</strong> course (CO3117). The goal is to build end-to-end pipelines for different data modalities using both traditional ML and deep learning approaches.</p>
+                
+                <h4 style="margin-top: 20px; margin-bottom: 10px; color: var(--primary-dark)">Learning Objectives</h4>
+                <ul>
+                    <li>Design reproducible data preprocessing and feature engineering pipelines.</li>
+                    <li>Train, evaluate, and compare traditional and deep-learning models.</li>
+                    <li>Work with tabular, text, and image datasets.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="section-title">Pipelines & Architecture</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3>Common Components</h3>
+                    <ol style="margin-top: 10px;">
+                        <li>Exploratory Data Analysis (EDA)</li>
+                        <li>Preprocessing & feature engineering</li>
+                        <li>Model training & hyperparameter tuning</li>
+                        <li>Evaluation & visualizations</li>
+                    </ol>
+                </div>
+                <div class="card">
+                    <h3>Per-Modal Steps</h3>
+                    <ul style="margin-top: 10px;">
+                        <li><strong>Tabular:</strong> Imputation → Scaling → Encoding → Feature Selection.</li>
+                        <li><strong>Text:</strong> Cleaning → Tokenization → Vectorization (TF-IDF/Embeddings).</li>
+                        <li><strong>Images:</strong> Feature Extraction (Deep Backbones) → PCA (Optional).</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="section-title">Datasets</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3><span class="tag tag-green">Tabular</span> Adult Census</h3>
+                    <p style="margin-top: 10px; color: var(--text-muted)">Predict whether income exceeds $50K/yr based on census data.</p>
+                    <div class="card-action">
+                        <a href="https://archive.ics.uci.edu/ml/datasets/adult" target="_blank">UCI Dataset Link ↗</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <h3><span class="tag tag-purple">Text</span> 20 Newsgroups</h3>
+                    <p style="margin-top: 10px; color: var(--text-muted)">A collection of ~18,000 newsgroup documents from 20 different topics.</p>
+                    <div class="card-action">
+                        <a href="http://qwone.com/~jason/20Newsgroups/" target="_blank">Text Dataset Link ↗</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <h3><span class="tag tag-blue">Image</span> Fruit Recognition</h3>
+                    <p style="margin-top: 10px; color: var(--text-muted)">10,000 images of 5 fruit types for classification.</p>
+                    <div class="card-action">
+                        <a href="https://www.kaggle.com/datasets/utkarshsaxenadn/fruits-classification" target="_blank">Fruit Recognition Dataset Link ↗</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <h3><span class="tag tag-orange">HMM</span> TIMIT</h3>
+                    <p style="margin-top: 10px; color: var(--text-muted)">Acoustic-phonetic continuous speech dataset for speech recognition.</p>
+                    <div class="card-action">
+                        <a href="https://www.kaggle.com/datasets/mfekadu/darpa-timit-acousticphonetic-continuous-speech/data" target="_blank">TIMIT Dataset Link ↗</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="section-title">Model Comparison Results</h2>
+            <p style="margin-bottom: 20px; color: var(--text-muted); max-width: 800px;">
+                We compared traditional models against deep learning baselines. Due to resource constraints, extensive deep learning tuning was limited.
+            </p>
+            
+            <!-- <div class="grid"> -->
+                <div class="card">
+                    <h3>Tabular Result</h3>
+                    <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 10px;">SVM with 95% PCA performs best on Adult Census.</p>
+                    <div class="img-placeholder">
+                        <img src="compare_model_1.png" alt="Model Comparison: Tabular Data" class="preview-img">
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3>Text Result</h3>
+                    <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 10px;">SVM with TF-IDF vectorizer performs best on 20 Newsgroups.</p>
+                    <div class="img-placeholder">
+                        <img src="compare_model_2.png" alt="Model Comparison: Text Data" class="preview-img">
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3>Image Result</h3>
+                    <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 10px;">Shallow MLP with Swin Feature Extractor performs best on CIFAR-10.</p>
+                    <div class="img-placeholder">
+                        <img src="compare_model_3.png" alt="Model Comparison: Image Data" class="preview-img">
+                    </div>
+                </div>
+            <!-- </div> -->
+        </section>
+
+        <section>
+            <h2 class="section-title">Usage & Setup</h2>
+            <div class="card">
+                <h3>How to Run</h3>
+                <p style="margin-bottom: 15px;">The project is designed to run on Google Colab or a local Jupyter environment.</p>
+                
+                <div class="grid" style="grid-template-columns: 1fr 1fr; gap: 40px;">
+                    <div>
+                        <h4 style="color: var(--primary); margin-bottom: 10px;">Google Colab (Recommended)</h4>
+                        <ol>
+                            <li>Open any notebook from each of the page for the assignment.</li>
+                            <li>Select <strong>Runtime → Run all</strong>.</li>
+                            <li>The notebook will auto-install dependencies and download data.</li>
+                        </ol>
+                    </div>
+                    <div>
+                        <h4 style="color: var(--primary); margin-bottom: 10px;">Local Environment</h4>
+                        <pre>python -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+jupyter notebook</pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="section-title">Project Info</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3>Repository Structure</h3>
+                    <pre style="background: var(--bg); border: none;">
 ML-Assignment-DNAC1/
-├─ docs/            # This Github Page
-    └─ index.html   # This file
-├─ features/        # Feature extraction files
-├─ modules/         # Supporting modules
-├─ notebooks/       # Jupyter notebooks for configuration and experimentation
-├─ reports/         # Reports, results, and visualizations
-├─ requirements.txt # Library requirements
-└─ README.md        # This project's README
-</pre>
-          </div>
-          <div style="margin-bottom:18px;">
-            <a href="https://github.com/broistg/ML-Assignment-DNAC1" target="_blank" rel="noopener"
-              style="display:inline-block;padding:8px 16px;background:var(--accent);color:white;border-radius:8px;text-decoration:none;font-weight:500;box-shadow:0 2px 8px rgba(2,6,23,0.12);">
-              🔗 View Repository on GitHub
-            </a>
-          </div>
-        </section>
-
-        <section id="team-members" class="card" style="margin-top:18px">
-          <div class="section-title">
-            <div class="pill">Team Members</div>
-            <h3 style="margin:0">DNAC1 Team</h3>
-          </div>
-          <table style="width:100%;font-size:14px;border-collapse:collapse;margin-top:8px">
-            <thead>
-              <tr style="background:var(--glass)">
-                <th style="text-align:center;padding:6px">Name</th>
-                <th style="text-align:center;padding:6px">Student ID</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td style="padding:6px">Cao Huu Thien Hoang</td>
-                <td style="padding:6px">2311030</td>
-              </tr>
-              <tr>
-                <td style="padding:6px">Le Tien Dat</td>
-                <td style="padding:6px">2310653</td>
-              </tr>
-              <tr>
-                <td style="padding:6px">Tran Vinh Dung</td>
-                <td style="padding:6px">2310574</td>
-              </tr>
-            </tbody>
-          </table>
-        </section>
-        <section class="card" style="margin-top:18px">
-          <h3 style="margin:0">Quick Notes</h3>
-          <p class="muted readme" style="margin-top:8px">This project is still a work in progress.</p>
-        </section>
-
-      </div>
-
-      <!-- Right sidebar with TOC (moved inside the grid) -->
-      <aside class="sidebar">
-        <div class="card toc-card" id="tocCard">
-          <div class="section-title">
-            <div class="pill">Contents</div>
-            <div style="display:flex;align-items:center;gap:8px">
-              <button class="toc-toggle" id="tocToggle" aria-expanded="true" aria-controls="tocNav">☰</button>
+├─ docs/        # This Website
+├─ features/    # Feature Extraction
+├─ modules/     # Supporting Code
+├─ notebooks/   # Experiments
+└─ reports/     # Results</pre>
+                </div>
+                <div class="card">
+                    <h3>Team Members (DNAC1)</h3>
+                    <table class="metrics-table" style="margin-top: 10px; box-shadow: none; border: 1px solid var(--border);">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Student ID</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Cao Huu Thien Hoang</td>
+                                <td>2311030</td>
+                            </tr>
+                            <tr>
+                                <td>Le Tien Dat</td>
+                                <td>2310653</td>
+                            </tr>
+                            <tr>
+                                <td>Tran Vinh Dung</td>
+                                <td>2310574</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
-          </div>
-          <nav class="toc-nav readme" id="tocNav" aria-label="Table of Contents">
-            <ul>
-              <li><a href="#overview">Overview</a></li>
-              <li><a href="#pipelines">Pipelines</a></li>
-              <li><a href="#datasets">Datasets</a></li>
-              <li><a href="#usage">Run</a></li>
-              <li><a href="#links">Links</a></li>
-              <li><a href="#experiment-result">Comparison</a></li>
-              <li><a href="#repository">Repository</a></li>
-              <li><a href="#team-members">Team Members</a></li>
-            </ul>
-          </nav>
-        </div>
-      </aside>
+        </section>
 
     </main>
 
+    <div id="lightbox">
+        <button id="lb-close">✕</button>
+        <img id="lb-img" src="" alt="">
+    </div>
+
     <footer>
-      <div class="muted"></div>
+        <p>Project by <strong>DNAC1</strong> | Machine Learning Coursework</p>
+        <p style="margin-top: 10px; font-size: 0.9rem;">&copy; 2025 All Rights Reserved.</p>
     </footer>
-  </div>
+
+    <script>
+        (function () {
+            const lb = document.getElementById('lightbox');
+            const lbImg = document.getElementById('lb-img');
+            const closeBtn = document.getElementById('lb-close');
+
+            function open(src, alt) {
+                if (!src || src === 'undefined') return;
+                lbImg.src = src;
+                lbImg.alt = alt || '';
+                lb.style.display = 'flex';
+            }
+
+            function close() {
+                lb.style.display = 'none';
+                lbImg.src = '';
+            }
+
+            // Add click listeners to all preview images
+            document.querySelectorAll('.preview-img').forEach(el => {
+                el.addEventListener('click', () => open(el.src, el.alt));
+            });
+
+            closeBtn.addEventListener('click', close);
+            lb.addEventListener('click', (e) => {
+                if (e.target === lb) close();
+            });
+            
+            // Escape key to close
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') close();
+            });
+        })();
+    </script>
+
 </body>
-<script>
-  // --- Copy buttons for <pre> blocks (excluding file-tree) ---
-  document.querySelectorAll('pre').forEach(pre => {
-    if (pre.closest('.file-tree')) return; // skip file-tree
-
-    const wrapper = document.createElement('div');
-    wrapper.style.position = 'relative';
-    pre.parentNode.insertBefore(wrapper, pre);
-    wrapper.appendChild(pre);
-
-    const btn = document.createElement('button');
-    Object.assign(btn.style, {
-      position: 'absolute', right: '12px', top: '12px', zIndex: '2',
-      background: 'var(--accent)', color: 'white', border: 'none',
-      padding: '4px 10px', borderRadius: '8px', cursor: 'pointer', fontSize: '13px'
-    });
-    btn.textContent = 'Copy';
-    wrapper.appendChild(btn);
-
-    btn.addEventListener('click', async () => {
-      await navigator.clipboard.writeText(pre.innerText);
-      btn.textContent = 'Copied!';
-      setTimeout(() => (btn.textContent = 'Copy'), 1200);
-    });
-  });
-
-  // --- Table of Contents (TOC) highlighting + smooth scroll ---
-  (function () {
-    const tocLinks = [...document.querySelectorAll('.toc-nav a')];
-    const sections = tocLinks.map(a => document.getElementById(a.hash.slice(1))).filter(Boolean);
-
-    if (!('IntersectionObserver' in window) || !sections.length) return;
-
-    let lastScrollY = window.scrollY;
-    const TOLERANCE = 40; // px leeway for upward scroll highlight
-    const observer = new IntersectionObserver(updateActiveLink, {
-      rootMargin: '0px 0px -40% 0px',
-      threshold: [0, 0.1, 0.25, 0.5, 0.75, 1],
-    });
-
-    sections.forEach(s => observer.observe(s));
-
-    function updateActiveLink() {
-      const currentY = window.scrollY;
-      const goingDown = currentY > lastScrollY;
-      lastScrollY = currentY;
-
-      const positions = sections.map(s => ({ el: s, top: s.getBoundingClientRect().top }));
-      let chosen;
-
-      if (goingDown) {
-        const below = positions.filter(p => p.top >= 0);
-        chosen = below.length
-          ? below.reduce((a, b) => (a.top < b.top ? a : b)).el
-          : positions.reduce((a, b) => (a.top > b.top ? a : b)).el;
-      } else {
-        const above = positions.filter(p => p.top <= TOLERANCE);
-        chosen = above.length
-          ? above.reduce((a, b) => (a.top > b.top ? a : b)).el
-          : positions.reduce((a, b) => (a.top < b.top ? a : b)).el;
-      }
-
-      if (chosen) {
-        const id = chosen.id;
-        tocLinks.forEach(l => l.classList.toggle('active', l.hash === '#' + id));
-      }
-    }
-
-    // --- Smooth scroll + history management ---
-    tocLinks.forEach(link => {
-      link.addEventListener('click', e => {
-        const id = link.hash.slice(1);
-        const target = document.getElementById(id);
-        if (!target) return;
-
-        e.preventDefault();
-        history.pushState(null, '', '#' + id);
-
-        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      });
-    });
-
-    // --- Handle back/forward navigation ---
-    window.addEventListener('hashchange', () => {
-      const target = document.getElementById(location.hash.slice(1));
-      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    });
-
-    // --- TOC toggle for mobile ---
-    const tocCard = document.getElementById('tocCard');
-    const tocToggle = document.getElementById('tocToggle');
-    if (tocCard && tocToggle) {
-      tocToggle.addEventListener('click', () => {
-        tocCard.classList.toggle('collapsed');
-        tocToggle.setAttribute('aria-expanded', !tocCard.classList.contains('collapsed'));
-      });
-    }
-  })();
-</script>
 
 </html>

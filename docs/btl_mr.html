@@ -4,84 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TIMIT Speech Recognition | HMM Project</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
-
-    <style>
-        :root {
-            --primary: #2563eb;
-            --primary-dark: #1e40af;
-            --secondary: #f1f5f9;
-            --text-main: #1e293b;
-            --text-muted: #64748b;
-            --bg: #f8fafc;
-            --card-bg: #ffffff;
-            --success: #10b981;
-        }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Inter', sans-serif; background-color: var(--bg); color: var(--text-main); line-height: 1.6; }
-        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
-        header {
-            background: linear-gradient(135deg, #2563eb 0%, #4f46e5 100%);
-            color: white;
-            padding: 80px 0 60px;
-            margin-bottom: 40px;
-            border-radius: 0 0 40px 40px;
-            box-shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.2);
-        }
-        h1 { font-size: 3rem; font-weight: 800; margin-bottom: 15px; letter-spacing: -1px; }
-        .subtitle { font-size: 1.25rem; opacity: 0.9; max-width: 600px; }
-        .btn {
-            display: inline-block;
-            background: white; color: var(--primary);
-            padding: 12px 24px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 600;
-            margin-top: 25px; transition: 0.2s;
-        }
-        .btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
-        section { margin-bottom: 60px; }
-        .section-title {
-            font-size: 1.8rem; margin-bottom: 25px;
-            color: var(--primary-dark);
-            border-left: 5px solid var(--primary);
-            padding-left: 15px;
-        }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px,1fr)); gap: 25px; }
-        .card {
-            background: var(--card-bg);
-            border-radius: 16px;
-            padding: 25px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            transition: 0.2s;
-            margin-bottom:20px;
-        }
-        .card:hover { transform: translateY(-3px); }
-        .img-placeholder { width: 100%; height: 300px; background: #e2e8f0;
-            display: flex; align-items: center; justify-content: center; color: var(--text-muted); font-weight: 600;
-            border-radius: 8px; overflow: hidden;
-        }
-        .img-placeholder img { width: 100%; height: 100%; object-fit: cover; }
-        .full-width-img { height: 350px; }
-        .metrics-table {
-            width: 100%; border-collapse: collapse;
-            background: white; border-radius: 12px; overflow: hidden;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-        }
-        .metrics-table th, .metrics-table td {
-            padding: 15px; text-align: left; border-bottom: 1px solid #e2e8f0;
-        }
-        .metrics-table th { background: var(--secondary); color: var(--primary-dark); }
-        .tag { display:inline-block; padding:4px 8px; border-radius:4px; font-size:0.8rem; font-weight:600;}
-        .tag-model { background:#dbeafe; color:#1e40af;}
-        .tag-score { background:#d1fae5; color:#065f46;}
-        footer { text-align:center; padding:40px; color:var(--text-muted); border-top:1px solid #e2e8f0; }
-    </style>
+    <!-- Import extracted styles -->
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
 <header>
+    <!-- Consistent Home Button -->
+    <a href="index.html" class="back-home">
+        <svg viewBox="0 0 24 24">
+            <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"></path>
+        </svg>
+        Home
+    </a>
+
     <div class="container">
         <h1>Phoneme Recognition on TIMIT using HMMs</h1>
         <p class="subtitle">A complete exploration of MFCC features and phoneme-level training with Hidden Markov Models.</p>
@@ -102,7 +39,7 @@
             <div class="card" style="height: fit-content;">
                 <h3>Dataset Overview</h3>
                 <p>TIMIT contains phonetically-balanced speech from 630 speakers across 8 dialect regions. Each utterance includes time-aligned phonetic and word transcriptions.</p>
-                <ul style="margin-left: 20px; color: var(--text-muted);">
+                <ul style="margin-left: 20px; color: var(--text-muted); margin-top: 10px;">
                     <li>630 speakers x 10 utterances</li>
                     <li>61 phoneme labels (optionally reduced to 39)</li>
                     <li>High-quality 16 kHz recordings</li>
@@ -113,7 +50,7 @@
                 <h3>Phoneme Frequency Distribution</h3>
                 <p>Significant class imbalance is observed: <strong>sil</strong>, <strong>ih</strong>, <strong>n</strong> dominate the dataset. This motivates balancing strategies in HMM training.</p>
                 <div class="img-placeholder">
-                    <img src="assets/btl_mr/phon_dist.png" alt="Phoneme Distribution">
+                    <img src="assets/btl_mr/phon_dist.png" alt="Phoneme Distribution" class="preview-img">
                 </div>
             </div>
         </div>
@@ -128,7 +65,6 @@
         <h2 class="section-title">2. Acoustic Feature Extraction</h2>
         <div class="card">
             <div style="display: flex; flex-wrap: wrap; gap: 20px;">
-
                 <div style="flex: 1.5;">
                     <h3>Raw Audio Waveform</h3>
                     <p>We start with the raw audio signal sampled at 16 kHz.</p>
@@ -136,20 +72,18 @@
 
                 <div style="flex: 1.5;">
                     <div class="img-placeholder">
-                        <img src="assets/btl_mr/raw.png" alt="Raw Audio Waveform">
+                        <img src="assets/btl_mr/raw.png" alt="Raw Audio Waveform" class="preview-img">
                     </div>
                 </div>
-
             </div>
         </div>
 
         <div class="card">
             <div style="display: flex; flex-wrap: wrap; gap: 20px;">
-
                 <div style="flex: 1;">
                     <h3>MFCC + Δ + ΔΔ (39-dimensional)</h3>
                     <p>We extract cepstral features capturing spectral properties and temporal dynamics.</p>
-                    <ul style="margin-left: 20px; color: var(--text-muted);">
+                    <ul style="margin-left: 20px; color: var(--text-muted); margin-top: 10px;">
                         <li>13 static MFCCs (vocal tract shape)</li>
                         <li>13 delta coefficients (velocity)</li>
                         <li>13 delta-delta coefficients (acceleration)</li>
@@ -159,10 +93,9 @@
 
                 <div style="flex: 1.5;">
                     <div class="img-placeholder">
-                        <img src="assets/btl_mr/MFCC.png" alt="MFCC Spectrogram">
+                        <img src="assets/btl_mr/MFCC.png" alt="MFCC Spectrogram" class="preview-img">
                     </div>
                 </div>
-
             </div>
         </div>
 
@@ -179,12 +112,14 @@
         <div class="card">
             <h3>HMM state diagram</h3>
             <p>Each HMM is modelled with 3 states for each phoneme:</p>
-            <ul style="margin-left: 20px; color: var(--text-muted);">
+            <ul style="margin-left: 20px; color: var(--text-muted); margin-top: 10px;">
                 <li>Left-to-right transitions only due to the sequential nature of speech.</li>
                 <li>Each state can only move to itself or the next state.</li>
                 <li>However, /sil/ phoneme is modelled with 5 states to capture its longer duration.</li>
             </ul>
-            <div class="img-placeholder" style="margin-top: 20px; height: fit-content;"><img src="assets/btl_mr/hmm_chart.png"></div>
+            <div class="img-placeholder" style="margin-top: 20px; height: fit-content;">
+                <img src="assets/btl_mr/hmm_chart.png" class="preview-img">
+            </div>
         </div>
 
         <div class="grid">
@@ -211,17 +146,20 @@
         <h2 class="section-title">4. Training Results</h2>
 
         <div class="grid">
-
             <div class="card" style="height: fit-content;">
                 <h3>EM Convergence Curve</h3>
                 <p>Baum-Welch expectation-maximization increases log-likelihood monotonically.</p>
-                <div class="img-placeholder" style="height: fit-content;"><img src="assets/btl_mr/BM_converge.png"></div>
+                <div class="img-placeholder" style="height: fit-content;">
+                    <img src="assets/btl_mr/BM_converge.png" class="preview-img">
+                </div>
             </div>
 
             <div class="card" style="height: fit-content;">
                 <h3>Confusion Matrix</h3>
                 <p>Most confusions occur between phonetically similar pairs (e.g., /z/->/s/, /jh/->/ch/, /uh/->/ah/).</p>
-                <div class="img-placeholder" style="height: fit-content;"><img src="assets/btl_mr/CM_norm.png"></div>
+                <div class="img-placeholder" style="height: fit-content;">
+                    <img src="assets/btl_mr/CM_norm.png" class="preview-img">
+                </div>
             </div>
 
         </div>
@@ -265,14 +203,14 @@
             <h3>Most Confused Phoneme Pairs</h3>
             <p>We analyze where the model struggles to distinguish acoustically similar categories.</p>
 
-            <ul style="margin-left:20px; color:var(--text-muted);">
+            <ul style="margin-left:20px; color:var(--text-muted); margin-top: 10px;">
                 <li><strong>/s/ vs /z/</strong> — voicing ambiguity in noisy segments.</li>
                 <li><strong>/p/ vs /b/</strong> — weak burst for unvoiced stops.</li>
                 <li><strong>/ae/ vs /eh/</strong> — vowel height confusion.</li>
             </ul>
 
             <div class="img-placeholder" style="height: fit-content;">
-                <img src="assets/btl_mr/top_confused.png"/>
+                <img src="assets/btl_mr/top_confused.png" class="preview-img"/>
             </div>
         </div>
     </section>
@@ -310,14 +248,14 @@
 
         <div class="card">
             <h3>Key Findings</h3>
-            <ul style="margin-left:20px; color:var(--text-muted);">
+            <ul style="margin-left:20px; color:var(--text-muted); margin-top: 10px;">
                 <li>GMM-HMM significantly outperforms Gaussian HMM.</li>
                 <li>MFCC + Δ + ΔΔ provides the best acoustic representation.</li>
                 <li>Phoneme imbalance heavily affects baseline performance.</li>
             </ul>
 
             <h3 style="margin-top:20px;">Future Enhancements</h3>
-            <ul style="margin-left:20px; color:var(--text-muted);">
+            <ul style="margin-left:20px; color:var(--text-muted); margin-top: 10px;">
                 <li>DNN-HMM hybrid acoustic model</li>
                 <li>LDA/MLLT feature transforms</li>
                 <li>Full phoneme-loop decoder with bigram transitions</li>
@@ -328,9 +266,17 @@
 
 </main>
 
+<!-- Lightbox Container -->
+<div id="lightbox">
+    <button id="lb-close">✕</button>
+    <img id="lb-img" src="" alt="">
+</div>
+
 <footer>
     <p>Project by <strong>DNAC1</strong> | For Machine Learning Coursework</p>
 </footer>
 
+<!-- Lightbox Script -->
+<script src="main.js"></script>
 </body>
 </html>

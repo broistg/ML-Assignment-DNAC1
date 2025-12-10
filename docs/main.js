@@ -1,4 +1,3 @@
-/* main.js */
 document.addEventListener('DOMContentLoaded', () => {
     // --- Lightbox Logic ---
     const lb = document.getElementById('lightbox');

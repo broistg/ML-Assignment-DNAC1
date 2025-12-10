@@ -5,12 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Adult Census Income | Assignment 1</title>
     <link rel="icon" href="logo.ico" type="image/x-icon">
+    <!-- Import extracted styles -->
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
 <header>
+    <!-- Consistent Home Button -->
     <a href="index.html" class="back-home">
         <svg viewBox="0 0 24 24">
             <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"></path>
@@ -27,6 +29,10 @@
 
 <main class="container">
 
+    <!-- =============================================================== -->
+    <!-- 1. Exploratory Data Analysis                                    -->
+    <!-- =============================================================== -->
+
     <section>
         <h2 class="section-title">1. Exploratory Data Analysis</h2>
 
@@ -34,7 +40,7 @@
             <div class="card">
                 <h3>Dataset Overview</h3>
                 <p>Adult Census Income Dataset contains demographic and occupational information from the 1994 U.S. Census database. Each record includes personal, employment, and economic attributes.</p>
-                <ul>
+                <ul style="margin-left: 20px; color: var(--text-muted); margin-top: 10px;">
                     <li>48,842 instances × 14 attributes</li>
                     <li>Income labels: <code><=50K</code> or <code>>50K</code></li>
                     <li>Numerical features: <code>age, fnlwgt, education-num, capital-gain, capital-loss, hours-per-week</code></li>
@@ -45,7 +51,8 @@
             <div class="card">
                 <h3>Income Distribution</h3>
                 <p>The dataset shows a clearly imbalanced distribution of income labels, with the <code><=50K</code> class being significantly more frequent than the <code>>50K</code> class.</p>
-                <div class="img-placeholder" style="height: auto; padding: 10px;">
+                <div class="img-placeholder">
+                    <!-- Added preview-img class for zoom -->
                     <img src="assets/assignment1/income.png" alt="Income Distribution" class="preview-img">
                 </div>
             </div>
@@ -54,69 +61,101 @@
         <div class="grid">
             <div class="card">
                 <h3>Numerical Features</h3>
-                <p style="margin-bottom: 15px;">Numerical features such as <code>capital-gain</code> and <code>fnlwgt</code> are highly skewed.</p>
-                <div class="img-placeholder" style="height: auto;">
-                    <img src="assets/assignment1/hours.png" alt="Hours per week Distribution" class="preview-img">
+                <div class="img-placeholder">
+                    <img src="assets/assignment1/hours.png" alt="hours-per-week Distribution" class="preview-img">
                 </div>
-                <div class="img-placeholder" style="height: auto;">
+                <div class="img-placeholder">
                     <img src="assets/assignment1/capital-gain.png" alt="capital-gain Distribution" class="preview-img">
                 </div>
-                <div class="img-placeholder" style="height: auto;">
+                <div class="img-placeholder">
                     <img src="assets/assignment1/fnlwgt.png" alt="fnlwgt Distribution" class="preview-img">
                 </div>
+                <p style="margin-top: 10px;">Numerical features such as <code>capital-gain</code> and <code>fnlwgt</code> are highly skewed.</p>
             </div>
 
             <div class="card">
                 <h3>Categorical Features</h3>
-                <p style="margin-bottom: 15px;">Categorical features like <code>education</code>, <code>occupation</code> have a large number of unique categories.</p>
-                <div class="img-placeholder" style="height: auto;">
-                    <img src="assets/assignment1/relation.png" alt="Relationship Distribution" class="preview-img">
+                <div class="img-placeholder">
+                    <img src="assets/assignment1/relation.png" alt="relationship Distribution" class="preview-img">
                 </div>
-                <div class="img-placeholder" style="height: auto;">
-                    <img src="assets/assignment1/occupation.png" alt="Occupation Distribution" class="preview-img">
+                <div class="img-placeholder">
+                    <img src="assets/assignment1/occupation.png" alt="occupation Distribution" class="preview-img">
                 </div>
-                <div class="img-placeholder" style="height: auto;">
-                    <img src="assets/assignment1/education.png" alt="Education Distribution" class="preview-img">
+                <div class="img-placeholder">
+                    <img src="assets/assignment1/education.png" alt="education Distribution" class="preview-img">
                 </div>
+                <p style="margin-top: 10px;">Categorical features like <code>education</code>, <code>occupation</code> have a large number of unique categories.</p>
             </div>
         </div>
     </section>
+
+
+    <!-- =============================================================== -->
+    <!-- 2. Data Preprocessing                                           -->
+    <!-- =============================================================== -->
 
     <section>
         <h2 class="section-title">2. Data Preprocessing</h2>
 
-        <div class="grid">
-            <div class="card">
-                <h3>Handling Missing Values</h3>
-                <ul>
-                    <li><strong>Numerical features:</strong> Handled using <code>median</code>, <code>mean</code>, or <code>constant</code> strategies.</li>
-                    <li><strong>Categorical features:</strong> Filled using <code>most_frequent</code> or <code>constant</code> strategies.</li>
-                </ul>
-            </div>
+        <div class="card">
+            <div style="display: flex; flex-wrap: wrap; gap: 20px;">
+                <div style="flex: 1;">
+                    <p><strong>Imputation of Missing Values:</strong></p>
+                    <ul style="margin-left: 20px; color: var(--text-muted);">
+                        <li><p><strong>Numerical features:</strong> missing values were handled using strategies: <code>median</code>, <code>mean</code>, or <code>constant</code>.</p></li>
+                        <li><p><strong>Categorical features:</strong> missing categories were filled using <code>most_frequent</code> or <code>constant</code>.</p></li>
+                    </ul>
+                </div>
 
-            <div class="card">
-                <h3>Encoding & Scaling</h3>
-                <ul>
-                    <li><strong>One-Hot Encoding:</strong> For nominal categorical features.</li>
-                    <li><strong>Ordinal Encoding:</strong> For ordinal features (e.g., education level).</li>
-                    <li><strong>Standard/Min-Max Scaling:</strong> applied to numerical features.</li>
-                </ul>
-            </div>
-            
-            <div class="card">
-                <h3>Dimensionality Reduction</h3>
-                <p>Principal Component Analysis (PCA) applied to reduce dimensionality while retaining 90% or 95% of the variance.</p>
+                <div style="flex: 1;">
+                    <p><strong>Encoding Categorical Features:</strong></p>
+                    <ul style="margin-left: 20px; color: var(--text-muted);">
+                        <li><p><strong>One-Hot Encoding:</strong> converts each category into a binary vector.</p></li>
+                        <li><p><strong>Ordinal Encoding:</strong> assigns a unique integer to each category.</p></li>
+                    </ul>
+                </div>
             </div>
         </div>
+        
+        <div class="card">
+            <div style="display: flex; flex-wrap: wrap; gap: 20px;">
+                <div style="flex: 1;">
+                    <p><strong>Feature Scaling:</strong></p>
+                    <ul style="margin-left: 20px; color: var(--text-muted);">
+                        <li><p><strong>Standard Scaling:</strong> transforms numerical features to have zero mean and unit variance.</p></li>
+                        <li><p><strong>Min-Max Scaling:</strong> rescales features to a specific range (usually <code>0–1</code>).</p></li>
+                    </ul>
+                </div>
+
+                <div style="flex: 1;">
+                    <p><strong>Dimensionality Reduction:</strong></p>
+                    <p>Principal Component Analysis (PCA) can be applied to reduce dimensionality while retaining most of the variance.</p>
+                </div>
+            </div>
+        </div>
+
     </section>
 
+
+    <!-- =============================================================== -->
+    <!-- 3. Machine Learning Models                                      -->
+    <!-- =============================================================== -->
+
     <section>
-        <h2 class="section-title">3. Models & Results</h2>
+        <h2 class="section-title">3. Models</h2>
 
         <div class="card">
-            <h3>Model Comparison</h3>
-            <p style="margin-bottom: 20px;">We evaluated standard ML models (Logistic Regression, SVM, Random Forest, KNN, Naive Bayes) against Deep Learning approaches (Wide & Deep, TabNet).</p>
-            
+            <p><strong>Machine Learning Models: </strong>Logistic Regression, Support Vector Machine (SVM), Random Forest, Decision Tree, K-Nearest Neighbor (KNN), Gaussian Naive Bayes</p>
+
+            <p style="margin-top: 15px;"><strong>Deep Learning Models: </strong></p>
+            <ul style="margin-left: 20px; color: var(--text-muted);">
+                <li><p><strong>Wide & Deep Neural Network:</strong> combines a wide linear model (memorization) with deep neural networks (generalization) for structured data.</p></li>
+                <li><p><strong>TabNet:</strong> uses sequential attention to choose which features to reason from at each decision step, suitable for tabular data.</p></li>
+            </ul>
+
+            <p style="margin-top: 15px;"><strong>Metrics: </strong> F1-Score</p>
+
+            <!-- Applied .metrics-table class to match Assignment 3 -->
             <table class="metrics-table">
                 <thead>
                     <tr>
@@ -132,8 +171,8 @@
                 <tbody>
                     <tr>
                         <td>1</td>
-                        <td><strong>TabNet</strong></td>
-                        <td>-</td>
+                        <td>TabNet</td>
+                        <td>x</td>
                         <td><strong>0.87171</strong></td>
                         <td>0.7387</td>
                         <td>0.71763</td>
@@ -168,8 +207,8 @@
                     </tr>
                     <tr>
                         <td>5</td>
-                        <td>Wide & Deep NN</td>
-                        <td>-</td>
+                        <td>Wide & Deep Neural Network</td>
+                        <td>x</td>
                         <td>0.84578</td>
                         <td>0.64631</td>
                         <td><strong>0.78494</strong></td>
@@ -259,29 +298,38 @@
                 </tbody>
             </table>
 
-            <h3>Key Findings</h3>
-            <ul>
-                <li><strong>TabNet</strong> achieved the highest overall F1-score, outperforming traditional ML models.</li>
-                <li><strong>Logistic Regression</strong> and <strong>SVM</strong> were the best performers among traditional models (F1 ~0.65).</li>
-                <li>PCA retaining 95% variance consistently performed better than 90%.</li>
-                <li>Deep learning models generally outperform traditional ML when sufficient data and preprocessing are applied.</li>
+            <ul style="margin-left: 20px; color: var(--text-muted); margin-top: 20px;">
+                <li><p><strong>TabNet</strong> achieved the highest overall F1-score across all models, outperforming both traditional ML models</p></li>
+                <li><p><strong>Logistic Regression</strong> and <strong>Support Vector Machine</strong> achieved the highest F1-score <code>(~0.65)</code> compared to the other machine learning models.</p></li>
+                <li><p>Using PCA that retains 95% of the variance performs better compared to using PCA with 90% variance.</p></li>
+                <li><p>Deep learning models generally outperform traditional ML models when sufficient data and feature preprocessing are applied.</p></li>
             </ul>
+
         </div>
+
     </section>
+
+
+    <!-- =============================================================== -->
+    <!-- 4. Conclusion                                                   -->
+    <!-- =============================================================== -->
 
     <section>
         <h2 class="section-title">4. Conclusion</h2>
+
         <div class="card">
-            <ul>
-                <li>Deep learning models tend to achieve higher predictive performance on complex tabular data, especially when nonlinear interactions exist.</li>
-                <li>Proper preprocessing (scaling, imputation) significantly impacts model performance.</li>
-                <li>TabNet is recommended when leveraging deep learning for tabular datasets.</li>
+            <ul style="margin-left:20px; color:var(--text-muted);">
+                <li>Deep learning models tend to achieve higher predictive performance on complex tabular data, especially when interactions among features are non-linear.</li>
+                <li>Proper preprocessing significantly impacts model performance more than simply changing algorithms.</li>
+                <li>Using PCA with 95% variance retains more information than 90%, often leading to better model generalization.</li>
+                <li>TabNet is recommended when leveraging deep learning for tabular datasets</li>
             </ul>
         </div>
     </section>
 
 </main>
 
+<!-- Lightbox Container -->
 <div id="lightbox">
     <button id="lb-close">✕</button>
     <img id="lb-img" src="" alt="">
@@ -291,6 +339,7 @@
     <p>Project by <strong>DNAC1</strong> | For Machine Learning Coursework</p>
 </footer>
 
+<!-- Lightbox Script -->
 <script src="main.js"></script>
 </body>
 </html>

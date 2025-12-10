@@ -4,123 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Adult Census Income | Assignment 1</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
     <link rel="icon" href="logo.ico" type="image/x-icon">
-
-    <style>
-        :root {
-            --primary: #2563eb;
-            --primary-dark: #1e40af;
-            --secondary: #f1f5f9;
-            --text-main: #1e293b;
-            --text-muted: #64748b;
-            --bg: #f8fafc;
-            --card-bg: #ffffff;
-            --success: #10b981;
-        }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Inter', sans-serif; background-color: var(--bg); color: var(--text-main); line-height: 1.6; }
-        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
-        header {
-            background: linear-gradient(135deg, #2563eb 0%, #4f46e5 100%);
-            color: white;
-            padding: 80px 0 60px;
-            margin-bottom: 40px;
-            border-radius: 0 0 40px 40px;
-            box-shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.2);
-            position: relative;
-        }
-
-        .back-home {
-            position: absolute;
-            top: 25px;
-            left: 25px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            color: rgba(255, 255, 255, 0.9);
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.95rem;
-            padding: 8px 16px;
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(4px);
-            border-radius: 30px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            transition: all 0.2s ease;
-        }
-
-        .back-home:hover {
-            background: rgba(255, 255, 255, 0.25);
-            transform: translateX(-3px);
-            color: #fff;
-        }
-
-        .back-home svg {
-            width: 18px;
-            height: 18px;
-            fill: currentColor;
-        }
-
-        @media (max-width: 600px) {
-            .back-home {
-                top: 20px;
-                left: 20px;
-                padding: 6px 12px;
-                font-size: 0.85rem;
-            }
-        }
-
-        h1 { font-size: 3rem; font-weight: 800; margin-bottom: 15px; letter-spacing: -1px; }
-        .subtitle { font-size: 1.25rem; opacity: 0.9; max-width: 600px; }
-        .btn {
-            display: inline-block;
-            background: white; color: var(--primary);
-            padding: 12px 24px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 600;
-            margin-top: 25px; transition: 0.2s;
-        }
-        .btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
-        section { margin-bottom: 60px; }
-        .section-title {
-            font-size: 1.8rem; margin-bottom: 25px;
-            color: var(--primary-dark);
-            border-left: 5px solid var(--primary);
-            padding-left: 15px;
-        }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px,1fr)); gap: 25px; }
-        .card {
-            background: var(--card-bg);
-            border-radius: 16px;
-            padding: 25px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            transition: 0.2s;
-        }
-        .card:hover { transform: translateY(-3px); }
-        .img-placeholder { width: 100%; height: 250px; background: #e2e8f0;
-            display: flex; align-items: center; justify-content: center; color: var(--text-muted); font-weight: 600;
-            border-radius: 8px; overflow: hidden;
-        }
-        .img-placeholder img { width: 100%; height: 100%; object-fit: cover; }
-        .full-width-img { height: 350px; }
-        .metrics-table {
-            width: 100%; border-collapse: collapse;
-            background: white; border-radius: 12px; overflow: hidden;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-        }
-        .metrics-table th, .metrics-table td {
-            padding: 15px; text-align: left; border-bottom: 1px solid #e2e8f0;
-        }
-        code {font-size: 1.2em;} 
-        .metrics-table th { background: var(--secondary); color: var(--primary-dark); }
-        .tag { display:inline-block; padding:4px 8px; border-radius:4px; font-size:0.8rem; font-weight:600;}
-        .tag-model { background:#dbeafe; color:#1e40af;}
-        .tag-score { background:#d1fae5; color:#065f46;}
-        footer { text-align:center; padding:40px; color:var(--text-muted); border-top:1px solid #e2e8f0; }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
@@ -142,10 +27,6 @@
 
 <main class="container">
 
-    <!-- =============================================================== -->
-    <!-- 1. Exploratory Data Analysis                                    -->
-    <!-- =============================================================== -->
-
     <section>
         <h2 class="section-title">1. Exploratory Data Analysis</h2>
 
@@ -153,19 +34,19 @@
             <div class="card">
                 <h3>Dataset Overview</h3>
                 <p>Adult Census Income Dataset contains demographic and occupational information from the 1994 U.S. Census database. Each record includes personal, employment, and economic attributes.</p>
-                <ul style="margin-left: 20px; color: var(--text-muted);">
+                <ul>
                     <li>48,842 instances × 14 attributes</li>
                     <li>Income labels: <code><=50K</code> or <code>>50K</code></li>
-                    <li>Numerical features:</strong> <code>age, fnlwgt, education-num, capital-gain, capital-loss, hours-per-week</code></p></li>
-                    <li>Categorical features:</strong> <code>workclass, education, marital-status, occupation, relationship, race, sex, native-country</code></p></li>
+                    <li>Numerical features: <code>age, fnlwgt, education-num, capital-gain, capital-loss, hours-per-week</code></li>
+                    <li>Categorical features: <code>workclass, education, marital-status, occupation, relationship, race, sex, native-country</code></li>
                 </ul>
             </div>
 
             <div class="card">
                 <h3>Income Distribution</h3>
                 <p>The dataset shows a clearly imbalanced distribution of income labels, with the <code><=50K</code> class being significantly more frequent than the <code>>50K</code> class.</p>
-                <div class="img-placeholder">
-                    <img src="assets/assignment1/income.png" alt="Income Distribution">
+                <div class="img-placeholder" style="height: auto; padding: 10px;">
+                    <img src="assets/assignment1/income.png" alt="Income Distribution" class="preview-img">
                 </div>
             </div>
         </div>
@@ -173,285 +54,243 @@
         <div class="grid">
             <div class="card">
                 <h3>Numerical Features</h3>
-                <div class="img-placeholder">
-                    <img src="assets/assignment1/hours.png" alt="capital-gain Distribution">
+                <p style="margin-bottom: 15px;">Numerical features such as <code>capital-gain</code> and <code>fnlwgt</code> are highly skewed.</p>
+                <div class="img-placeholder" style="height: auto;">
+                    <img src="assets/assignment1/hours.png" alt="Hours per week Distribution" class="preview-img">
                 </div>
-                <div class="img-placeholder">
-                    <img src="assets/assignment1/capital-gain.png" alt="capital-gain Distribution">
+                <div class="img-placeholder" style="height: auto;">
+                    <img src="assets/assignment1/capital-gain.png" alt="capital-gain Distribution" class="preview-img">
                 </div>
-                <div class="img-placeholder">
-                    <img src="assets/assignment1/fnlwgt.png" alt="capital-gain Distribution">
+                <div class="img-placeholder" style="height: auto;">
+                    <img src="assets/assignment1/fnlwgt.png" alt="fnlwgt Distribution" class="preview-img">
                 </div>
-                <p>Numerical features such as <code>capital-gain</code> and <code>fnlwgt</code> are highly skewed.</p>
             </div>
 
             <div class="card">
                 <h3>Categorical Features</h3>
-                <div class="img-placeholder">
-                    <img src="assets/assignment1/relation.png" alt="education Distribution">
+                <p style="margin-bottom: 15px;">Categorical features like <code>education</code>, <code>occupation</code> have a large number of unique categories.</p>
+                <div class="img-placeholder" style="height: auto;">
+                    <img src="assets/assignment1/relation.png" alt="Relationship Distribution" class="preview-img">
                 </div>
-                <div class="img-placeholder">
-                    <img src="assets/assignment1/occupation.png" alt="education Distribution">
+                <div class="img-placeholder" style="height: auto;">
+                    <img src="assets/assignment1/occupation.png" alt="Occupation Distribution" class="preview-img">
                 </div>
-                <div class="img-placeholder">
-                    <img src="assets/assignment1/education.png" alt="education Distribution">
+                <div class="img-placeholder" style="height: auto;">
+                    <img src="assets/assignment1/education.png" alt="Education Distribution" class="preview-img">
                 </div>
-                <p>Categorical features like <code>education</code>, <code>occupation</code> have a large number of unique categories.</p>
             </div>
         </div>
     </section>
-
-
-    <!-- =============================================================== -->
-    <!-- 2. Data Preprocessing                                        -->
-    <!-- =============================================================== -->
 
     <section>
         <h2 class="section-title">2. Data Preprocessing</h2>
 
-        <div class="card">
-            <div style="display: flex; flex-wrap: wrap; gap: 20px;">
-
-                <div style="flex: 1;">
-                    <p style="margin-top:10px;"><strong>Imputation of Missing Values:</strong></p>
-                    <ul style="margin-left: 20px; color: var(--text-muted);">
-                        <li><p><strong>Numerical features:</strong> missing values were handled using strategies: <code>median</code>, <code>mean</code>, or <code>constant</code>.</p></li>
-                        <li><p><strong>Categorical features:</strong> missing categories were filled using <code>most_frequent</code> or <code>constant</code>.</p></li>
-                    </ul>
-                </div>
-
-                <div style="flex: 1;">
-                    <p style="margin-top:10px;"><strong>Encoding Categorical Features:</strong></p>
-                    <ul style="margin-left: 20px; color: var(--text-muted);">
-                        <li><p><strong>One-Hot Encoding:</strong> converts each category into a binary vector.</p></li>
-                        <li><p><strong>Ordinal Encoding:</strong> assigns a unique integer to each category.</p></li>
-                    </ul>
-                </div>
-
-            </div>
-        </div>
-        <div class="card">
-            <div style="display: flex; flex-wrap: wrap; gap: 20px;">
-
-                <div style="flex: 1;">
-                    <p style="margin-top:10px;"><strong>Feature Scaling:</strong></p>
-                    <ul style="margin-left: 20px; color: var(--text-muted);">
-                        <li><p><strong>Standard Scaling:</strong> transforms numerical features to have zero mean and unit variance.</p></li>
-                        <li><p><strong>Min-Max Scaling:</strong> rescales features to a specific range (usually <code>0–1</code>).</p></li>
-                    </ul>
-                </div>
-
-                <div style="flex: 1;">
-                    <p style="margin-top:10px;"><strong>Dimensionality Reduction:</strong></p>
-                    <p>Principal Component Analysis (PCA) can be applied to reduce dimensionality while retaining most of the variance.</p>
-                </div>
-
-            </div>
-        </div>
-
-    </section>
-
-
-    <!-- =============================================================== -->
-    <!-- 3. Machine Learning Models                                            -->
-    <!-- =============================================================== -->
-
-    <section>
-        <h2 class="section-title">3. Models</h2>
-
         <div class="grid">
+            <div class="card">
+                <h3>Handling Missing Values</h3>
+                <ul>
+                    <li><strong>Numerical features:</strong> Handled using <code>median</code>, <code>mean</code>, or <code>constant</code> strategies.</li>
+                    <li><strong>Categorical features:</strong> Filled using <code>most_frequent</code> or <code>constant</code> strategies.</li>
+                </ul>
+            </div>
 
             <div class="card">
-                <p><strong>Machine Learning Models: </strong>Logistic Regression, Support Vector Machine (SVM), Random Forest, 
-                Decision Tree, K-Nearest Neighbor (KNN), Gaussian Naive Bayes</p>
-
-                <p><strong>Deep Learning Models: </strong></p>
-                <ul style="margin-left: 20px; color: var(--text-muted);">
-                <li><p><strong>Wide & Deep Neural Network:</strong> combines a wide linear model (memorization) with deep neural networks (generalization) for structured data.</p></li>
-                <li><p><strong>TabNet:</strong> uses sequential attention to choose which features to reason from at each decision step, suitable for tabular data.</p></li>
+                <h3>Encoding & Scaling</h3>
+                <ul>
+                    <li><strong>One-Hot Encoding:</strong> For nominal categorical features.</li>
+                    <li><strong>Ordinal Encoding:</strong> For ordinal features (e.g., education level).</li>
+                    <li><strong>Standard/Min-Max Scaling:</strong> applied to numerical features.</li>
                 </ul>
-
-                <p><strong>Metrics: </strong> F1-Score</p>
-
-                <table style="width: 90%; margin: 20px auto; border-collapse: collapse; font-family: Arial, sans-serif; font-size: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.15); border-radius: 8px; overflow: hidden;">
-                    <thead>
-                        <tr style="background: #2563eb; color: white; text-align: left;">
-                            <th style="padding: 12px;">Rank</th>
-                            <th style="padding: 12px;">Model</th>
-                            <th style="padding: 12px;">PCA</th>
-                            <th style="padding: 12px;">Accuracy</th>
-                            <th style="padding: 12px;">Precision</th>
-                            <th style="padding: 12px;">Recall</th>
-                            <th style="padding: 12px;">F1-Score</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr style="background: #f9f9f9;">
-                            <td style="padding: 12px;">1</td>
-                            <td style="padding: 12px;">TabNet</td>
-                            <td style="padding: 12px;">x</td>
-                            <td style="padding: 12px;"><strong>0.87171</strong></td>
-                            <td style="padding: 12px;">0.7387</td>
-                            <td style="padding: 12px;">0.71763</td>
-                            <td style="padding: 12px;"><strong>0.72801</strong></td>
-                        </tr>
-                        <tr style="background: #f9f9f9;">
-                            <td style="padding: 12px;">2</td>
-                            <td style="padding: 12px;">Logistic Regression</td>
-                            <td style="padding: 12px;">0.95</td>
-                            <td style="padding: 12px;">0.84973</td>
-                            <td style="padding: 12px;">0.73023</td>
-                            <td style="padding: 12px;">0.58985</td>
-                            <td style="padding: 12px;">0.65257</td>
-                        </tr>
-                        <tr style="background: #f9f9f9;">
-                            <td style="padding: 12px;">3</td>
-                            <td style="padding: 12px;">SVM</td>
-                            <td style="padding: 12px;">0.95</td>
-                            <td style="padding: 12px;">0.85506</td>
-                            <td style="padding: 12px;"><strong>0.76556</strong></td>
-                            <td style="padding: 12px;">0.56817</td>
-                            <td style="padding: 12px;">0.65226</td>
-                        </tr>
-                        <tr style="background: #f9f9f9;">
-                            <td style="padding: 12px;">4</td>
-                            <td style="padding: 12px;">Logistic Regression</td>
-                            <td style="padding: 12px;">0.9</td>
-                            <td style="padding: 12px;">0.84823</td>
-                            <td style="padding: 12px;">0.73008</td>
-                            <td style="padding: 12px;">0.58015</td>
-                            <td style="padding: 12px;">0.64654</td>
-                        </tr>
-                        <tr style="background: #f9f9f9;">
-                            <td style="padding: 12px;">5</td>
-                            <td style="padding: 12px;">Wide & Deep Neural Network</td>
-                            <td style="padding: 12px;">x</td>
-                            <td style="padding: 12px;">0.84578</td>
-                            <td style="padding: 12px;">0.64631</td>
-                            <td style="padding: 12px;"><strong>0.78494</strong></td>
-                            <td style="padding: 12px;">0.64631</td>
-                        </tr>
-                        <tr style="background: #f9f9f9;">
-                            <td style="padding: 12px;">6</td>
-                            <td style="padding: 12px;">SVM</td>
-                            <td style="padding: 12px;">0.9</td>
-                            <td style="padding: 12px;">0.85287</td>
-                            <td style="padding: 12px;">0.76102</td>
-                            <td style="padding: 12px;">0.56132</td>
-                            <td style="padding: 12px;">0.64609</td>
-                        </tr>
-                        <tr style="background: #f9f9f9;">
-                            <td style="padding: 12px;">7</td>
-                            <td style="padding: 12px;">Random Forest</td>
-                            <td style="padding: 12px;">0.95</td>
-                            <td style="padding: 12px;">0.84509</td>
-                            <td style="padding: 12px;">0.71429</td>
-                            <td style="padding: 12px;">0.58756</td>
-                            <td style="padding: 12px;">0.64476</td>
-                        </tr>
-                        <tr style="background: #f9f9f9;">
-                            <td style="padding: 12px;">8</td>
-                            <td style="padding: 12px;">Random Forest</td>
-                            <td style="padding: 12px;">0.9</td>
-                            <td style="padding: 12px;">0.84264</td>
-                            <td style="padding: 12px;">0.70833</td>
-                            <td style="padding: 12px;">0.58186</td>
-                            <td style="padding: 12px;">0.6389</td>
-                        </tr>
-                        <tr style="background: #f9f9f9;">
-                            <td style="padding: 12px;">9</td>
-                            <td style="padding: 12px;">KNN</td>
-                            <td style="padding: 12px;">0.95</td>
-                            <td style="padding: 12px;">0.83977</td>
-                            <td style="padding: 12px;">0.69469</td>
-                            <td style="padding: 12px;">0.58928</td>
-                            <td style="padding: 12px;">0.63765</td>
-                        </tr>
-                        <tr style="background: #f9f9f9;">
-                            <td style="padding: 12px;">10</td>
-                            <td style="padding: 12px;">KNN</td>
-                            <td style="padding: 12px;">0.9</td>
-                            <td style="padding: 12px;">0.84168</td>
-                            <td style="padding: 12px;">0.70547</td>
-                            <td style="padding: 12px;">0.58072</td>
-                            <td style="padding: 12px;">0.63705</td>
-                        </tr>
-                        <tr style="background: #f9f9f9;">
-                            <td style="padding: 12px;">11</td>
-                            <td style="padding: 12px;">Decision Tree</td>
-                            <td style="padding: 12px;">0.9</td>
-                            <td style="padding: 12px;">0.83308</td>
-                            <td style="padding: 12px;">0.70385</td>
-                            <td style="padding: 12px;">0.52196</td>
-                            <td style="padding: 12px;">0.59941</td>
-                        </tr>
-                        <tr style="background: #f9f9f9;">
-                            <td style="padding: 12px;">12</td>
-                            <td style="padding: 12px;">Decision Tree</td>
-                            <td style="padding: 12px;">0.95</td>
-                            <td style="padding: 12px;">0.83213</td>
-                            <td style="padding: 12px;">0.69916</td>
-                            <td style="padding: 12px;">0.52367</td>
-                            <td style="padding: 12px;">0.59883</td>
-                        </tr>
-                        <tr style="background: #f9f9f9;">
-                            <td style="padding: 12px;">13</td>
-                            <td style="padding: 12px;">Gaussian Naive Bayes</td>
-                            <td style="padding: 12px;">0.95</td>
-                            <td style="padding: 12px;">0.80237</td>
-                            <td style="padding: 12px;">0.58338</td>
-                            <td style="padding: 12px;">0.60867</td>
-                            <td style="padding: 12px;">0.59576</td>
-                        </tr>
-                        <tr style="background: #f9f9f9;">
-                            <td style="padding: 12px;">14</td>
-                            <td style="padding: 12px;">Gaussian Naive Bayes</td>
-                            <td style="padding: 12px;">0.9</td>
-                            <td style="padding: 12px;">0.81152</td>
-                            <td style="padding: 12px;">0.61425</td>
-                            <td style="padding: 12px;">0.57045</td>
-                            <td style="padding: 12px;">0.59154</td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <ul style="margin-left: 20px; color: var(--text-muted);">
-                    <li><p><strong>TabNet</strong> achieved the highest overall F1-score across all models, outperforming both traditional ML models</p></li>
-                    <li><p><strong>Logistic Regression</strong> and <strong>Support Vector Machine</strong> achieved the highest F1-score <code>(~0.65)</code> compared to the other machine learning models.</p></li>
-                    <li><p>Using PCA that retains 95% of the variance performs better compared to using PCA with 90% variance.</p></li>
-                    <li><p>Deep learning models generally outperform traditional ML models when sufficient data and feature preprocessing are applied.</p></li>
-                </ul>
-
             </div>
-
+            
+            <div class="card">
+                <h3>Dimensionality Reduction</h3>
+                <p>Principal Component Analysis (PCA) applied to reduce dimensionality while retaining 90% or 95% of the variance.</p>
+            </div>
         </div>
-
-
     </section>
 
+    <section>
+        <h2 class="section-title">3. Models & Results</h2>
 
-    <!-- =============================================================== -->
-    <!-- 4. Conclusion                                                   -->
-    <!-- =============================================================== -->
+        <div class="card">
+            <h3>Model Comparison</h3>
+            <p style="margin-bottom: 20px;">We evaluated standard ML models (Logistic Regression, SVM, Random Forest, KNN, Naive Bayes) against Deep Learning approaches (Wide & Deep, TabNet).</p>
+            
+            <table class="metrics-table">
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Model</th>
+                        <th>PCA</th>
+                        <th>Accuracy</th>
+                        <th>Precision</th>
+                        <th>Recall</th>
+                        <th>F1-Score</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td><strong>TabNet</strong></td>
+                        <td>-</td>
+                        <td><strong>0.87171</strong></td>
+                        <td>0.7387</td>
+                        <td>0.71763</td>
+                        <td><strong>0.72801</strong></td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Logistic Regression</td>
+                        <td>0.95</td>
+                        <td>0.84973</td>
+                        <td>0.73023</td>
+                        <td>0.58985</td>
+                        <td>0.65257</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>SVM</td>
+                        <td>0.95</td>
+                        <td>0.85506</td>
+                        <td><strong>0.76556</strong></td>
+                        <td>0.56817</td>
+                        <td>0.65226</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>Logistic Regression</td>
+                        <td>0.9</td>
+                        <td>0.84823</td>
+                        <td>0.73008</td>
+                        <td>0.58015</td>
+                        <td>0.64654</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>Wide & Deep NN</td>
+                        <td>-</td>
+                        <td>0.84578</td>
+                        <td>0.64631</td>
+                        <td><strong>0.78494</strong></td>
+                        <td>0.64631</td>
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td>SVM</td>
+                        <td>0.9</td>
+                        <td>0.85287</td>
+                        <td>0.76102</td>
+                        <td>0.56132</td>
+                        <td>0.64609</td>
+                    </tr>
+                    <tr>
+                        <td>7</td>
+                        <td>Random Forest</td>
+                        <td>0.95</td>
+                        <td>0.84509</td>
+                        <td>0.71429</td>
+                        <td>0.58756</td>
+                        <td>0.64476</td>
+                    </tr>
+                    <tr>
+                        <td>8</td>
+                        <td>Random Forest</td>
+                        <td>0.9</td>
+                        <td>0.84264</td>
+                        <td>0.70833</td>
+                        <td>0.58186</td>
+                        <td>0.6389</td>
+                    </tr>
+                    <tr>
+                        <td>9</td>
+                        <td>KNN</td>
+                        <td>0.95</td>
+                        <td>0.83977</td>
+                        <td>0.69469</td>
+                        <td>0.58928</td>
+                        <td>0.63765</td>
+                    </tr>
+                    <tr>
+                        <td>10</td>
+                        <td>KNN</td>
+                        <td>0.9</td>
+                        <td>0.84168</td>
+                        <td>0.70547</td>
+                        <td>0.58072</td>
+                        <td>0.63705</td>
+                    </tr>
+                    <tr>
+                        <td>11</td>
+                        <td>Decision Tree</td>
+                        <td>0.9</td>
+                        <td>0.83308</td>
+                        <td>0.70385</td>
+                        <td>0.52196</td>
+                        <td>0.59941</td>
+                    </tr>
+                    <tr>
+                        <td>12</td>
+                        <td>Decision Tree</td>
+                        <td>0.95</td>
+                        <td>0.83213</td>
+                        <td>0.69916</td>
+                        <td>0.52367</td>
+                        <td>0.59883</td>
+                    </tr>
+                    <tr>
+                        <td>13</td>
+                        <td>Gaussian Naive Bayes</td>
+                        <td>0.95</td>
+                        <td>0.80237</td>
+                        <td>0.58338</td>
+                        <td>0.60867</td>
+                        <td>0.59576</td>
+                    </tr>
+                    <tr>
+                        <td>14</td>
+                        <td>Gaussian Naive Bayes</td>
+                        <td>0.9</td>
+                        <td>0.81152</td>
+                        <td>0.61425</td>
+                        <td>0.57045</td>
+                        <td>0.59154</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Key Findings</h3>
+            <ul>
+                <li><strong>TabNet</strong> achieved the highest overall F1-score, outperforming traditional ML models.</li>
+                <li><strong>Logistic Regression</strong> and <strong>SVM</strong> were the best performers among traditional models (F1 ~0.65).</li>
+                <li>PCA retaining 95% variance consistently performed better than 90%.</li>
+                <li>Deep learning models generally outperform traditional ML when sufficient data and preprocessing are applied.</li>
+            </ul>
+        </div>
+    </section>
 
     <section>
         <h2 class="section-title">4. Conclusion</h2>
-
         <div class="card">
-            <ul style="margin-left:20px; color:var(--text-muted);">
-                <li>Deep learning models tend to achieve higher predictive performance on complex tabular data, especially when interactions among features are non-linear.</li>
-                <li>Proper preprocessing significantly impacts model performance more than simply changing algorithms.</li>
-                <li>Using PCA with 95% variance retains more information than 90%, often leading to better model generalization.</li>
-                <li>TabNet is recommended when leveraging deep learning for tabular datasets</li>
+            <ul>
+                <li>Deep learning models tend to achieve higher predictive performance on complex tabular data, especially when nonlinear interactions exist.</li>
+                <li>Proper preprocessing (scaling, imputation) significantly impacts model performance.</li>
+                <li>TabNet is recommended when leveraging deep learning for tabular datasets.</li>
             </ul>
         </div>
     </section>
 
 </main>
 
+<div id="lightbox">
+    <button id="lb-close">✕</button>
+    <img id="lb-img" src="" alt="">
+</div>
+
 <footer>
     <p>Project by <strong>DNAC1</strong> | For Machine Learning Coursework</p>
 </footer>
 
+<script src="main.js"></script>
 </body>
 </html>

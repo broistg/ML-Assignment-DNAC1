@@ -45,6 +45,47 @@
             margin-bottom: 40px;
             border-radius: 0 0 40px 40px;
             box-shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.2);
+            position: relative;
+        }
+
+        .back-home {
+            position: absolute;
+            top: 25px;
+            left: 25px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(4px);
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.2s ease;
+        }
+
+        .back-home:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateX(-3px);
+            color: #fff;
+        }
+
+        .back-home svg {
+            width: 18px;
+            height: 18px;
+            fill: currentColor;
+        }
+
+        @media (max-width: 600px) {
+            .back-home {
+                top: 20px;
+                left: 20px;
+                padding: 6px 12px;
+                font-size: 0.85rem;
+            }
         }
 
         h1 {
@@ -99,6 +140,7 @@
             background: var(--card-bg);
             border-radius: 16px;
             padding: 25px;
+            margin-bottom: 20px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
             transition: 0.2s;
         }
@@ -126,6 +168,7 @@
             height: 100%;
             object-fit: cover;
             border-radius: 8px;
+            cursor: pointer;
         }
 
         .metrics-table {
@@ -214,6 +257,13 @@
 <body>
 
     <header>
+        <a href="index.html" class="back-home">
+            <svg viewBox="0 0 24 24">
+                <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"></path>
+            </svg>
+            Home
+        </a>
+
         <div class="container">
             <h1>Assignment 3 — Image Data Pipeline</h1>
             <p class="subtitle">Extract deep features from CIFAR-10, train traditional classifiers, and compare an
@@ -232,7 +282,7 @@
                     <p>CIFAR-10 provides 60K 32×32 RGB images across 10 classes. Traditional cells split the training
                         set into 90% train / 10% validation, while the deep pipeline uses an 85% / 15% split, keeping
                         the official 10K test set untouched.</p>
-                    <ul style="margin-top:12px; color:var(--text-muted)">
+                    <ul style="margin-top:12px; color:var(--text-muted); margin-left: 20px;">
                         <li>Seeds (RND = 42) ensure reproducible splits via <code>train_test_split</code> or
                             <code>random_split</code>.
                         </li>
@@ -282,7 +332,7 @@
                     <h3>Deep feature backbones</h3>
                     <p>A factory in <code>BTL3_traditional.ipynb</code> selects pretrained models and removes their
                         heads to yield feature vectors per image.</p>
-                    <ul style="margin-top:12px; color:var(--text-muted)">
+                    <ul style="margin-top:12px; color:var(--text-muted); margin-left: 20px;">
                         <li><code>torchvision</code>: VGG16 (fc6), ResNet50, EfficientNet-B0.</li>
                         <li><code>timm</code>: ViT-base-patch16-224 and Swin-base-patch4-window7-224 with avg pooling.
                         </li>
@@ -298,7 +348,7 @@
                         <code>transform_with_scaler_pca</code> applies the same to val/test before classifiers consume
                         the data.
                     </p>
-                    <ul style="margin-top:12px; color:var(--text-muted)">
+                    <ul style="margin-top:12px; color:var(--text-muted); margin-left: 20px;">
                         <li>PCA defaults to 256 components but respects the embedding dimension.</li>
                         <li>Widgets allow toggling PCA on/off per run.</li>
                         <li>Scaler/PCA artifacts are reused across comparisons to ensure fairness.</li>
@@ -314,7 +364,7 @@
                     <h3>Classifier roster &amp; tuning</h3>
                     <p>The traditional notebook trains five classifiers via <code>train_and_evaluate</code> and
                         optionally fine-tunes their hyperparameters with <code>tune_hyperparameters</code>.</p>
-                    <ul style="margin-top:12px; color:var(--text-muted)">
+                    <ul style="margin-top:12px; color:var(--text-muted); margin-left: 20px;">
                         <li><code>LogisticRegression</code> (saga solver) and <code>LinearSVC</code> tune
                             <code>C</code>.
                         </li>
@@ -333,7 +383,7 @@
                         trade-offs in the traditional pipeline.</p>
                     <img class="preview-img" src="assets/assignment3/assignment3_inference_scatter_traditional.png"
                         alt="Inference vs accuracy"
-                        style="width:100%;max-height:260px;object-fit:contain;border-radius:8px;margin-top:12px;">
+                        style="width:100%;max-height:260px;object-fit:contain;border-radius:8px;margin-top:12px; cursor: pointer;">
                 </div>
             </div>
             <div class="card" style="margin-top:20px">
@@ -355,7 +405,7 @@
                     <p><code>preprocessing(CONFIG)</code> wires resize, random horizontal flips, rotations, tensor
                         conversion, and normalization; <code>train_and_test(CONFIG)</code> then trains on the configured
                         number of epochs using AdamW + CrossEntropyLoss.</p>
-                    <ul style="margin-top:12px; color:var(--text-muted)">
+                    <ul style="margin-top:12px; color:var(--text-muted); margin-left: 20px;">
                         <li>Widgets expose resize, batch size, learning rate, and epoch count for interactive
                             experimentation.</li>
                         <li>DataLoaders shuffle training data and keep val/test deterministic.</li>
@@ -366,7 +416,7 @@
                     <h3>Model options</h3>
                     <p><code>choose_model(CONFIG)</code> swaps the classification head and uses the following options:
                     </p>
-                    <ul style="margin-top:12px; color:var(--text-muted)">
+                    <ul style="margin-top:12px; color:var(--text-muted); margin-left: 20px;">
                         <li><code>torchvision</code>: modified VGG16, ResNet50, EfficientNet-B0.</li>
                         <li><code>timm</code>: ViT-base-patch16-224 and Swin-tiny-patch4-window7-224.</li>
                         <li>Model moves to <code>device</code> (GPU when available) before training.</li>
@@ -379,32 +429,7 @@
                     EfficientNet-B0.</p>
                 <img class="preview-img" src="assets/assignment3/assignment3_confusion_efficientnet_b0.png"
                     alt="EfficientNet-B0 confusion"
-                    style="width:80%;margin:20px auto 0;border-radius:8px;object-fit:contain;">
-            </div>
-            <div class="card" style="margin-top:20px">
-                <h3>Test metrics</h3>
-                <p style="color:var(--text-muted)">Final evaluation scores from the deep-learning pipeline
-                    (EfficientNet-B0).</p>
-                <table class="metrics-table" style="margin-top:10px">
-                    <tbody>
-                        <tr>
-                            <th>Accuracy</th>
-                            <td>94.40%</td>
-                        </tr>
-                        <tr>
-                            <th>Precision</th>
-                            <td>94.52%</td>
-                        </tr>
-                        <tr>
-                            <th>Recall</th>
-                            <td>94.40%</td>
-                        </tr>
-                        <tr>
-                            <th>F1-score</th>
-                            <td>94.41%</td>
-                        </tr>
-                    </tbody>
-                </table>
+                    style="width:80%;margin:20px auto 0;border-radius:8px;object-fit:contain; display: block;">
             </div>
         </section>
 
@@ -447,6 +472,7 @@
             const closeBtn = document.getElementById('lb-close');
 
             function open(src, alt) {
+                if (!src) return;
                 lbImg.src = src;
                 lbImg.alt = alt || '';
                 lb.style.display = 'flex';
@@ -457,13 +483,16 @@
                 lbImg.src = '';
             }
 
-            document.querySelectorAll('.preview-img, #img-comparison').forEach(el => {
-                el && el.addEventListener('click', () => open(el.src, el.alt));
+            document.querySelectorAll('.preview-img').forEach(el => {
+                el.addEventListener('click', () => open(el.src, el.alt));
             });
 
             closeBtn.addEventListener('click', close);
             lb.addEventListener('click', (e) => {
                 if (e.target === lb) close();
+            });
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') close();
             });
         })();
     </script>

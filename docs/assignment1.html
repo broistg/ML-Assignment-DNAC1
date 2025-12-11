@@ -62,19 +62,41 @@
             <div class="card">
                 <h3>Numerical Features</h3>
                 <div class="img-placeholder">
-                    <img src="assets/assignment1/hours.png" alt="hours-per-week Distribution" class="preview-img">
+                    <img src="assets/assignment1/age.png" alt="hours-per-week Distribution" class="preview-img">
+                </div>
+                <div class="img-placeholder">
+                    <img src="assets/assignment1/fnlwgt.png" alt="fnlwgt Distribution" class="preview-img">
+                </div>
+                <div class="img-placeholder">
+                    <img src="assets/assignment1/edu_num.png" alt="fnlwgt Distribution" class="preview-img">
                 </div>
                 <div class="img-placeholder">
                     <img src="assets/assignment1/capital-gain.png" alt="capital-gain Distribution" class="preview-img">
                 </div>
                 <div class="img-placeholder">
-                    <img src="assets/assignment1/fnlwgt.png" alt="fnlwgt Distribution" class="preview-img">
+                    <img src="assets/assignment1/capital-loss.png" alt="capital-gain Distribution" class="preview-img">
                 </div>
-                <p style="margin-top: 10px;">Numerical features such as <code>capital-gain</code> and <code>fnlwgt</code> are highly skewed.</p>
+                <div class="img-placeholder">
+                    <img src="assets/assignment1/hours.png" alt="hours-per-week Distribution" class="preview-img">
+                </div>
+                <p style="margin-top: 10px;">Numerical features such as <code>capital-gain</code>, <code>capital-loss</code>, <code>fnlwgt</code> are highly skewed.</p>
+                <div class="img-placeholder">
+                    <img src="assets/assignment1/heatmap.png" alt="hours-per-week Distribution" class="preview-img">
+                </div>
+                <p style="margin-top: 10px;">Most of the correlation coefficients are close to 0 (–0.07 - 0.14), indicating that there are no strong linear relationships among the continuous variables in the dataset.</p>
             </div>
 
             <div class="card">
                 <h3>Categorical Features</h3>
+                <div class="img-placeholder">
+                    <img src="assets/assignment1/work-class.png" alt="relationship Distribution" class="preview-img">
+                </div>
+                <div class="img-placeholder">
+                    <img src="assets/assignment1/education.png" alt="education Distribution" class="preview-img">
+                </div>
+                <div class="img-placeholder">
+                    <img src="assets/assignment1/marital.png" alt="education Distribution" class="preview-img">
+                </div>
                 <div class="img-placeholder">
                     <img src="assets/assignment1/relation.png" alt="relationship Distribution" class="preview-img">
                 </div>
@@ -82,11 +104,18 @@
                     <img src="assets/assignment1/occupation.png" alt="occupation Distribution" class="preview-img">
                 </div>
                 <div class="img-placeholder">
-                    <img src="assets/assignment1/education.png" alt="education Distribution" class="preview-img">
+                    <img src="assets/assignment1/native.png" alt="hours-per-week Distribution" class="preview-img">
                 </div>
-                <p style="margin-top: 10px;">Categorical features like <code>education</code>, <code>occupation</code> have a large number of unique categories.</p>
+                <p style="margin-top: 10px;">Categorical features like <code>education</code>, <code>occupation</code>, <code>native-country</code> have a large number of unique categories.</p>
             </div>
         </div>
+        <div class="card">
+                <h3>Missing values</h3>
+                <div class="img-placeholder">
+                    <img src="assets/assignment1/missing-value.png" alt="hours-per-week Distribution" class="preview-img">
+                </div>
+                <p style="margin-top: 10px;">The dataset contains three columns with missing values, including <code>workclass</code>, <code>occupation</code> and <code>native-country</code>.</p>
+            </div>
     </section>
 
 
@@ -100,19 +129,28 @@
         <div class="card">
             <div style="display: flex; flex-wrap: wrap; gap: 20px;">
                 <div style="flex: 1;">
+                    <p><strong>Train/Val/Test split with stratification:</strong></p>
+                    <p>The dataset is split into 70% for training, 15% for validation, and 15% for testing.</p>
+                    <div class="img-placeholder">
+                        <img src="assets/assignment1/split.png" alt="hours-per-week Distribution" class="preview-img">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div style="display: flex; flex-wrap: wrap; gap: 20px;">
+                <div style="flex: 1;">
                     <p><strong>Imputation of Missing Values:</strong></p>
                     <ul style="margin-left: 20px; color: var(--text-muted);">
-                        <li><p><strong>Numerical features:</strong> missing values were handled using strategies: <code>median</code>, <code>mean</code>, or <code>constant</code>.</p></li>
-                        <li><p><strong>Categorical features:</strong> missing categories were filled using <code>most_frequent</code> or <code>constant</code>.</p></li>
+                        <li><p><strong>Numerical features:</strong> missing values were handled using strategies <code>median</code>.</p></li>
+                        <li><p><strong>Categorical features:</strong> missing categories were filled using <code>constant</code>.</p></li>
                     </ul>
                 </div>
 
                 <div style="flex: 1;">
                     <p><strong>Encoding Categorical Features:</strong></p>
-                    <ul style="margin-left: 20px; color: var(--text-muted);">
-                        <li><p><strong>One-Hot Encoding:</strong> converts each category into a binary vector.</p></li>
-                        <li><p><strong>Ordinal Encoding:</strong> assigns a unique integer to each category.</p></li>
-                    </ul>
+                    <p><strong>One-Hot Encoding:</strong> converts each category into a binary vector.</p>
                 </div>
             </div>
         </div>
@@ -121,15 +159,12 @@
             <div style="display: flex; flex-wrap: wrap; gap: 20px;">
                 <div style="flex: 1;">
                     <p><strong>Feature Scaling:</strong></p>
-                    <ul style="margin-left: 20px; color: var(--text-muted);">
-                        <li><p><strong>Standard Scaling:</strong> transforms numerical features to have zero mean and unit variance.</p></li>
-                        <li><p><strong>Min-Max Scaling:</strong> rescales features to a specific range (usually <code>0–1</code>).</p></li>
-                    </ul>
+                    <p><strong>Standard Scaling:</strong> transforms numerical features to have zero mean and unit variance.</p>
                 </div>
 
                 <div style="flex: 1;">
                     <p><strong>Dimensionality Reduction:</strong></p>
-                    <p>Principal Component Analysis (PCA) can be applied to reduce dimensionality while retaining most of the variance.</p>
+                    <p>Principal Component Analysis (PCA) can be applied to reduce dimensionality while retaining most of the variance (e.g 90%, 95%).</p>
                 </div>
             </div>
         </div>
@@ -299,10 +334,11 @@
             </table>
 
             <ul style="margin-left: 20px; color: var(--text-muted); margin-top: 20px;">
-                <li><p><strong>TabNet</strong> achieved the highest overall F1-score across all models, outperforming both traditional ML models</p></li>
+                <li><p><strong>TabNet</strong> achieved the highest overall F1-score across all models, outperforming traditional machine learning approaches because it is specifically designed for tabular data with a column-wise attention mechanism.</p></li>
                 <li><p><strong>Logistic Regression</strong> and <strong>Support Vector Machine</strong> achieved the highest F1-score <code>(~0.65)</code> compared to the other machine learning models.</p></li>
+                <li><p><strong>Wide & Deep Neural Network</strong> achieved moderate performance, with low precision but highest recall (~78), indicating a tendency to overpredict the positive class.</p></li>
+                <li><p><strong>Gaussian Naive Bayes</strong> showed the lowest performance in the table (F1-Score ~0.59), indicating that its independence assumption does not align well with the dataset.</p></li>
                 <li><p>Using PCA that retains 95% of the variance performs better compared to using PCA with 90% variance.</p></li>
-                <li><p>Deep learning models generally outperform traditional ML models when sufficient data and feature preprocessing are applied.</p></li>
             </ul>
 
         </div>

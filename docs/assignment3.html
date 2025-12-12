@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Assignment 3 — Image Data Pipeline</title>
+    <title>Fruit Classification | Assignment 3</title>
     <link rel="icon" href="logo.ico" type="image/x-icon">
     <link rel="stylesheet" href="style.css">
 </head>
@@ -20,20 +20,20 @@
         </a>
 
         <div class="container">
-            <h1>Assignment 3 — Image Data Pipeline</h1>
+            <h1>Fruit Classification</h1>
             <p class="subtitle">Extract features from Fruit Dataset, train traditional classifiers, and compare an end-to-end deep pipeline.</p>
             <a href="https://github.com/broistg/ML-Assignment-DNAC1" class="btn">View on GitHub →</a>
         </div>
+        
     </header>
 
     <main class="container">
-
         <section>
             <h2 class="section-title">1. Exploratory Data Analysis</h2>
             <div class="grid">
                 <div class="card">
                     <h3>Dataset structure</h3>
-                    <p>Fruit Dataset provides 10K RGB images across 5 classes. We combine all splits from dataset and resplit them into 80/10/10 ratio for train, validation, and test sets.</p>
+                    <p>Fruit Dataset provides 10,000 RGB images across 5 classes (<code>banana</code>, <code>strawberry</code>, <code>grape</code>, <code>mango</code>, <code>apple</code>). We combine all splits from dataset and resplit them into 80/10/10 ratio for train, validation, and test sets.</p>
                     <ul style="margin-top:12px; margin-left: 20px;">
                         <li>Seeds (RND = 42) ensure reproducible splits via <code>train_test_split</code> or <code>random_split</code>.</li>
                         <li>Transforms normalize with ImageNet mean/std before both extraction and training.</li>
@@ -45,7 +45,6 @@
                     <div class="img-placeholder">
                         <img src="assets/assignment3/train_sample.png" alt="Sample image grid" class="preview-img">
                     </div>
-                    <p style="margin-top:12px; color:var(--text-muted)">Random batch illustrated in the notebooks' EDA section.</p>
                 </div>
             </div>
             
@@ -117,10 +116,115 @@
             
             <div class="card" style="margin-top:20px">
                 <h3>Comparison results (PCA)</h3>
+                <p><strong>Metrics: </strong>Accuracy</p>
+                <p style="text-align: center;"><strong>Top 10 Models with Highest Accuracy</strong></p>
+                <table class="metrics-table">
+                    <thead>
+                        <tr>
+                            <th>Rank</th>
+                            <th>Model</th>
+                            <th>Best params</th>
+                            <th>Inference time</th>
+                            <th>Accuracy</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>SwinTransformer + ShallowMLP</td>
+                            <td>{'hidden_layer_sizes': [1024], 'alpha': 0.0001}</td>
+                            <td>0.037912</td>
+                            <td><strong>0.967</strong></td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>SwinTransformer + Logistic Regression</td>
+                            <td>{'C': 0.01}</td>
+                            <td>0.002480</td>
+                            <td>0.966</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>SwinTransformer + LinearSVM</td>
+                            <td>{'C': 0.1}</td>
+                            <td>0.004781</td>
+                            <td>0.959</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>ViT + ShallowMLP</td>
+                            <td>{'hidden_layer_sizes': [512], 'alpha': 0.0001}</td>
+                            <td>0.018885</td>
+                            <td>0.953</td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td>ViT + Logistic Regression</td>
+                            <td>{'C': 0.01}</td>
+                            <td>0.001451</td>
+                            <td>0.940</td>
+                        </tr>
+                        <tr>
+                            <td>6</td>
+                            <td>SwinTransformer + k-NN</td>
+                            <td>{'n_neighbors': 3}</td>
+                            <td>0.722138</td>
+                            <td>0.940</td>
+                        </tr>
+                        <tr>
+                            <td>7</td>
+                            <td>EfficientNet-B0 + ShallowMLP</td>
+                            <td>{'hidden_layer_sizes': [1024], 'alpha': 0.0001}	</td>
+                            <td>0.045301</td>
+                            <td>0.931</td>
+                        </tr>
+                        <tr>
+                            <td>8</td>
+                            <td>ViT + LinearSVM</td>
+                            <td>{'C': 0.1}</td>
+                            <td>0.002384</td>
+                            <td>0.930</td>
+                        </tr>
+                        <tr>
+                            <td>9</td>
+                            <td>ViT + RandomForest</td>
+                            <td>{'n_estimators': 200, 'max_depth': 20}</td>
+                            <td>0.068790</td>
+                            <td>0.923</td>
+                        </tr>
+                        <tr>
+                            <td>10</td>
+                            <td>EfficientNet-B0 + Logistic Regression</td>
+                            <td>{'C': 0.01}</td>
+                            <td>0.008643</td>
+                            <td>0.922</td>
+                        </tr>
+                    </tbody>
+                </table>
                 <p style="color:var(--text-muted)">Bar chart showcases classifier accuracy per feature extractor when PCA is enabled.</p>
-                <div class="img-placeholder" style="height:auto; padding:20px;">
-                    <img id="img-comparison" src="assets/assignment3/assignment3_comparison_pca.png" alt="Model comparison" class="preview-img" style="object-fit:contain;">
+                <div class="img-placeholder">
+                    <img id="img-comparison" src="assets/assignment3/assignment3_comparison_pca.png" alt="Model comparison" class="preview-img">
                 </div>
+                <ul style="margin-left: 20px; color: var(--text-muted); margin-top: 20px;">
+                    <li>
+                        <p>Among the Swin Transformer–based models, the highest accuracy is achieved by the combination 
+                            with ShallowMLP (~0.967). This strong performance reflects Swin’s hierarchical self-attention mechanism, 
+                            which captures both local and global image structures effectively.</p>
+                    </li>
+                    <li>
+                        <p>Models built on handcrafted features such as HOG and SIFT show much lower accuracy overall, with 0.396 (HOG) and 0.528 (SIFT). 
+                            These low scores highlight the limitations of manual feature engineering compared to modern deep feature extractors.
+                        </p>
+                    </li>
+                    <li>
+                        <p>ShallowMLP is consistently the best-performing classifier across nearly all deep feature extractors, 
+                            achieving the highest accuracy scores in the table.</p>
+                    </li>
+                    <li>
+                        <p>k-NN performs reasonably well with deep features but tends to rank below the other classifiers, 
+                            and its inference time is significantly slower due to distance computations in high-dimensional space.</p>
+                    </li>
+                </ul>
             </div>
         </section>
 
@@ -148,11 +252,63 @@
             </div>
             
             <div class="card" style="margin-top:20px">
-                <h3>EfficientNet-B0 confusion matrix</h3>
-                <p style="color:var(--text-muted)">Confusion matrix derived from the deep-learning pipeline with EfficientNet-B0.</p>
-                <div class="img-placeholder" style="height: auto; padding: 20px;">
-                    <img class="preview-img" src="assets/assignment3/assignment3_confusion_efficientnet_b0.png" alt="EfficientNet-B0 confusion" style="max-width:80%; margin:0 auto; display: block;">
-                </div>
+                <h3>Comparison results</h3>
+                <p><strong>Metrics: </strong>Accuracy</p>
+                <p>The table below summarizes the performance of the fine-tuned models.</p>
+                <table class="metrics-table">
+                    <thead>
+                        <tr>
+                            <th>Rank</th>
+                            <th>Model</th>
+                            <th>Accuracy</th>
+                            <th>Precision</th>
+                            <th>Recall</th>
+                            <th>F1-Score</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>ViT</td>
+                            <td>0.9660</td>
+                            <td>0.9662</td>
+                            <td>0.9660</td>
+                            <td>0.9660</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>SwinTransformer</td>
+                            <td>0.9520</td>
+                            <td>0.9521</td>
+                            <td>0.9520</td>
+                            <td>0.9518</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>EfficientNet-B0</td>
+                            <td>0.9510</td>
+                            <td>0.9512</td>
+                            <td>0.9510</td>
+                            <td>0.9510</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>VGG16</td>
+                            <td>0.9330</td>
+                            <td>0.9329</td>
+                            <td>0.9330</td>
+                            <td>0.9329</td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td>ResNet50</td>
+                            <td>0.9280</td>
+                            <td>0.9283</td>
+                            <td>0.9280</td>
+                            <td>0.9279</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </section>
 

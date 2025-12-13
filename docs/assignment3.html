@@ -75,17 +75,18 @@
                     <p>A factory in <code>BTL3_traditional.ipynb</code> selects pretrained models and removes their heads to yield feature vectors per image.</p>
                     <ul style="margin-top:12px; margin-left: 20px;">
                         <li><code>torchvision</code>: VGG16 (fc6), ResNet50, EfficientNet-B0.</li>
-                        <li><code>timm</code>: ViT-base-patch16-224 and Swin-base-patch4-window7-224 with avg pooling.</li>
+                        <li><code>timm</code>: ViT-base-patch16-224 and Swin-base-patch4-window7-224 with average pooling.</li>
+                        <li>Classical baselines: HOG descriptors and SIFT + BoVW histograms.</li>
                         <li>Features cached under <code>features/{model}/{split}_features.npz</code> for reuse.</li>
                     </ul>
-                    <p style="margin-top:8px; color:var(--text-muted)">Extraction uses <code>build_transform</code> (resize → tensor → normalize) and <code>dataset_to_dataloader</code> to feed batches through the chosen extractor.</p>
+                    <p style="margin-top:8px; color:var(--text-muted)">Extraction uses <code>build_transform</code>: resize+center-crop (or custom size) then, for training, RandomHorizontalFlip 0.5 + ColorJitter (0.3) + RandomRotation 15° + RandomResizedCrop; val/test skip aug. All paths finish with ToTensor+ImageNet normalize; classical HOG/SIFT use grayscale and custom sizes. <code>dataset_to_dataloader</code> wraps datasets without shuffling for feature passes.</p>
                 </div>
                 <div class="card">
                     <h3>Scaler + PCA pipeline</h3>
-                    <p><code>fit_scaler_and_pca</code> learns a scaler and optional PCA on the train split, while <code>transform_with_scaler_pca</code> applies the same to val/test before classifiers consume the data.</p>
+                    <p><code>fit_scaler_and_pca</code> learns a scaler and optional PCA (None or 0.95 variance) on the train split; <code>transform_with_scaler_pca</code> applies the same to val/test before classifiers consume the data.</p>
                     <ul style="margin-top:12px; margin-left: 20px;">
-                        <li>PCA defaults to 256 components but respects the embedding dimension.</li>
-                        <li>Widgets allow toggling PCA on/off per run.</li>
+                        <li>PCA is optional (default 0.95 when enabled) and capped by the embedding dimension.</li>
+                        <li>Comparison runs evaluate both PCA options and cache the best settings.</li>
                         <li>Scaler/PCA artifacts are reused across comparisons to ensure fairness.</li>
                     </ul>
                 </div>
@@ -97,12 +98,12 @@
             <div class="grid">
                 <div class="card">
                     <h3>Classifier roster &amp; tuning</h3>
-                    <p>The traditional notebook trains five classifiers via <code>train_and_evaluate</code> and optionally fine-tunes their hyperparameters with <code>tune_hyperparameters</code>.</p>
+                    <p>The traditional notebook trains five classifiers via <code>train_and_evaluate</code> and optionally fine-tunes their hyperparameters with <code>tune_hyperparameters</code> over PCA∈{None, 0.95}.</p>
                     <ul style="margin-top:12px; margin-left: 20px;">
                         <li><code>LogisticRegression</code> (saga solver) and <code>LinearSVC</code> tune <code>C</code>.</li>
                         <li><code>RandomForestClassifier</code>, <code>KNeighborsClassifier</code>, and <code>MLPClassifier</code> explore tree depth, neighbors, hidden sizes, and regularization.</li>
                         <li>Best params cached to <code>tuned_hyperparams.json</code> and reused by <code>run_comparison</code>.</li>
-                        <li>Final metrics include accuracy, classification reports, and confusion matrices.</li>
+                        <li><code>train_and_evaluate</code> fits on train+val, tests on held-out test, and records accuracy, reports, confusion matrices, training time, and inference time.</li>
                     </ul>
                 </div>
                 <div class="card">
@@ -120,20 +121,21 @@
             <div class="grid">
                 <div class="card">
                     <h3>Preprocessing &amp; training loop</h3>
-                    <p><code>preprocessing(CONFIG)</code> wires resize, random horizontal flips, rotations, tensor conversion, and normalization; <code>train_and_test(CONFIG)</code> then trains on the configured number of epochs using AdamW + CrossEntropyLoss.</p>
+                    <p><code>preprocessing(CONFIG)</code> builds train transforms (resize → RandomHorizontalFlip 0.5 → ColorJitter(0.25) → ToTensor → ImageNet normalize) and lighter val/test transforms (resize → ToTensor → normalize) with persistent DataLoaders; <code>train_and_test(CONFIG)</code> runs two stages: frozen-backbone training then full fine-tuning with label-smoothed CrossEntropy.</p>
                     <ul style="margin-top:12px; margin-left: 20px;">
-                        <li>Widgets expose resize, batch size, learning rate, and epoch count for interactive experimentation.</li>
-                        <li>DataLoaders shuffle training data and keep val/test deterministic.</li>
-                        <li>Training prints epoch loss/accuracy plus final sklearn metrics.</li>
+                        <li>Stage 1: backbone frozen, head trained with AdamW; Stage 2: full model fine-tunes with LinearLR warmup then CosineAnnealingLR (EfficientNet-B0 switches to RMSprop).</li>
+                        <li>Mixed precision via <code>autocast</code> + <code>GradScaler</code>; early stopping (patience 4, min_delta 0.001) restores best weights.</li>
+                        <li>DataLoaders shuffle training only; val/test remain deterministic with persistent workers.</li>
+                        <li>Outputs accuracy, precision, recall, F1, training time, and inference time; single-model mode also prints reports and confusion matrices.</li>
                     </ul>
                 </div>
                 <div class="card">
                     <h3>Model options</h3>
-                    <p><code>choose_model(CONFIG)</code> swaps the classification head and uses the following options:</p>
+                    <p><code>train_and_test</code> builds models via <code>timm.create_model</code> with classification heads sized to 5 classes:</p>
                     <ul style="margin-top:12px; margin-left: 20px;">
-                        <li><code>torchvision</code>: modified VGG16, ResNet50, EfficientNet-B0.</li>
+                        <li><code>torchvision</code>: VGG16-BN, ResNet50, EfficientNet-B0.</li>
                         <li><code>timm</code>: ViT-base-patch16-224 and Swin-tiny-patch4-window7-224.</li>
-                        <li>Model moves to <code>device</code> (GPU when available) before training.</li>
+                        <li>Model moves to GPU when available.</li>
                     </ul>
                 </div>
             </div>
@@ -176,19 +178,19 @@
                         </tr>
                         <tr>
                             <td>3</td>
-                            <td>SwinTransformer</td>
-                            <td>End-to-end fine-tune</td>
-                            <td>0.952</td>
-                            <td>951.60</td>
-                            <td>4.56</td>
-                        </tr>
-                        <tr>
-                            <td>4</td>
                             <td>ViT</td>
                             <td>Feature Extractor + ShallowMLP</td>
                             <td>0.953</td>
                             <td>19.47</td>
                             <td>0.0169</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>SwinTransformer</td>
+                            <td>End-to-end fine-tune</td>
+                            <td>0.952</td>
+                            <td>951.60</td>
+                            <td>4.56</td>
                         </tr>
                         <tr>
                             <td>5</td>
@@ -200,19 +202,19 @@
                         </tr>
                         <tr>
                             <td>6</td>
+                            <td>VGG16</td>
+                            <td>End-to-end fine-tune</td>
+                            <td>0.933</td>
+                            <td>2045.40</td>
+                            <td>5.81</td>
+                        </tr>
+                        <tr>
+                            <td>7</td>
                             <td>EfficientNet-B0</td>
                             <td>Feature Extractor + ShallowMLP</td>
                             <td>0.931</td>
                             <td>53.19</td>
                             <td>0.0582</td>
-                        </tr>
-                        <tr>
-                            <td>7</td>
-                            <td>ResNet50</td>
-                            <td>Feature Extractor + ShallowMLP</td>
-                            <td>0.926</td>
-                            <td>52.48</td>
-                            <td>0.0319</td>
                         </tr>
                         <tr>
                             <td>8</td>
@@ -224,11 +226,11 @@
                         </tr>
                         <tr>
                             <td>9</td>
-                            <td>VGG16</td>
-                            <td>End-to-end fine-tune</td>
-                            <td>0.933</td>
-                            <td>2045.40</td>
-                            <td>5.81</td>
+                            <td>ResNet50</td>
+                            <td>Feature Extractor + ShallowMLP</td>
+                            <td>0.926</td>
+                            <td>52.48</td>
+                            <td>0.0319</td>
                         </tr>
                         <tr>
                             <td>10</td>
@@ -237,6 +239,22 @@
                             <td>0.908</td>
                             <td>103.99</td>
                             <td>0.0592</td>
+                        </tr>
+                        <tr>
+                            <td>11</td>
+                            <td>SIFT</td>
+                            <td>Feature Extractor + RandomForest</td>
+                            <td>0.525</td>
+                            <td>27.17</td>
+                            <td>0.0681</td>
+                        </tr>
+                        <tr>
+                            <td>12</td>
+                            <td>HOG</td>
+                            <td>Feature Extractor + ShallowMLP</td>
+                            <td>0.396</td>
+                            <td>101.86</td>
+                            <td>0.0571</td>
                         </tr>
                     </tbody>
                 </table>
